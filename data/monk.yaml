@@ -1,0 +1,334 @@
+# Piece-Meal-DnD — Monk (Way of the Open Hand)
+#
+# Pure martial with a resource system: Ki (Flurry of Blows, Patient Defense,
+# Step of the Wind) is one buyable piece, and the Martial Arts die growth
+# (d4 -> d6 -> d8 -> d10) is an upgrade-chain. Like the Wizard/Warlock, the Monk
+# carries a very light commodity load (no armor, d8, simple weapons), so most of
+# its 100 flows into Martial Arts.
+
+class: Monk
+subclass: Way of the Open Hand
+source: "SRD 5.1 (CC-BY-4.0)"
+hit_die: d8
+caster: none
+
+xp_thresholds:
+  1: 0
+  2: 300
+  3: 900
+  4: 2700
+  5: 6500
+  6: 14000
+  7: 23000
+  8: 34000
+  9: 48000
+  10: 64000
+  11: 85000
+  12: 100000
+  13: 120000
+  14: 140000
+  15: 165000
+  16: 195000
+  17: 225000
+  18: 265000
+  19: 305000
+  20: 355000
+
+rubric:
+  ribbon: 1
+  proficiency: 2
+  hp: 2
+  utility: 3
+  scaling: 3
+  asi: 4
+  marquee: 5
+
+levels:
+  1:
+    note: Character-creation budget (100 experience); earned XP starts at 0 in play.
+    pieces:
+      # --- Commodities (fixed catalog price, shared across classes) ---
+      - id: save-str
+        name: "Saving Throw Proficiency: Strength"
+        commodity: save
+      - id: save-dex
+        name: "Saving Throw Proficiency: Dexterity"
+        commodity: save
+      - id: skills-1
+        name: "Skill Proficiencies (choose 2)"
+        commodity: skill
+        qty: 2
+      - id: hit-die-1
+        name: "Hit Die (d8)"
+        commodity: hit_die
+        variant: d8
+      - id: armor-1
+        name: "Armor Proficiency: none"
+        commodity: armor
+        tiers: []
+      - id: weapons-1
+        name: "Weapons: simple + shortswords"
+        commodity: weapon
+        tier: simple
+      - id: tools-1
+        name: "Tool Proficiency: one artisan's tool or instrument"
+        commodity: tool
+        qty: 1
+      - id: starting-kit-1
+        name: "Starting Equipment Package"
+        commodity: starting_kit
+      # --- Unique features (split the remaining budget by points) ---
+      - id: martial-arts
+        name: "Martial Arts (d4)"
+        tag: marquee
+        points: 5
+      - id: unarmored-defense
+        name: "Unarmored Defense"
+        tag: utility
+        points: 3
+  2:
+    pieces:
+      - id: ki
+        name: "Ki (Flurry of Blows, Patient Defense, Step of the Wind)"
+        tag: marquee
+        points: 5
+      - id: unarmored-movement
+        name: "Unarmored Movement"
+        tag: utility
+        points: 3
+      - id: hp-2
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  3:
+    pieces:
+      - id: open-hand-technique
+        name: "Way of the Open Hand: Open Hand Technique"
+        tag: marquee
+        points: 5
+      - id: deflect-missiles
+        name: "Deflect Missiles"
+        tag: utility
+        points: 3
+      - id: hp-3
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  4:
+    pieces:
+      - id: asi-4
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: slow-fall
+        name: "Slow Fall"
+        tag: utility
+        points: 3
+      - id: hp-4
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  5:
+    pieces:
+      - id: extra-attack-5
+        name: "Extra Attack (two attacks)"
+        tag: marquee
+        points: 5
+      - id: stunning-strike
+        name: "Stunning Strike"
+        tag: marquee
+        points: 5
+      - id: martial-arts-die-5
+        name: "Martial Arts die (d6)"
+        tag: scaling
+        points: 3
+        upgrades: martial-arts
+      - id: proficiency-bonus-5
+        name: "Proficiency Bonus +1 (to +3)"
+        tag: proficiency
+        points: 2
+      - id: hp-5
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  6:
+    pieces:
+      - id: ki-empowered-strikes
+        name: "Ki-Empowered Strikes"
+        tag: utility
+        points: 3
+      - id: wholeness-of-body
+        name: "Way of the Open Hand: Wholeness of Body"
+        tag: utility
+        points: 3
+      - id: hp-6
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  7:
+    pieces:
+      - id: evasion
+        name: "Evasion"
+        tag: marquee
+        points: 5
+      - id: stillness-of-mind
+        name: "Stillness of Mind"
+        tag: utility
+        points: 3
+      - id: hp-7
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  8:
+    pieces:
+      - id: asi-8
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-8
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  9:
+    pieces:
+      - id: unarmored-movement-9
+        name: "Unarmored Movement improvement (vertical surfaces)"
+        tag: scaling
+        points: 3
+        upgrades: unarmored-movement
+      - id: proficiency-bonus-9
+        name: "Proficiency Bonus +1 (to +4)"
+        tag: proficiency
+        points: 2
+      - id: hp-9
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  10:
+    pieces:
+      - id: purity-of-body
+        name: "Purity of Body"
+        tag: utility
+        points: 3
+      - id: hp-10
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  11:
+    pieces:
+      - id: tranquility
+        name: "Way of the Open Hand: Tranquility"
+        tag: marquee
+        points: 5
+      - id: martial-arts-die-11
+        name: "Martial Arts die (d8)"
+        tag: scaling
+        points: 3
+        upgrades: martial-arts-die-5
+      - id: hp-11
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  12:
+    pieces:
+      - id: asi-12
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-12
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  13:
+    pieces:
+      - id: tongue-of-sun-and-moon
+        name: "Tongue of the Sun and Moon"
+        tag: ribbon
+        points: 1
+      - id: proficiency-bonus-13
+        name: "Proficiency Bonus +1 (to +5)"
+        tag: proficiency
+        points: 2
+      - id: hp-13
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  14:
+    pieces:
+      - id: diamond-soul
+        name: "Diamond Soul"
+        tag: marquee
+        points: 5
+      - id: hp-14
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  15:
+    pieces:
+      - id: timeless-body
+        name: "Timeless Body"
+        tag: ribbon
+        points: 1
+      - id: hp-15
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  16:
+    pieces:
+      - id: asi-16
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-16
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  17:
+    pieces:
+      - id: quivering-palm
+        name: "Way of the Open Hand: Quivering Palm"
+        tag: marquee
+        points: 5
+      - id: martial-arts-die-17
+        name: "Martial Arts die (d10)"
+        tag: scaling
+        points: 3
+        upgrades: martial-arts-die-11
+      - id: proficiency-bonus-17
+        name: "Proficiency Bonus +1 (to +6)"
+        tag: proficiency
+        points: 2
+      - id: hp-17
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  18:
+    pieces:
+      - id: empty-body
+        name: "Empty Body"
+        tag: marquee
+        points: 5
+      - id: hp-18
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  19:
+    pieces:
+      - id: asi-19
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-19
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  20:
+    pieces:
+      - id: perfect-self
+        name: "Perfect Self"
+        tag: utility
+        points: 3
+      - id: hp-20
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2

@@ -1,0 +1,64 @@
+# Piece-Meal-DnD — Level-1 Commodity Catalog
+#
+# Character creation gives every class a flat CREATION BUDGET of experience to
+# spend building its 1st-level character. This file fixes the price of every
+# "commodity" piece — the things SHARED across classes — so a given commodity
+# costs the SAME experience no matter which class buys it. That is what makes
+# level 1 balanced: two classes that both take (say) a d8 hit die or heavy armor
+# pay the identical amount for it.
+#
+# The creation budget is NOT part of the in-play XP ledger. You spend it once to
+# assemble your level-1 character; when the game begins your earned XP is 0 and
+# the official SRD thresholds (level 2 = 300, level 3 = 900, ...) apply from
+# there. Levels 2-20 are priced separately, per class, by tools/price.py.
+#
+# How a class's 100 is spent:
+#   1. Commodity pieces cost their fixed catalog price (below).
+#   2. Whatever is left of the 100 is split among the class's UNIQUE features
+#      (Spellcasting, Sneak Attack, Fighting Style, ...) in proportion to their
+#      power-points. A class that buys fewer/cheaper commodities therefore has
+#      MORE of its 100 flowing into its signature features — they "carry more
+#      weight," exactly the intended effect.
+#
+# Tune the economy by editing the numbers here (affects every class at once) or
+# a single class's unique `points`. Re-run tools/price.py --check afterward.
+
+creation_budget: 100
+
+commodities:
+  # Every class gets exactly two saving-throw proficiencies -> constant 8 total.
+  save: 4              # per saving-throw proficiency
+
+  # Skill proficiencies are chosen; the COUNT differs by class (2 for most,
+  # 4 for the Rogue), so this is where "more stuff" starts to cost more.
+  skill: 3             # per skill proficiency chosen
+
+  tool: 3              # per tool proficiency (e.g. thieves' tools)
+
+  # A single flat piece standing in for the class's standard starting gear.
+  # Flat because the game roughly balances starting kits against each other.
+  starting_kit: 6
+
+  # Hit die by size. Price == die size, so bigger dice cost more and choosing a
+  # d10 body means giving up experience you could have spent on features.
+  hit_die:
+    d6: 6
+    d8: 8
+    d10: 10
+    d12: 12
+
+  # Armor proficiency, priced by cumulative tier. A class lists the tiers it has
+  # (e.g. [light, medium, heavy, shield]) and pays the sum.
+  armor:
+    light: 3
+    medium: 3          # additional, on top of light
+    heavy: 4           # additional, on top of medium
+    shield: 2
+
+  # Weapon proficiency, priced by breadth of the class's list.
+  weapon:
+    none: 0
+    limited: 2         # a short specific list (e.g. the Wizard's five)
+    simple: 4          # all simple weapons
+    simple_plus_few_martial: 6   # simple + a handful of martial (the Rogue)
+    simple_and_martial: 8        # all simple + all martial weapons

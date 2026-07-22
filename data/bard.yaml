@@ -1,0 +1,395 @@
+# Piece-Meal-DnD — Bard (College of Lore)
+#
+# Full caster (spells from level 1, new tier every odd level to 9th). Rich in
+# scaling dials modeled as upgrade-chains: Bardic Inspiration die (d6->d12),
+# Song of Rest die (d6->d12), and Expertise. College of Lore adds Cutting Words
+# and the extra Magical Secrets picks.
+
+class: Bard
+subclass: College of Lore
+source: "SRD 5.1 (CC-BY-4.0)"
+hit_die: d8
+caster: full
+
+xp_thresholds:
+  1: 0
+  2: 300
+  3: 900
+  4: 2700
+  5: 6500
+  6: 14000
+  7: 23000
+  8: 34000
+  9: 48000
+  10: 64000
+  11: 85000
+  12: 100000
+  13: 120000
+  14: 140000
+  15: 165000
+  16: 195000
+  17: 225000
+  18: 265000
+  19: 305000
+  20: 355000
+
+rubric:
+  ribbon: 1
+  proficiency: 2
+  hp: 2
+  utility: 3
+  scaling: 3
+  slots: 3
+  asi: 4
+  marquee: 5
+  spellcasting: 5
+
+levels:
+  1:
+    note: Character-creation budget (100 experience); earned XP starts at 0 in play.
+    pieces:
+      # --- Commodities (fixed catalog price, shared across classes) ---
+      - id: save-dex
+        name: "Saving Throw Proficiency: Dexterity"
+        commodity: save
+      - id: save-cha
+        name: "Saving Throw Proficiency: Charisma"
+        commodity: save
+      - id: skills-1
+        name: "Skill Proficiencies (choose 3)"
+        commodity: skill
+        qty: 3
+      - id: hit-die-1
+        name: "Hit Die (d8)"
+        commodity: hit_die
+        variant: d8
+      - id: armor-1
+        name: "Armor Proficiency: light"
+        commodity: armor
+        tiers: [light]
+      - id: weapons-1
+        name: "Weapons: simple + hand crossbows, longswords, rapiers, shortswords"
+        commodity: weapon
+        tier: simple_plus_few_martial
+      - id: tools-1
+        name: "Tool Proficiencies: three musical instruments"
+        commodity: tool
+        qty: 3
+      - id: starting-kit-1
+        name: "Starting Equipment Package"
+        commodity: starting_kit
+      # --- Unique features (split the remaining budget by points) ---
+      - id: spellcasting
+        name: "Spellcasting (1st-level spells)"
+        tag: spellcasting
+        points: 5
+      - id: bardic-inspiration
+        name: "Bardic Inspiration (d6)"
+        tag: marquee
+        points: 5
+      - id: cantrips-known-2
+        name: "Cantrips Known (2)"
+        tag: proficiency
+        points: 2
+  2:
+    pieces:
+      - id: jack-of-all-trades
+        name: "Jack of All Trades"
+        tag: utility
+        points: 3
+      - id: song-of-rest
+        name: "Song of Rest (d6)"
+        tag: utility
+        points: 3
+      - id: hp-2
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  3:
+    pieces:
+      - id: spell-tier-2nd
+        name: "Spellcasting: 2nd-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spellcasting
+      - id: cutting-words
+        name: "College of Lore: Cutting Words"
+        tag: marquee
+        points: 5
+      - id: expertise-1
+        name: "Expertise (first pair)"
+        tag: marquee
+        points: 5
+      - id: lore-bonus-proficiencies
+        name: "College of Lore: Bonus Proficiencies"
+        tag: proficiency
+        points: 2
+      - id: hp-3
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  4:
+    pieces:
+      - id: asi-4
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: cantrips-known-3
+        name: "Cantrips Known (3)"
+        tag: proficiency
+        points: 2
+        upgrades: cantrips-known-2
+      - id: hp-4
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  5:
+    pieces:
+      - id: spell-tier-3rd
+        name: "Spellcasting: 3rd-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-2nd
+      - id: bardic-inspiration-d8
+        name: "Bardic Inspiration die (d8)"
+        tag: scaling
+        points: 3
+        upgrades: bardic-inspiration
+      - id: font-of-inspiration
+        name: "Font of Inspiration"
+        tag: utility
+        points: 3
+      - id: proficiency-bonus-5
+        name: "Proficiency Bonus +1 (to +3)"
+        tag: proficiency
+        points: 2
+      - id: hp-5
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  6:
+    pieces:
+      - id: countercharm
+        name: "Countercharm"
+        tag: utility
+        points: 3
+      - id: additional-magical-secrets
+        name: "College of Lore: Additional Magical Secrets"
+        tag: marquee
+        points: 5
+      - id: hp-6
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  7:
+    pieces:
+      - id: spell-tier-4th
+        name: "Spellcasting: 4th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-3rd
+      - id: hp-7
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  8:
+    pieces:
+      - id: asi-8
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-8
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  9:
+    pieces:
+      - id: spell-tier-5th
+        name: "Spellcasting: 5th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-4th
+      - id: song-of-rest-d8
+        name: "Song of Rest die (d8)"
+        tag: scaling
+        points: 3
+        upgrades: song-of-rest
+      - id: proficiency-bonus-9
+        name: "Proficiency Bonus +1 (to +4)"
+        tag: proficiency
+        points: 2
+      - id: hp-9
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  10:
+    pieces:
+      - id: bardic-inspiration-d10
+        name: "Bardic Inspiration die (d10)"
+        tag: scaling
+        points: 3
+        upgrades: bardic-inspiration-d8
+      - id: expertise-2
+        name: "Expertise (second pair)"
+        tag: marquee
+        points: 5
+        upgrades: expertise-1
+      - id: magical-secrets-10
+        name: "Magical Secrets"
+        tag: marquee
+        points: 5
+      - id: cantrips-known-4
+        name: "Cantrips Known (4)"
+        tag: proficiency
+        points: 2
+        upgrades: cantrips-known-3
+      - id: hp-10
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  11:
+    pieces:
+      - id: spell-tier-6th
+        name: "Spellcasting: 6th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-5th
+      - id: hp-11
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  12:
+    pieces:
+      - id: asi-12
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-12
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  13:
+    pieces:
+      - id: spell-tier-7th
+        name: "Spellcasting: 7th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-6th
+      - id: song-of-rest-d10
+        name: "Song of Rest die (d10)"
+        tag: scaling
+        points: 3
+        upgrades: song-of-rest-d8
+      - id: proficiency-bonus-13
+        name: "Proficiency Bonus +1 (to +5)"
+        tag: proficiency
+        points: 2
+      - id: hp-13
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  14:
+    pieces:
+      - id: magical-secrets-14
+        name: "Magical Secrets"
+        tag: marquee
+        points: 5
+      - id: peerless-skill
+        name: "College of Lore: Peerless Skill"
+        tag: utility
+        points: 3
+      - id: hp-14
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  15:
+    pieces:
+      - id: spell-tier-8th
+        name: "Spellcasting: 8th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-7th
+      - id: bardic-inspiration-d12
+        name: "Bardic Inspiration die (d12)"
+        tag: scaling
+        points: 3
+        upgrades: bardic-inspiration-d10
+      - id: hp-15
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  16:
+    pieces:
+      - id: asi-16
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-16
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  17:
+    pieces:
+      - id: spell-tier-9th
+        name: "Spellcasting: 9th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-8th
+      - id: song-of-rest-d12
+        name: "Song of Rest die (d12)"
+        tag: scaling
+        points: 3
+        upgrades: song-of-rest-d10
+      - id: proficiency-bonus-17
+        name: "Proficiency Bonus +1 (to +6)"
+        tag: proficiency
+        points: 2
+      - id: hp-17
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  18:
+    pieces:
+      - id: magical-secrets-18
+        name: "Magical Secrets"
+        tag: marquee
+        points: 5
+      - id: spell-slots-18
+        name: "Spellcasting: additional slots"
+        tag: slots
+        points: 3
+        upgrades: spell-tier-9th
+      - id: hp-18
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  19:
+    pieces:
+      - id: asi-19
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: spell-slots-19
+        name: "Spellcasting: additional slots"
+        tag: slots
+        points: 3
+        upgrades: spell-slots-18
+      - id: hp-19
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  20:
+    pieces:
+      - id: superior-inspiration
+        name: "Superior Inspiration"
+        tag: utility
+        points: 3
+      - id: spell-slots-20
+        name: "Spellcasting: additional slots"
+        tag: slots
+        points: 3
+        upgrades: spell-slots-19
+      - id: hp-20
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
