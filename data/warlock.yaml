@@ -1,0 +1,357 @@
+# Piece-Meal-DnD — Warlock (The Fiend)
+#
+# PACT MAGIC — a third caster shape. Instead of a full spell-slot table, the
+# Warlock has a handful of short-rest slots that all rise to the same level:
+# 1st@1, 2nd@3, 3rd@5, 4th@7, 5th@9, then the slot LEVEL stops and only the
+# COUNT grows (a 4th slot at 18, modeled as a `slots` piece). High-level spells
+# come from Mystic Arcanum (a free 6th/7th/8th/9th spell at 11/13/15/17), each
+# a spellcasting piece chained to the last. Eldritch Invocations are their own
+# buyable system: the first pick unlocks the feature, later picks are scaling
+# upgrade-pieces at every level the invocations-known count rises.
+
+class: Warlock
+subclass: The Fiend
+source: "SRD 5.1 (CC-BY-4.0)"
+hit_die: d8
+caster: pact
+
+xp_thresholds:
+  1: 0
+  2: 300
+  3: 900
+  4: 2700
+  5: 6500
+  6: 14000
+  7: 23000
+  8: 34000
+  9: 48000
+  10: 64000
+  11: 85000
+  12: 100000
+  13: 120000
+  14: 140000
+  15: 165000
+  16: 195000
+  17: 225000
+  18: 265000
+  19: 305000
+  20: 355000
+
+rubric:
+  ribbon: 1
+  proficiency: 2
+  hp: 2
+  utility: 3
+  scaling: 3
+  slots: 3
+  asi: 4
+  marquee: 5
+  spellcasting: 5
+
+levels:
+  1:
+    # Character-creation budget (100 experience). Unlike the half-casters, the
+    # Warlock casts from level 1 — Pact Magic is part of the starting package.
+    note: Character-creation budget (100 experience); earned XP starts at 0 in play.
+    pieces:
+      # --- Commodities (fixed catalog price, shared across classes) ---
+      - id: save-wis
+        name: "Saving Throw Proficiency: Wisdom"
+        commodity: save
+      - id: save-cha
+        name: "Saving Throw Proficiency: Charisma"
+        commodity: save
+      - id: skills-1
+        name: "Skill Proficiencies (choose 2)"
+        commodity: skill
+        qty: 2
+      - id: hit-die-1
+        name: "Hit Die (d8)"
+        commodity: hit_die
+        variant: d8
+      - id: armor-1
+        name: "Armor Proficiency: light"
+        commodity: armor
+        tiers: [light]
+      - id: weapons-1
+        name: "Weapons: simple"
+        commodity: weapon
+        tier: simple
+      - id: starting-kit-1
+        name: "Starting Equipment Package"
+        commodity: starting_kit
+      # --- Unique features (split the remaining budget by points) ---
+      - id: pact-magic
+        name: "Pact Magic (1st-level spell slots)"
+        tag: spellcasting
+        points: 5
+      - id: dark-ones-blessing
+        name: "The Fiend: Dark One's Blessing"
+        tag: utility
+        points: 3
+      - id: cantrips-known-2
+        name: "Cantrips Known (2)"
+        tag: proficiency
+        points: 2
+      - id: expanded-spell-list
+        name: "The Fiend: Expanded Spell List"
+        tag: ribbon
+        points: 1
+  2:
+    pieces:
+      - id: eldritch-invocations
+        name: "Eldritch Invocations (2 known)"
+        tag: marquee
+        points: 5
+      - id: hp-2
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  3:
+    pieces:
+      - id: pact-boon
+        name: "Pact Boon (Chain / Blade / Tome)"
+        tag: marquee
+        points: 5
+      - id: pact-slot-2nd
+        name: "Pact Magic: 2nd-level slots"
+        tag: spellcasting
+        points: 5
+        upgrades: pact-magic
+      - id: hp-3
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  4:
+    pieces:
+      - id: asi-4
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: cantrips-known-3
+        name: "Cantrips Known (3)"
+        tag: proficiency
+        points: 2
+        upgrades: cantrips-known-2
+      - id: hp-4
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  5:
+    pieces:
+      - id: pact-slot-3rd
+        name: "Pact Magic: 3rd-level slots"
+        tag: spellcasting
+        points: 5
+        upgrades: pact-slot-2nd
+      - id: invocations-known-3
+        name: "Eldritch Invocation (3rd known)"
+        tag: scaling
+        points: 3
+        upgrades: eldritch-invocations
+      - id: proficiency-bonus-5
+        name: "Proficiency Bonus +1 (to +3)"
+        tag: proficiency
+        points: 2
+      - id: hp-5
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  6:
+    pieces:
+      - id: dark-ones-own-luck
+        name: "The Fiend: Dark One's Own Luck"
+        tag: marquee
+        points: 5
+      - id: hp-6
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  7:
+    pieces:
+      - id: pact-slot-4th
+        name: "Pact Magic: 4th-level slots"
+        tag: spellcasting
+        points: 5
+        upgrades: pact-slot-3rd
+      - id: invocations-known-4
+        name: "Eldritch Invocation (4th known)"
+        tag: scaling
+        points: 3
+        upgrades: invocations-known-3
+      - id: hp-7
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  8:
+    pieces:
+      - id: asi-8
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-8
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  9:
+    pieces:
+      - id: pact-slot-5th
+        name: "Pact Magic: 5th-level slots"
+        tag: spellcasting
+        points: 5
+        upgrades: pact-slot-4th
+      - id: invocations-known-5
+        name: "Eldritch Invocation (5th known)"
+        tag: scaling
+        points: 3
+        upgrades: invocations-known-4
+      - id: proficiency-bonus-9
+        name: "Proficiency Bonus +1 (to +4)"
+        tag: proficiency
+        points: 2
+      - id: hp-9
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  10:
+    pieces:
+      - id: fiendish-resilience
+        name: "The Fiend: Fiendish Resilience"
+        tag: marquee
+        points: 5
+      - id: cantrips-known-4
+        name: "Cantrips Known (4)"
+        tag: proficiency
+        points: 2
+        upgrades: cantrips-known-3
+      - id: hp-10
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  11:
+    pieces:
+      - id: mystic-arcanum-6
+        name: "Mystic Arcanum (6th level)"
+        tag: spellcasting
+        points: 5
+      - id: hp-11
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  12:
+    pieces:
+      - id: asi-12
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: invocations-known-6
+        name: "Eldritch Invocation (6th known)"
+        tag: scaling
+        points: 3
+        upgrades: invocations-known-5
+      - id: hp-12
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  13:
+    pieces:
+      - id: mystic-arcanum-7
+        name: "Mystic Arcanum (7th level)"
+        tag: spellcasting
+        points: 5
+        upgrades: mystic-arcanum-6
+      - id: proficiency-bonus-13
+        name: "Proficiency Bonus +1 (to +5)"
+        tag: proficiency
+        points: 2
+      - id: hp-13
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  14:
+    pieces:
+      - id: hurl-through-hell
+        name: "The Fiend: Hurl Through Hell"
+        tag: marquee
+        points: 5
+      - id: hp-14
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  15:
+    pieces:
+      - id: mystic-arcanum-8
+        name: "Mystic Arcanum (8th level)"
+        tag: spellcasting
+        points: 5
+        upgrades: mystic-arcanum-7
+      - id: invocations-known-7
+        name: "Eldritch Invocation (7th known)"
+        tag: scaling
+        points: 3
+        upgrades: invocations-known-6
+      - id: hp-15
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  16:
+    pieces:
+      - id: asi-16
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-16
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  17:
+    pieces:
+      - id: mystic-arcanum-9
+        name: "Mystic Arcanum (9th level)"
+        tag: spellcasting
+        points: 5
+        upgrades: mystic-arcanum-8
+      - id: proficiency-bonus-17
+        name: "Proficiency Bonus +1 (to +6)"
+        tag: proficiency
+        points: 2
+      - id: hp-17
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  18:
+    pieces:
+      - id: pact-slots-18
+        name: "Pact Magic: additional slot (4 total)"
+        tag: slots
+        points: 3
+        upgrades: pact-slot-5th
+      - id: invocations-known-8
+        name: "Eldritch Invocation (8th known)"
+        tag: scaling
+        points: 3
+        upgrades: invocations-known-7
+      - id: hp-18
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  19:
+    pieces:
+      - id: asi-19
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-19
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2
+  20:
+    pieces:
+      - id: eldritch-master
+        name: "Eldritch Master"
+        tag: marquee
+        points: 5
+      - id: hp-20
+        name: "Hit Points (d8)"
+        tag: hp
+        points: 2

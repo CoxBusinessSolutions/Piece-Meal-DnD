@@ -79,14 +79,30 @@ upgrade-pieces: `spell-tier-N` (unlock a new spell level, chained tier to tier),
 `spell-slots-L` (incremental slot growth), and `cantrip-*` (cantrips known).
 See `data/cleric.yaml` for the reference.
 
+#### Caster shapes
+
+Three spell mechanics are modeled, all with the same upgrade-chain style:
+
+- **Full caster** (Wizard, Cleric) — spells from level 1, a new tier every odd
+  level up to 9th.
+- **Half caster** (Paladin, Ranger) — no spells at level 1; spellcasting is
+  bought at level 2 and a new tier unlocks every four levels (2/5/9/13/17),
+  capping at 5th.
+- **Pact Magic** (Warlock) — a few short-rest slots that all rise together
+  (1st@1 … 5th@9, then only the count grows), plus Mystic Arcanum pieces for
+  6th–9th and Eldritch Invocations as their own buyable scaling chain.
+
 ## Layout
 
 ```
 data/level1_catalog.yaml   Shared, fixed prices for level-1 commodities
 data/fighter.yaml          Source of truth — Fighter (reference pure martial)
-data/wizard.yaml           Source of truth — Wizard  (reference pure caster)
-data/rogue.yaml            Source of truth — Rogue   (skirmisher; full 1–20)
-data/cleric.yaml           Source of truth — Cleric  (hybrid; full 1–20)
+data/wizard.yaml           Source of truth — Wizard  (reference full caster)
+data/rogue.yaml            Source of truth — Rogue   (skirmisher)
+data/cleric.yaml           Source of truth — Cleric  (hybrid full caster)
+data/paladin.yaml          Source of truth — Paladin (reference half-caster)
+data/ranger.yaml           Source of truth — Ranger  (half-caster)
+data/warlock.yaml          Source of truth — Warlock (reference Pact Magic)
 data/*.md                  Generated breakdown tables (do not edit by hand)
 tools/price.py             Pricer / validator
 ```
@@ -115,10 +131,14 @@ done
 Complete (level-1 creation budget **and** levels 2–20 in-play ledger):
 
 - **Fighter** — reference pure martial.
-- **Wizard** — reference pure caster.
+- **Wizard** — reference full caster.
 - **Rogue** — reference skirmisher.
-- **Cleric** — reference hybrid (establishes the spellcasting scheme).
+- **Cleric** — reference hybrid full caster.
+- **Paladin** — reference half-caster.
+- **Ranger** — half-caster.
+- **Warlock** — reference Pact Magic.
 
-Next: bring the remaining 8 SRD classes onto these four templates (martials
-follow the Fighter/Rogue, casters follow the Wizard/Cleric; half-casters and the
-Warlock need a small slot-table adjustment).
+That's 7 of the 12 SRD classes, and every caster shape is now covered. The
+remaining 5 (**Barbarian, Bard, Druid, Monk, Sorcerer**) reuse these templates:
+Barbarian/Monk follow the martial model, Bard/Druid/Sorcerer follow the full
+caster.
