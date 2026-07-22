@@ -139,12 +139,16 @@ into the standalone `index.html`).
 
 ### Hosting on GitHub Pages
 
+**Live:** https://coxbusinesssolutions.github.io/Piece-Meal-DnD/
+
 `.github/workflows/pages.yml` publishes the `web/` folder to GitHub Pages on
-every push to `main`. To turn it on:
+every push to `main` that touches `web/**` (and via manual dispatch from the
+Actions tab). It is already enabled for this repo.
+
+To set it up on a fresh fork:
 
 1. Settings → Pages → **Source: GitHub Actions**.
-2. Make sure this workflow is on `main` (merge the branch), then push (or run the
-   workflow manually from the Actions tab).
+2. Make sure this workflow is on `main`, then push (or run it manually).
 
 Pages on a **private** repo requires GitHub Pro; on the Free plan the repo must
 be **public**. The site is fully self-contained, so it works at the project URL
@@ -182,6 +186,42 @@ the SRD thresholds through 355,000). Every class shape is represented:
 - **Full caster** — Bard, Cleric, Druid, Sorcerer, Wizard
 - **Pact Magic** — Warlock
 
-Possible next steps: tune the commodity/point values, add the non-SRD classes or
-alternate subclasses, or build a front-end that reads these YAMLs as an
-à-la-carte character-builder shop.
+The web builder (`web/`) is built and deployed — see **Hosting on GitHub Pages**
+above.
+
+## Design notes — tunable choices
+
+These are deliberate first-pass calls, not fixed truths. Every one is a single
+edit to `data/level1_catalog.yaml` (a price) or a class file's `points` (a
+weight) followed by re-running the pricer, so the whole economy re-balances.
+
+- **Commodity prices** (`save=4`, `skill=3`, hit die = die-size, `starting_kit=6`
+  flat, armor/weapon tiers) are a starting calibration, not sacred.
+- **Starting kit** is a flat 6 for every class — the game roughly balances
+  starting gear, so it is not priced per-item.
+- **Druid weapons** (a specific 10-weapon list) are priced at the `simple` tier;
+  **Monk** ("simple + shortswords") likewise — the extra martial weapons are
+  treated as negligible.
+- **Bard's three instruments** cost `3 × tool = 9`, correct by the equal-weight
+  rule even though flavor instruments arguably matter less than thieves' tools.
+- **Champion's Improved Critical** (L3) is tagged `marquee`, so it dominates its
+  small level band; drop it to `scaling` if you want it to read as incremental.
+- **Life Domain's heavy armor** is folded into the armor commodity, so it costs
+  the same heavy-armor price any class pays rather than being a floating feature.
+
+## Roadmap / next steps
+
+- **Classless builder (the big one).** Today's builder is per-class — you spend
+  the 100 within one class. The original vision is a single menu of *every*
+  piece where you mix freely (Wizard spellcasting + a d8 body + heavy armor),
+  which needs one **canonical price per piece** first: the current feature
+  prices are normalized *within* each class, so the same feature (e.g. "Fighting
+  Style" across four classes, or "Spellcasting" in Cleric vs. Wizard) has
+  different prices that must be de-duplicated into a single agreed number. That
+  is a pricing-model decision, not just UI work.
+- **Tune the economy.** Revisit any of the Design-notes choices above; re-run
+  `tools/price.py --check` after each change.
+- **Broaden content.** More subclasses per class, or non-SRD classes/options
+  (mind the SRD 5.1 licensing boundary for anything beyond it).
+- **Builder niceties.** Save/share a specific build (permalink), export to a
+  printable character sheet, or a side-by-side class comparison view.
