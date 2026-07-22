@@ -67,8 +67,11 @@ SRD_THRESHOLDS = {1: 0, 2: 300, 3: 900, 4: 2700, 5: 6500, 6: 14000, 7: 23000,
 BUDGET_LEVELS = [1, 2, 3, 5, 8, 11, 14, 17, 20]
 
 # Which levels 2-20 piece tags become buyable "features" in the classless menu.
-# hp / proficiency-bonus / ASI are commodity-ish or plain stat bumps, left out.
-HL_TAGS = {"marquee", "spellcasting", "scaling", "slots", "utility"}
+# hp / proficiency-bonus are commodity-ish and stay out; asi and slots are in but
+# flagged repeatable (buy an Ability Score Improvement or extra slots more than
+# once).
+HL_TAGS = {"marquee", "spellcasting", "scaling", "slots", "utility", "asi"}
+REPEATABLE_TAGS = {"asi", "slots"}
 
 # Load the pricer as a module so we reuse its exact pricing logic.
 _spec = importlib.util.spec_from_file_location(
@@ -138,6 +141,7 @@ def build_classless(catalog, classes):
     # Features: union of every class's level-1 unique features, de-duplicated by
     # name, priced at points x rate, tagged with the classes that grant them.
     feats = {}
+    lvl1_names = set()
     # Level-1 signature pieces (premium-priced, deduplicated), tagged level 1.
     for cls in classes.values():
         for p in cls["level1"]:
@@ -151,31 +155,45 @@ def build_classless(catalog, classes):
                 fid, name = p["id"], p["name"]
             xp = CLASSLESS_FEATURE_PRICE.get(name, pts * CLASSLESS_RATE)
             f = feats.setdefault(name, {
-                "id": fid, "name": name, "tag": p["detail"],
-                "xp": xp, "level": 1, "sources": []})
+                "id": fid, "name": name, "tag": p["detail"], "xp": xp,
+                "level": 1, "sources": [], "repeatable": False, "req_name": None})
             if cls["name"] not in f["sources"]:
                 f["sources"].append(cls["name"])
+            lvl1_names.add(name)
 
-    # Higher-level pieces, priced at their real in-play XP, so they are gated:
-    # unaffordable at the 100-XP starting budget and unlocking only as the level
-    # dial raises the budget. De-duplicated by name (cheapest / earliest wins).
+    # Higher-level pieces. Gather every occurrence across classes; the canonical
+    # price is the MEAN cost at the earliest level the piece appears (firmer than
+    # "cheapest wins"), and the prerequisite is carried from the `upgrades` chain.
+    occ = {}
     for cls in classes.values():
+        id2name = {p["id"]: p["name"] for p in cls["level1"]}
         for r in cls["levels"]:
-            if r["tag"] not in HL_TAGS:
+            id2name[r["id"]] = r["name"]
+        for r in cls["levels"]:
+            if r["tag"] not in HL_TAGS or r["name"] in lvl1_names:
                 continue
-            name = r["name"]
-            f = feats.get(name)
-            if f is None:
-                feats[name] = {
-                    "id": re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-"),
-                    "name": name, "tag": r["tag"], "xp": r["xp"],
-                    "level": r["lvl"], "sources": [cls["name"]]}
-            elif f["level"] > 1:  # merge into an existing higher-level entry
-                f["xp"] = min(f["xp"], r["xp"])
-                f["level"] = min(f["level"], r["lvl"])
-                if cls["name"] not in f["sources"]:
-                    f["sources"].append(cls["name"])
-            # else: name already owned by a level-1 feature; leave it.
+            o = occ.setdefault(r["name"], {
+                "tag": r["tag"], "entries": [], "sources": [], "req_name": None})
+            o["entries"].append((r["lvl"], r["xp"]))
+            if cls["name"] not in o["sources"]:
+                o["sources"].append(cls["name"])
+            if o["req_name"] is None and r.get("upgrades"):
+                o["req_name"] = id2name.get(r["upgrades"])
+
+    for name, o in occ.items():
+        minlvl = min(lvl for lvl, _ in o["entries"])
+        at_min = [xp for lvl, xp in o["entries"] if lvl == minlvl]
+        feats[name] = {
+            "id": re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-"),
+            "name": name, "tag": o["tag"], "xp": round(sum(at_min) / len(at_min)),
+            "level": minlvl, "sources": o["sources"],
+            "repeatable": o["tag"] in REPEATABLE_TAGS, "req_name": o["req_name"]}
+
+    # Resolve prerequisite names to the deduplicated menu ids, then drop the name.
+    name_to_id = {f["name"]: f["id"] for f in feats.values()}
+    for f in feats.values():
+        rn = f.pop("req_name", None)
+        f["req"] = name_to_id.get(rn) if rn else None
 
     features = sorted(feats.values(), key=lambda f: (f["level"], -f["xp"], f["name"]))
     budgets = [{"level": L, "budget": catalog["creation_budget"] + SRD_THRESHOLDS[L]}
