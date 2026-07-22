@@ -137,6 +137,19 @@ embedded straight into the page. `web/app.html` is the editable source (the
 build injects the data between its `DATA_START/DATA_END` markers and wraps it
 into the standalone `index.html`).
 
+### Hosting on GitHub Pages
+
+`.github/workflows/pages.yml` publishes the `web/` folder to GitHub Pages on
+every push to `main`. To turn it on:
+
+1. Settings → Pages → **Source: GitHub Actions**.
+2. Make sure this workflow is on `main` (merge the branch), then push (or run the
+   workflow manually from the Actions tab).
+
+Pages on a **private** repo requires GitHub Pro; on the Free plan the repo must
+be **public**. The site is fully self-contained, so it works at the project URL
+`https://<owner>.github.io/Piece-Meal-DnD/` with no extra configuration.
+
 ## Usage
 
 ```bash
