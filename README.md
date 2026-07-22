@@ -241,18 +241,29 @@ The trade-off: with premiums, rebuilding a *standard* class runs a little over
 100 (a full caster is ~110), so even a "pure" build trims a ribbon or two —
 on-theme for "you can't have it all." Deviating is the play.
 
+### Levels beyond 1 — the "build as level" dial
+
+The classless builder isn't just level 1. A **level dial** sets the budget along
+the SRD curve — 100 (creation) plus that level's cumulative earned XP: Lv 5 ≈
+6,600, Lv 20 ≈ 355,100. **Higher-level pieces** (Extra Attack, higher spell
+tiers, subclass capstones) join the menu priced at their **real in-play XP**
+(the SRD threshold deltas), so at level 1 they're unaffordable — you literally
+have to raise your level to buy them. "Hide unaffordable" (on by default) keeps
+the low-level view clean; the menu grows as you level up. Higher-level pieces
+dedupe by name to their cheapest/earliest instance; HP, proficiency bumps, and
+ASIs are left out (commodity-ish / plain stat bumps), and prerequisite chains
+(a lower spell tier before a higher one) are **not enforced yet**.
+
 ## Roadmap / next steps
 
-- **Higher-level pieces (the big one).** The classless menu is level-1 only, so
-  everything fits inside 100. The next step is letting a character *cost more
-  than a starting budget can buy* — i.e. pull in higher-level pieces (Extra
-  Attack, higher spell tiers, ASIs) priced at their real in-play XP, and make
-  the budget itself adjustable to represent a character who has earned XP by
-  leveling. Then the most powerful ideas are naturally gated: you literally
-  can't afford them at level 1. Needs a design pass on how the level-1 (100) and
-  in-play (thousands) scales share one budget.
-- **Classless builder v1 — done:** premium pricing for standout pieces, the
-  Cantrips-Known collapse, and budget enforcement all shipped.
+- **Classless builder — done so far:** premium pricing for standout pieces, the
+  Cantrips-Known collapse, budget enforcement, and the level dial with
+  higher-level pieces gated by their real in-play XP (see *Levels beyond 1*).
+- **Refine the higher-level model.** Enforce prerequisite chains (a lower spell
+  tier before a higher one; base feature before its upgrade), let repeatable
+  picks (ASIs, extra spell slots) be bought more than once, and firm up the
+  canonical price for pieces that appear at different costs across classes
+  (currently the cheapest/earliest instance wins).
 - **Tune the economy.** Revisit any of the Design-notes choices above; re-run
   `tools/price.py --check` after each change.
 - **Broaden content.** More subclasses per class, or non-SRD classes/options
