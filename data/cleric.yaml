@@ -54,27 +54,51 @@ rubric:
 
 levels:
   1:
-    note: Free starting package (level 1 is 0 XP).
+    # Character creation: spend the 100-experience budget. Commodities are
+    # priced from data/level1_catalog.yaml; the unique features (Spellcasting,
+    # Cantrips, Disciple of Life) split whatever is left. Note the Life Domain's
+    # heavy-armor grant is folded into the armor commodity so it costs the same
+    # heavy-armor price any class pays.
+    note: Character-creation budget (100 experience); earned XP starts at 0 in play.
     pieces:
+      # --- Commodities (fixed catalog price, shared across classes) ---
+      - id: save-wis
+        name: "Saving Throw Proficiency: Wisdom"
+        commodity: save
+      - id: save-cha
+        name: "Saving Throw Proficiency: Charisma"
+        commodity: save
+      - id: skills-1
+        name: "Skill Proficiencies (choose 2)"
+        commodity: skill
+        qty: 2
+      - id: hit-die-1
+        name: "Hit Die (d8)"
+        commodity: hit_die
+        variant: d8
+      - id: armor-1
+        name: "Armor Proficiency: light, medium, heavy (Life Domain), shields"
+        commodity: armor
+        tiers: [light, medium, heavy, shield]
+      - id: weapons-1
+        name: "Weapons: simple"
+        commodity: weapon
+        tier: simple
+      - id: starting-kit-1
+        name: "Starting Equipment Package"
+        commodity: starting_kit
+      # --- Unique features (split the remaining budget by points) ---
       - id: spellcasting
         name: "Spellcasting (1st-level spells)"
         tag: spellcasting
         points: 5
-      - id: cantrips-known-3
-        name: "Cantrips Known (3)"
-        tag: proficiency
-        points: 2
-      - id: domain-heavy-armor
-        name: "Life Domain: Bonus Proficiency (heavy armor)"
-        tag: proficiency
-        points: 2
       - id: disciple-of-life
         name: "Life Domain: Disciple of Life"
         tag: utility
         points: 3
-      - id: hp-1
-        name: "Hit Points (d8)"
-        tag: hp
+      - id: cantrips-known-3
+        name: "Cantrips Known (3)"
+        tag: proficiency
         points: 2
   2:
     pieces:

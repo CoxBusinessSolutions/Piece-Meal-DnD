@@ -1,14 +1,30 @@
-# Cleric — Piece-Meal XP Breakdown
+# Cleric — Piece-Meal Breakdown
 
-_Source: SRD 5.1 (CC-BY-4.0). Prices derived from power-points; they reconcile to the official SRD XP thresholds._
+_Source: SRD 5.1 (CC-BY-4.0). Prices are derived, not hand-authored._
+
+## Level 1 — Character Creation (100 experience budget)
+
+_Commodity pieces cost their fixed catalog price (identical in every class); the class's unique features split whatever budget is left. Spent at creation — earned XP starts at 0 in play._
+
+| Piece | Type | Detail | XP | Spent |
+|-------|------|--------|---:|------:|
+| Saving Throw Proficiency: Wisdom | commodity | save | 4 | 4 |
+| Saving Throw Proficiency: Charisma | commodity | save | 4 | 8 |
+| Skill Proficiencies (choose 2) | commodity | skill | 6 | 14 |
+| Hit Die (d8) | commodity | hit_die | 8 | 22 |
+| Armor Proficiency: light, medium, heavy (Life Domain), shields | commodity | armor | 12 | 34 |
+| Weapons: simple | commodity | weapon | 4 | 38 |
+| Starting Equipment Package | commodity | starting_kit | 6 | 44 |
+| Spellcasting (1st-level spells) | feature | spellcasting | 28 | 72 |
+| Life Domain: Disciple of Life | feature | utility | 17 | 89 |
+| Cantrips Known (3) | feature | proficiency | 11 | 100 |
+
+## Levels 2-20 — In-Play XP
+
+_Each level's XP cost (SRD threshold delta) split among its pieces by power-points; cumulative reproduces the SRD table._
 
 | Lvl | Piece | Tag | Pts | XP | Cumulative |
 |----:|-------|-----|----:|---:|-----------:|
-| 1 | Spellcasting (1st-level spells) | spellcasting | 5 | 0 | 0 |
-| 1 | Cantrips Known (3) | proficiency | 2 | 0 | 0 |
-| 1 | Life Domain: Bonus Proficiency (heavy armor) | proficiency | 2 | 0 | 0 |
-| 1 | Life Domain: Disciple of Life | utility | 3 | 0 | 0 |
-| 1 | Hit Points (d8) | hp | 2 | 0 | 0 |
 | 2 | Channel Divinity (1/rest) | utility | 3 | 69 | 69 |
 | 2 | Channel Divinity: Turn Undead | marquee | 5 | 116 | 185 |
 | 2 | Life Domain: Channel Divinity — Preserve Life | utility | 3 | 69 | 254 |

@@ -56,9 +56,42 @@ rubric:
 # on via `upgrades`, forming a buy-in-sequence chain.
 levels:
   1:
-    # Level 1 costs 0 XP in the SRD, so these are your free starting package.
-    note: Free starting package (level 1 is 0 XP).
+    # Character creation: spend the 100-experience budget. Commodities are
+    # priced from data/level1_catalog.yaml; the unique features (Sneak Attack,
+    # Expertise, Thieves' Cant) split whatever is left.
+    note: Character-creation budget (100 experience); earned XP starts at 0 in play.
     pieces:
+      # --- Commodities (fixed catalog price, shared across classes) ---
+      - id: save-dex
+        name: "Saving Throw Proficiency: Dexterity"
+        commodity: save
+      - id: save-int
+        name: "Saving Throw Proficiency: Intelligence"
+        commodity: save
+      - id: skills-1
+        name: "Skill Proficiencies (choose 4)"
+        commodity: skill
+        qty: 4
+      - id: hit-die-1
+        name: "Hit Die (d8)"
+        commodity: hit_die
+        variant: d8
+      - id: armor-1
+        name: "Armor Proficiency: light"
+        commodity: armor
+        tiers: [light]
+      - id: weapons-1
+        name: "Weapons: simple + hand crossbows, longswords, rapiers, shortswords"
+        commodity: weapon
+        tier: simple_plus_few_martial
+      - id: tools-1
+        name: "Tool Proficiency: thieves' tools"
+        commodity: tool
+        qty: 1
+      - id: starting-kit-1
+        name: "Starting Equipment Package"
+        commodity: starting_kit
+      # --- Unique features (split the remaining budget by points) ---
       - id: sneak-attack-1d6
         name: "Sneak Attack (1d6)"
         tag: marquee
@@ -71,10 +104,6 @@ levels:
         name: "Thieves' Cant"
         tag: ribbon
         points: 1
-      - id: hp-1
-        name: "Hit Points (d8)"
-        tag: hp
-        points: 2
   2:
     pieces:
       - id: cunning-action

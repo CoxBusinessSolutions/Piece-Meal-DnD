@@ -1,0 +1,101 @@
+# Piece-Meal-DnD — Wizard (School of Evocation)
+#
+# The pure-caster archetype. This pass defines the level-1 CHARACTER-CREATION
+# breakdown (100-experience budget, priced against data/level1_catalog.yaml).
+# Levels 2-20 (the in-play XP ledger) are stubbed with the SRD thresholds and
+# rubric so they can be filled in later exactly like Rogue/Cleric.
+#
+# Wizard is the opposite of the Fighter: almost no commodity load (a d6 body, no
+# armor, a five-weapon list), so the vast majority of its 100 pours into the
+# spellcasting package. That is the glass-cannon trade-off made numeric.
+
+class: Wizard
+subclass: School of Evocation
+source: "SRD 5.1 (CC-BY-4.0)"
+hit_die: d6
+caster: full
+
+xp_thresholds:
+  1: 0
+  2: 300
+  3: 900
+  4: 2700
+  5: 6500
+  6: 14000
+  7: 23000
+  8: 34000
+  9: 48000
+  10: 64000
+  11: 85000
+  12: 100000
+  13: 120000
+  14: 140000
+  15: 165000
+  16: 195000
+  17: 225000
+  18: 265000
+  19: 305000
+  20: 355000
+
+rubric:
+  ribbon: 1
+  proficiency: 2
+  hp: 2
+  utility: 3
+  scaling: 3
+  slots: 3
+  asi: 4
+  marquee: 5
+  spellcasting: 5
+
+levels:
+  1:
+    # Character creation: spend the 100-experience budget. Commodities are
+    # priced from data/level1_catalog.yaml; the spellcasting package
+    # (Spellcasting, Arcane Recovery, Cantrips, Spellbook) splits whatever is
+    # left -- which is most of the budget.
+    note: Character-creation budget (100 experience); earned XP starts at 0 in play.
+    pieces:
+      # --- Commodities (fixed catalog price, shared across classes) ---
+      - id: save-int
+        name: "Saving Throw Proficiency: Intelligence"
+        commodity: save
+      - id: save-wis
+        name: "Saving Throw Proficiency: Wisdom"
+        commodity: save
+      - id: skills-1
+        name: "Skill Proficiencies (choose 2)"
+        commodity: skill
+        qty: 2
+      - id: hit-die-1
+        name: "Hit Die (d6)"
+        commodity: hit_die
+        variant: d6
+      - id: armor-1
+        name: "Armor Proficiency: none"
+        commodity: armor
+        tiers: []
+      - id: weapons-1
+        name: "Weapons: daggers, darts, slings, quarterstaffs, light crossbows"
+        commodity: weapon
+        tier: limited
+      - id: starting-kit-1
+        name: "Starting Equipment Package"
+        commodity: starting_kit
+      # --- Unique features (split the remaining budget by points) ---
+      - id: spellcasting
+        name: "Spellcasting (1st-level spells)"
+        tag: spellcasting
+        points: 5
+      - id: arcane-recovery
+        name: "Arcane Recovery"
+        tag: utility
+        points: 3
+      - id: cantrips-known-3
+        name: "Cantrips Known (3)"
+        tag: proficiency
+        points: 2
+      - id: spellbook
+        name: "Spellbook"
+        tag: ribbon
+        points: 1
