@@ -99,3 +99,246 @@ levels:
         name: "Spellbook"
         tag: ribbon
         points: 1
+  2:
+    pieces:
+      - id: sculpt-spells
+        name: "Evocation: Sculpt Spells"
+        tag: marquee
+        points: 5
+      - id: evocation-savant
+        name: "Evocation: Evocation Savant"
+        tag: ribbon
+        points: 1
+      - id: hp-2
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  3:
+    pieces:
+      - id: spell-tier-2nd
+        name: "Spellcasting: 2nd-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spellcasting
+      - id: hp-3
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  4:
+    pieces:
+      - id: asi-4
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: cantrips-known-4
+        name: "Cantrips Known (4)"
+        tag: proficiency
+        points: 2
+        upgrades: cantrips-known-3
+      - id: hp-4
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  5:
+    pieces:
+      - id: spell-tier-3rd
+        name: "Spellcasting: 3rd-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-2nd
+      - id: proficiency-bonus-5
+        name: "Proficiency Bonus +1 (to +3)"
+        tag: proficiency
+        points: 2
+      - id: hp-5
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  6:
+    pieces:
+      - id: potent-cantrip
+        name: "Evocation: Potent Cantrip"
+        tag: utility
+        points: 3
+      - id: hp-6
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  7:
+    pieces:
+      - id: spell-tier-4th
+        name: "Spellcasting: 4th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-3rd
+      - id: hp-7
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  8:
+    pieces:
+      - id: asi-8
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-8
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  9:
+    pieces:
+      - id: spell-tier-5th
+        name: "Spellcasting: 5th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-4th
+      - id: proficiency-bonus-9
+        name: "Proficiency Bonus +1 (to +4)"
+        tag: proficiency
+        points: 2
+      - id: hp-9
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  10:
+    pieces:
+      - id: empowered-evocation
+        name: "Evocation: Empowered Evocation"
+        tag: marquee
+        points: 5
+      - id: cantrips-known-5
+        name: "Cantrips Known (5)"
+        tag: proficiency
+        points: 2
+        upgrades: cantrips-known-4
+      - id: hp-10
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  11:
+    pieces:
+      - id: spell-tier-6th
+        name: "Spellcasting: 6th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-5th
+      - id: hp-11
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  12:
+    pieces:
+      - id: asi-12
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-12
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  13:
+    pieces:
+      - id: spell-tier-7th
+        name: "Spellcasting: 7th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-6th
+      - id: proficiency-bonus-13
+        name: "Proficiency Bonus +1 (to +5)"
+        tag: proficiency
+        points: 2
+      - id: hp-13
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  14:
+    pieces:
+      - id: overchannel
+        name: "Evocation: Overchannel"
+        tag: marquee
+        points: 5
+      - id: hp-14
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  15:
+    pieces:
+      - id: spell-tier-8th
+        name: "Spellcasting: 8th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-7th
+      - id: hp-15
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  16:
+    pieces:
+      - id: asi-16
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-16
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  17:
+    pieces:
+      - id: spell-tier-9th
+        name: "Spellcasting: 9th-level spells"
+        tag: spellcasting
+        points: 5
+        upgrades: spell-tier-8th
+      - id: proficiency-bonus-17
+        name: "Proficiency Bonus +1 (to +6)"
+        tag: proficiency
+        points: 2
+      - id: hp-17
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  18:
+    pieces:
+      - id: spell-mastery
+        name: "Spell Mastery"
+        tag: marquee
+        points: 5
+      - id: spell-slots-18
+        name: "Spellcasting: additional slots"
+        tag: slots
+        points: 3
+        upgrades: spell-tier-9th
+      - id: hp-18
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  19:
+    pieces:
+      - id: asi-19
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: spell-slots-19
+        name: "Spellcasting: additional slots"
+        tag: slots
+        points: 3
+        upgrades: spell-slots-18
+      - id: hp-19
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2
+  20:
+    pieces:
+      - id: signature-spells
+        name: "Signature Spells"
+        tag: marquee
+        points: 5
+      - id: spell-slots-20
+        name: "Spellcasting: additional slots"
+        tag: slots
+        points: 3
+        upgrades: spell-slots-19
+      - id: hp-20
+        name: "Hit Points (d6)"
+        tag: hp
+        points: 2

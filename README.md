@@ -112,14 +112,13 @@ done
 
 ## Status
 
-Level-1 character-creation breakdown (100-experience budget):
+Complete (level-1 creation budget **and** levels 2–20 in-play ledger):
 
-- **Fighter** — level 1 complete (reference pure martial).
-- **Wizard** — level 1 complete (reference pure caster).
-- **Rogue** — level 1 complete; **levels 2–20 complete**.
-- **Cleric** — level 1 complete; **levels 2–20 complete** (spellcasting scheme).
+- **Fighter** — reference pure martial.
+- **Wizard** — reference pure caster.
+- **Rogue** — reference skirmisher.
+- **Cleric** — reference hybrid (establishes the spellcasting scheme).
 
-Next: extend levels 2–20 for Fighter and Wizard, then bring the remaining 8 SRD
-classes onto the same two templates (martials follow the Fighter/Rogue, casters
-follow the Wizard/Cleric; half-casters and the Warlock need a small slot-table
-adjustment).
+Next: bring the remaining 8 SRD classes onto these four templates (martials
+follow the Fighter/Rogue, casters follow the Wizard/Cleric; half-casters and the
+Warlock need a small slot-table adjustment).

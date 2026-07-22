@@ -89,3 +89,220 @@ levels:
         name: "Second Wind"
         tag: utility
         points: 3
+  2:
+    pieces:
+      - id: action-surge-2
+        name: "Action Surge (one use)"
+        tag: marquee
+        points: 5
+      - id: hp-2
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  3:
+    pieces:
+      - id: improved-critical-3
+        name: "Champion: Improved Critical"
+        tag: marquee
+        points: 5
+      - id: hp-3
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  4:
+    pieces:
+      - id: asi-4
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-4
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  5:
+    pieces:
+      - id: extra-attack-5
+        name: "Extra Attack (two attacks)"
+        tag: marquee
+        points: 5
+      - id: proficiency-bonus-5
+        name: "Proficiency Bonus +1 (to +3)"
+        tag: proficiency
+        points: 2
+      - id: hp-5
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  6:
+    pieces:
+      - id: asi-6
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-6
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  7:
+    pieces:
+      - id: remarkable-athlete-7
+        name: "Champion: Remarkable Athlete"
+        tag: utility
+        points: 3
+      - id: hp-7
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  8:
+    pieces:
+      - id: asi-8
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-8
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  9:
+    pieces:
+      - id: indomitable-9
+        name: "Indomitable (one use)"
+        tag: utility
+        points: 3
+      - id: proficiency-bonus-9
+        name: "Proficiency Bonus +1 (to +4)"
+        tag: proficiency
+        points: 2
+      - id: hp-9
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  10:
+    pieces:
+      - id: additional-fighting-style-10
+        name: "Champion: Additional Fighting Style"
+        tag: scaling
+        points: 3
+        upgrades: fighting-style
+      - id: hp-10
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  11:
+    pieces:
+      - id: extra-attack-11
+        name: "Extra Attack (three attacks)"
+        tag: scaling
+        points: 3
+        upgrades: extra-attack-5
+      - id: hp-11
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  12:
+    pieces:
+      - id: asi-12
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-12
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  13:
+    pieces:
+      - id: indomitable-13
+        name: "Indomitable (two uses)"
+        tag: scaling
+        points: 3
+        upgrades: indomitable-9
+      - id: proficiency-bonus-13
+        name: "Proficiency Bonus +1 (to +5)"
+        tag: proficiency
+        points: 2
+      - id: hp-13
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  14:
+    pieces:
+      - id: asi-14
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-14
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  15:
+    pieces:
+      - id: superior-critical-15
+        name: "Champion: Superior Critical"
+        tag: scaling
+        points: 3
+        upgrades: improved-critical-3
+      - id: hp-15
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  16:
+    pieces:
+      - id: asi-16
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-16
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  17:
+    pieces:
+      - id: action-surge-17
+        name: "Action Surge (two uses)"
+        tag: scaling
+        points: 3
+        upgrades: action-surge-2
+      - id: indomitable-17
+        name: "Indomitable (three uses)"
+        tag: scaling
+        points: 3
+        upgrades: indomitable-13
+      - id: proficiency-bonus-17
+        name: "Proficiency Bonus +1 (to +6)"
+        tag: proficiency
+        points: 2
+      - id: hp-17
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  18:
+    pieces:
+      - id: survivor-18
+        name: "Champion: Survivor"
+        tag: marquee
+        points: 5
+      - id: hp-18
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  19:
+    pieces:
+      - id: asi-19
+        name: "Ability Score Improvement"
+        tag: asi
+        points: 4
+      - id: hp-19
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
+  20:
+    pieces:
+      - id: extra-attack-20
+        name: "Extra Attack (four attacks)"
+        tag: marquee
+        points: 5
+        upgrades: extra-attack-11
+      - id: hp-20
+        name: "Hit Points (d10)"
+        tag: hp
+        points: 2
