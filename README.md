@@ -249,21 +249,29 @@ the SRD curve — 100 (creation) plus that level's cumulative earned XP: Lv 5 �
 tiers, subclass capstones) join the menu priced at their **real in-play XP**
 (the SRD threshold deltas), so at level 1 they're unaffordable — you literally
 have to raise your level to buy them. "Hide unaffordable" (on by default) keeps
-the low-level view clean; the menu grows as you level up. Higher-level pieces
-dedupe by name to their cheapest/earliest instance; HP, proficiency bumps, and
-ASIs are left out (commodity-ish / plain stat bumps), and prerequisite chains
-(a lower spell tier before a higher one) are **not enforced yet**.
+the low-level view clean; the menu grows as you level up.
+
+- **Canonical price** for a shared higher-level piece is the **mean of its cost
+  at the earliest level** it appears (firmer than "cheapest wins").
+- **Prerequisites are enforced.** A piece needs the one it upgrades — "3rd-level
+  spells" needs "2nd-level spells" needs base "Spellcasting" — shown as a red
+  "needs X" chip until satisfied. Removing a piece cascades: its dependents drop
+  too.
+- **Repeatable picks.** Ability Score Improvements and extra spell slots use a
+  stepper so you can buy them more than once. HP and proficiency-bonus bumps are
+  still left out (commodity-ish).
 
 ## Roadmap / next steps
 
 - **Classless builder — done so far:** premium pricing for standout pieces, the
-  Cantrips-Known collapse, budget enforcement, and the level dial with
-  higher-level pieces gated by their real in-play XP (see *Levels beyond 1*).
-- **Refine the higher-level model.** Enforce prerequisite chains (a lower spell
-  tier before a higher one; base feature before its upgrade), let repeatable
-  picks (ASIs, extra spell slots) be bought more than once, and firm up the
-  canonical price for pieces that appear at different costs across classes
-  (currently the cheapest/earliest instance wins).
+  Cantrips-Known collapse, budget enforcement, the level dial with higher-level
+  pieces gated by their real in-play XP, **enforced prerequisite chains**,
+  **repeatable ASIs / extra slots**, and mean-at-earliest-level canonical prices
+  (see *Levels beyond 1*).
+- **Further polish.** Repeatable-pick cost could escalate (a 5th ASI costing
+  more than the 1st); repeatable slots could cap at their real per-class limits;
+  and the menu could group by level band or offer a "load a standard class"
+  preset.
 - **Tune the economy.** Revisit any of the Design-notes choices above; re-run
   `tools/price.py --check` after each change.
 - **Broaden content.** More subclasses per class, or non-SRD classes/options
