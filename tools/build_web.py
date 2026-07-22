@@ -37,8 +37,24 @@ DATA_DIR = os.path.join(ROOT, "data")
 WEB_DIR = os.path.join(ROOT, "web")
 
 # Flat XP-per-power-point rate for canonical feature prices in the classless
-# builder. Tune here to make the whole classless menu cheaper/pricier at once.
+# builder — the fallback for any feature not given an explicit premium below.
 CLASSLESS_RATE = 6
+
+# Classless-only feature premiums (feature name -> XP). Standout pieces cost more
+# than a flat points x rate, so taking one forces real sacrifices — you can't
+# pair full spellcasting with a plate-and-martial kit. Anything not listed falls
+# back to points x CLASSLESS_RATE. Tune freely; the per-class model is untouched.
+CLASSLESS_FEATURE_PRICE = {
+    "Spellcasting (1st-level spells)": 45,
+    "Pact Magic (1st-level spell slots)": 38,
+    "Rage": 30,
+    "Sneak Attack (1d6)": 28,
+    "Martial Arts (d4)": 28,
+    "Bardic Inspiration (d6)": 26,
+    "Lay on Hands": 24,
+    "Fighting Style": 24,
+    "Expertise (first pair)": 22,
+}
 
 # Load the pricer as a module so we reuse its exact pricing logic.
 _spec = importlib.util.spec_from_file_location(
@@ -113,9 +129,15 @@ def build_classless(catalog, classes):
             if p["type"] != "feature":
                 continue
             pts = p["points"] or 0
-            f = feats.setdefault(p["name"], {
-                "id": p["id"], "name": p["name"], "tag": p["detail"],
-                "points": pts, "xp": pts * CLASSLESS_RATE, "sources": []})
+            # Collapse the near-duplicate "Cantrips Known (2/3/4)" rows into one.
+            if p["name"].startswith("Cantrips Known"):
+                fid, name = "cantrips-known", "Cantrips Known"
+            else:
+                fid, name = p["id"], p["name"]
+            xp = CLASSLESS_FEATURE_PRICE.get(name, pts * CLASSLESS_RATE)
+            f = feats.setdefault(name, {
+                "id": fid, "name": name, "tag": p["detail"],
+                "points": pts, "xp": xp, "sources": []})
             if cls["name"] not in f["sources"]:
                 f["sources"].append(cls["name"])
     features = sorted(feats.values(), key=lambda f: (-f["xp"], f["name"]))
