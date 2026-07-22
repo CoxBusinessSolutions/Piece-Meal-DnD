@@ -28,12 +28,27 @@ Scaling features (Sneak Attack dice, Proficiency Bonus bumps, a second
 Expertise) are modeled as **buyable upgrade-pieces**: each tier is its own piece
 that references the piece it builds on via `upgrades`, forming a purchase chain.
 
+### Spellcasting sub-scheme
+
+Casters decompose their spell-slot progression into the same kind of
+upgrade-pieces:
+
+- `spell-tier-N` — unlocking a whole new spell level (marquee), chained tier to
+  tier.
+- `spell-slots-L` — incremental slot growth at a level that adds slots without a
+  new tier (scaling).
+- `cantrip-*` — cantrips-known increases.
+
+Levels whose only spell change is repeated slots (12, 14, 16 for a full caster)
+get no spellcasting piece. See `data/cleric.yaml` for the reference.
+
 ## Layout
 
 ```
-data/rogue.yaml   Source of truth for the Rogue (the reference prototype)
-data/rogue.md     Generated breakdown table (do not edit by hand)
-tools/price.py    Pricer / validator
+data/rogue.yaml    Source of truth — Rogue (reference martial)
+data/cleric.yaml   Source of truth — Cleric (reference full caster)
+data/*.md          Generated breakdown tables (do not edit by hand)
+tools/price.py     Pricer / validator
 ```
 
 ## Usage
@@ -48,6 +63,16 @@ Requires Python 3 and PyYAML (`pip install pyyaml`).
 
 ## Status
 
-Rogue is complete as the reference implementation. The remaining 11 SRD classes
-follow the same schema; spellcasting (slots + spells known + cantrips) will need
-its own pricing sub-scheme layered onto this model.
+- **Rogue** — complete (reference martial).
+- **Cleric** — complete (reference full caster; establishes the spellcasting
+  sub-scheme).
+
+The remaining 10 SRD classes follow these two templates: martials copy the
+Rogue, casters copy the Cleric. Half-casters (Paladin, Ranger) and the
+pact-magic Warlock will each need a small slot-table adjustment.
+
+To validate every class at once:
+
+```bash
+for f in data/*.yaml; do python3 tools/price.py "$f" --check && echo "OK $f"; done
+```
