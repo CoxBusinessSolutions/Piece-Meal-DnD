@@ -222,23 +222,37 @@ weight) followed by re-running the pricer, so the whole economy re-balances.
 The per-class model normalizes each feature's price *within* its class, so the
 same feature has different prices in different classes (Spellcasting is 33 in
 Wizard, 28 in Cleric; Fighting Style appears in four classes). A single shared
-menu needs **one canonical price per piece**, so the classless builder prices
-every feature at **`rubric points × 6`** and keeps commodities at their fixed
-catalog prices. De-duplication then falls out for free (all "Unarmored Defense"
-or "Spellcasting" entries collapse to one, tagged with the classes that grant
-it). The rate lives in `tools/build_web.py` (`CLASSLESS_RATE`).
+menu needs **one canonical price per piece**. Two knobs in `tools/build_web.py`:
 
-The trade-off: rebuilding a *standard* class this way lands near ~95–100, not
-exactly 100 — that exact-100 was a within-class device that can't survive as a
-single global price. Deviating (drop plate to afford spellcasting) is the play.
+- **Commodities** keep their fixed catalog prices.
+- **Features** default to `rubric points × CLASSLESS_RATE` (6), but **standout
+  pieces carry an explicit premium** in `CLASSLESS_FEATURE_PRICE` — Spellcasting
+  is 45, Pact Magic 38, Rage 30, Sneak Attack 28, down to ribbons at 6. The
+  premium is what makes taking a big piece a real sacrifice: with Spellcasting
+  at 45, a caster can't also afford a plate-and-martial kit, and the builder
+  greys out anything you can't afford.
+
+De-duplication falls out for free (all "Unarmored Defense" / "Spellcasting"
+entries collapse to one, tagged with the classes that grant them; the three
+"Cantrips Known (2/3/4)" rows collapse to one). The builder enforces the budget:
+it locks any feature you can't afford and shows an over-budget banner.
+
+The trade-off: with premiums, rebuilding a *standard* class runs a little over
+100 (a full caster is ~110), so even a "pure" build trims a ribbon or two —
+on-theme for "you can't have it all." Deviating is the play.
 
 ## Roadmap / next steps
 
-- **Refine the classless builder.** A working v1 ships (`web/classless.html`).
-  Possible follow-ups: give standout pieces a premium beyond their rubric points
-  (e.g. make Spellcasting pricier than a generic marquee), collapse the
-  near-duplicate "Cantrips Known (2/3/4)" entries, add level 2–20 to the
-  classless flow, and enforce/soft-warn the budget on overspend.
+- **Higher-level pieces (the big one).** The classless menu is level-1 only, so
+  everything fits inside 100. The next step is letting a character *cost more
+  than a starting budget can buy* — i.e. pull in higher-level pieces (Extra
+  Attack, higher spell tiers, ASIs) priced at their real in-play XP, and make
+  the budget itself adjustable to represent a character who has earned XP by
+  leveling. Then the most powerful ideas are naturally gated: you literally
+  can't afford them at level 1. Needs a design pass on how the level-1 (100) and
+  in-play (thousands) scales share one budget.
+- **Classless builder v1 — done:** premium pricing for standout pieces, the
+  Cantrips-Known collapse, and budget enforcement all shipped.
 - **Tune the economy.** Revisit any of the Design-notes choices above; re-run
   `tools/price.py --check` after each change.
 - **Broaden content.** More subclasses per class, or non-SRD classes/options

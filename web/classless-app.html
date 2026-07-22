@@ -99,6 +99,13 @@
   .toggle[aria-pressed="false"]{opacity:.55}
   .toggle__xp{font-family:var(--mono); font-weight:600; font-variant-numeric:tabular-nums}
   .toggle__xp small{color:var(--ink-soft); font-weight:400}
+  .toggle.is-locked{opacity:.32; cursor:not-allowed}
+  .toggle.is-locked:hover{border-color:var(--line)}
+
+  .warn{margin-top:10px; padding:9px 12px; border-radius:9px; font-size:13px;
+    border:1px solid color-mix(in srgb, var(--over) 45%, var(--line)); color:var(--over);
+    background:color-mix(in srgb, var(--over) 10%, transparent)}
+  .warn[hidden]{display:none}
 
   .feat__main{min-width:0}
   .feat__name{font-weight:500}
@@ -133,11 +140,12 @@
         </div>
         <a class="switch" href="./index.html">← By-class builder</a>
       </div>
-      <p class="hd__sub">Forget classes. Spend one <b>100-experience</b> budget on any mix of pieces — a d12 body with a wizard's spellcasting, heavy armor with sneak attack, whatever you can afford. Commodities cost their fixed price; every feature is priced at its power-points &times; 6. You can't have it all — that's the point.</p>
+      <p class="hd__sub">Forget classes. Spend one <b>100-experience</b> budget on any mix of pieces — a d12 body with a wizard's spellcasting, heavy armor with sneak attack, whatever you can afford. Commodities cost a fixed price; features are priced by power, and the biggest picks (full spellcasting) cost far more, so taking one means giving up others. You can't have it all — that's the point.</p>
     </header>
 
     <div class="meterbar">
       <div id="meter"></div>
+      <div id="warn" class="warn" hidden></div>
     </div>
 
     <div class="cols">
@@ -149,7 +157,7 @@
 
       <section class="card">
         <h2 class="card__title">Features</h2>
-        <p class="card__hint">Every class's signature level-1 pieces, deduplicated. Priced at power-points &times; 6.</p>
+        <p class="card__hint">Every class's signature level-1 pieces, deduplicated. Priced by power — standouts cost more. Pieces you can't afford grey out.</p>
         <div class="feat-tools">
           <input type="search" id="search" placeholder="Filter features…" aria-label="Filter features">
           <button class="btn" id="clear-feats">Clear all</button>
@@ -162,7 +170,7 @@
   </div>
 </div>
 
-<script>window.__PIECEMEAL_CLASSLESS__ = /*DATA_START*/{"budget":100,"rate":6,"commodities":{"save":4,"skill":3,"tool":3,"starting_kit":6,"shield":2,"hitDie":[{"id":"d6","label":"d6","xp":6},{"id":"d8","label":"d8","xp":8},{"id":"d10","label":"d10","xp":10},{"id":"d12","label":"d12","xp":12}],"armor":[{"id":"none","label":"None","xp":0},{"id":"light","label":"Light","xp":3},{"id":"medium","label":"Light + Medium","xp":6},{"id":"heavy","label":"Light + Medium + Heavy","xp":10}],"weapon":[{"id":"none","label":"None","xp":0},{"id":"limited","label":"Limited list","xp":2},{"id":"simple","label":"All simple","xp":4},{"id":"simple_plus_few_martial","label":"Simple + a few martial","xp":6},{"id":"simple_and_martial","label":"Simple + Martial","xp":8}]},"features":[{"id":"bardic-inspiration","name":"Bardic Inspiration (d6)","tag":"marquee","points":5,"xp":30,"sources":["Bard"]},{"id":"expertise-1","name":"Expertise (first pair)","tag":"marquee","points":5,"xp":30,"sources":["Rogue"]},{"id":"fighting-style","name":"Fighting Style","tag":"marquee","points":5,"xp":30,"sources":["Fighter"]},{"id":"lay-on-hands","name":"Lay on Hands","tag":"marquee","points":5,"xp":30,"sources":["Paladin"]},{"id":"martial-arts","name":"Martial Arts (d4)","tag":"marquee","points":5,"xp":30,"sources":["Monk"]},{"id":"pact-magic","name":"Pact Magic (1st-level spell slots)","tag":"spellcasting","points":5,"xp":30,"sources":["Warlock"]},{"id":"rage","name":"Rage","tag":"marquee","points":5,"xp":30,"sources":["Barbarian"]},{"id":"sneak-attack-1d6","name":"Sneak Attack (1d6)","tag":"marquee","points":5,"xp":30,"sources":["Rogue"]},{"id":"spellcasting","name":"Spellcasting (1st-level spells)","tag":"spellcasting","points":5,"xp":30,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"arcane-recovery","name":"Arcane Recovery","tag":"utility","points":3,"xp":18,"sources":["Wizard"]},{"id":"divine-sense","name":"Divine Sense","tag":"utility","points":3,"xp":18,"sources":["Paladin"]},{"id":"draconic-resilience","name":"Draconic Bloodline: Draconic Resilience","tag":"utility","points":3,"xp":18,"sources":["Sorcerer"]},{"id":"favored-enemy","name":"Favored Enemy","tag":"utility","points":3,"xp":18,"sources":["Ranger"]},{"id":"disciple-of-life","name":"Life Domain: Disciple of Life","tag":"utility","points":3,"xp":18,"sources":["Cleric"]},{"id":"natural-explorer","name":"Natural Explorer","tag":"utility","points":3,"xp":18,"sources":["Ranger"]},{"id":"second-wind","name":"Second Wind","tag":"utility","points":3,"xp":18,"sources":["Fighter"]},{"id":"dark-ones-blessing","name":"The Fiend: Dark One's Blessing","tag":"utility","points":3,"xp":18,"sources":["Warlock"]},{"id":"unarmored-defense","name":"Unarmored Defense","tag":"utility","points":3,"xp":18,"sources":["Barbarian","Monk"]},{"id":"cantrips-known-2","name":"Cantrips Known (2)","tag":"proficiency","points":2,"xp":12,"sources":["Bard","Druid","Warlock"]},{"id":"cantrips-known-3","name":"Cantrips Known (3)","tag":"proficiency","points":2,"xp":12,"sources":["Cleric","Wizard"]},{"id":"cantrips-known-4","name":"Cantrips Known (4)","tag":"proficiency","points":2,"xp":12,"sources":["Sorcerer"]},{"id":"dragon-ancestor","name":"Draconic Bloodline: Dragon Ancestor","tag":"ribbon","points":1,"xp":6,"sources":["Sorcerer"]},{"id":"druidic","name":"Druidic","tag":"ribbon","points":1,"xp":6,"sources":["Druid"]},{"id":"spellbook","name":"Spellbook","tag":"ribbon","points":1,"xp":6,"sources":["Wizard"]},{"id":"expanded-spell-list","name":"The Fiend: Expanded Spell List","tag":"ribbon","points":1,"xp":6,"sources":["Warlock"]},{"id":"thieves-cant","name":"Thieves' Cant","tag":"ribbon","points":1,"xp":6,"sources":["Rogue"]}]}/*DATA_END*/;</script>
+<script>window.__PIECEMEAL_CLASSLESS__ = /*DATA_START*/{"budget":100,"rate":6,"commodities":{"save":4,"skill":3,"tool":3,"starting_kit":6,"shield":2,"hitDie":[{"id":"d6","label":"d6","xp":6},{"id":"d8","label":"d8","xp":8},{"id":"d10","label":"d10","xp":10},{"id":"d12","label":"d12","xp":12}],"armor":[{"id":"none","label":"None","xp":0},{"id":"light","label":"Light","xp":3},{"id":"medium","label":"Light + Medium","xp":6},{"id":"heavy","label":"Light + Medium + Heavy","xp":10}],"weapon":[{"id":"none","label":"None","xp":0},{"id":"limited","label":"Limited list","xp":2},{"id":"simple","label":"All simple","xp":4},{"id":"simple_plus_few_martial","label":"Simple + a few martial","xp":6},{"id":"simple_and_martial","label":"Simple + Martial","xp":8}]},"features":[{"id":"spellcasting","name":"Spellcasting (1st-level spells)","tag":"spellcasting","points":5,"xp":45,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"pact-magic","name":"Pact Magic (1st-level spell slots)","tag":"spellcasting","points":5,"xp":38,"sources":["Warlock"]},{"id":"rage","name":"Rage","tag":"marquee","points":5,"xp":30,"sources":["Barbarian"]},{"id":"martial-arts","name":"Martial Arts (d4)","tag":"marquee","points":5,"xp":28,"sources":["Monk"]},{"id":"sneak-attack-1d6","name":"Sneak Attack (1d6)","tag":"marquee","points":5,"xp":28,"sources":["Rogue"]},{"id":"bardic-inspiration","name":"Bardic Inspiration (d6)","tag":"marquee","points":5,"xp":26,"sources":["Bard"]},{"id":"fighting-style","name":"Fighting Style","tag":"marquee","points":5,"xp":24,"sources":["Fighter"]},{"id":"lay-on-hands","name":"Lay on Hands","tag":"marquee","points":5,"xp":24,"sources":["Paladin"]},{"id":"expertise-1","name":"Expertise (first pair)","tag":"marquee","points":5,"xp":22,"sources":["Rogue"]},{"id":"arcane-recovery","name":"Arcane Recovery","tag":"utility","points":3,"xp":18,"sources":["Wizard"]},{"id":"divine-sense","name":"Divine Sense","tag":"utility","points":3,"xp":18,"sources":["Paladin"]},{"id":"draconic-resilience","name":"Draconic Bloodline: Draconic Resilience","tag":"utility","points":3,"xp":18,"sources":["Sorcerer"]},{"id":"favored-enemy","name":"Favored Enemy","tag":"utility","points":3,"xp":18,"sources":["Ranger"]},{"id":"disciple-of-life","name":"Life Domain: Disciple of Life","tag":"utility","points":3,"xp":18,"sources":["Cleric"]},{"id":"natural-explorer","name":"Natural Explorer","tag":"utility","points":3,"xp":18,"sources":["Ranger"]},{"id":"second-wind","name":"Second Wind","tag":"utility","points":3,"xp":18,"sources":["Fighter"]},{"id":"dark-ones-blessing","name":"The Fiend: Dark One's Blessing","tag":"utility","points":3,"xp":18,"sources":["Warlock"]},{"id":"unarmored-defense","name":"Unarmored Defense","tag":"utility","points":3,"xp":18,"sources":["Barbarian","Monk"]},{"id":"cantrips-known","name":"Cantrips Known","tag":"proficiency","points":2,"xp":12,"sources":["Bard","Cleric","Druid","Sorcerer","Warlock","Wizard"]},{"id":"dragon-ancestor","name":"Draconic Bloodline: Dragon Ancestor","tag":"ribbon","points":1,"xp":6,"sources":["Sorcerer"]},{"id":"druidic","name":"Druidic","tag":"ribbon","points":1,"xp":6,"sources":["Druid"]},{"id":"spellbook","name":"Spellbook","tag":"ribbon","points":1,"xp":6,"sources":["Wizard"]},{"id":"expanded-spell-list","name":"The Fiend: Expanded Spell List","tag":"ribbon","points":1,"xp":6,"sources":["Warlock"]},{"id":"thieves-cant","name":"Thieves' Cant","tag":"ribbon","points":1,"xp":6,"sources":["Rogue"]}]}/*DATA_END*/;</script>
 <script>
 (function(){
   var D = window.__PIECEMEAL_CLASSLESS__;
@@ -220,13 +228,24 @@
         '<span><i class="dot dot--feature"></i>Features '+feat+' · '+state.features.size+' picked</span>'+
         '<button class="btn" id="reset">Reset</button>'+
       '</div>';
+    var warn = document.getElementById("warn");
+    if(remain < 0){
+      warn.hidden = false;
+      warn.innerHTML = "You're <b>"+(-remain)+"</b> experience over budget — remove a piece or pick a cheaper commodity.";
+    } else {
+      warn.hidden = true;
+    }
     document.getElementById("reset").addEventListener("click", resetAll);
   }
+
+  function refresh(){ renderMeter(); renderFeatures(); }
+
+  function remaining(){ return D.budget - commodityTotal() - featureTotal(); }
 
   function resetAll(){
     state.hitDie="d8"; state.armor="none"; state.shield=false; state.weapon="simple";
     state.saves=2; state.skills=2; state.tools=0; state.kit=true; state.features.clear();
-    renderCommodities(); renderFeatures(); renderMeter();
+    renderCommodities(); refresh();
   }
 
   // ---- Commodities ----
@@ -280,22 +299,22 @@
     var host = document.getElementById("commodities");
     host.innerHTML = "";
     host.appendChild(seg("Hit die", "pick one", C.hitDie, state.hitDie, function(id){
-      state.hitDie=id; renderCommodities(); renderMeter(); }));
+      state.hitDie=id; renderCommodities(); refresh(); }));
     host.appendChild(seg("Armor", "pick one", C.armor, state.armor, function(id){
-      state.armor=id; renderCommodities(); renderMeter(); }));
+      state.armor=id; renderCommodities(); refresh(); }));
     host.appendChild(seg("Weapons", "pick one", C.weapon, state.weapon, function(id){
-      state.weapon=id; renderCommodities(); renderMeter(); }));
+      state.weapon=id; renderCommodities(); refresh(); }));
     host.appendChild(stepper("Saving throws", C.save, state.saves, 0, 6, function(v){
-      state.saves=v; renderCommodities(); renderMeter(); }));
+      state.saves=v; renderCommodities(); refresh(); }));
     host.appendChild(stepper("Skills", C.skill, state.skills, 0, 8, function(v){
-      state.skills=v; renderCommodities(); renderMeter(); }));
+      state.skills=v; renderCommodities(); refresh(); }));
     host.appendChild(stepper("Tools", C.tool, state.tools, 0, 4, function(v){
-      state.tools=v; renderCommodities(); renderMeter(); }));
+      state.tools=v; renderCommodities(); refresh(); }));
     var kit = toggleRow("Shield (+"+C.shield+")", C.shield, state.shield, function(){
-      state.shield=!state.shield; renderCommodities(); renderMeter(); });
+      state.shield=!state.shield; renderCommodities(); refresh(); });
     host.appendChild(kit);
     var sk = toggleRow("Starting equipment package", C.starting_kit, state.kit, function(){
-      state.kit=!state.kit; renderCommodities(); renderMeter(); });
+      state.kit=!state.kit; renderCommodities(); refresh(); });
     sk.style.marginTop="6px";
     host.appendChild(sk);
   }
@@ -305,14 +324,19 @@
     var host = document.getElementById("features");
     host.innerHTML = "";
     var q = state.query.trim().toLowerCase();
+    var left = remaining();
     var shown = 0;
     D.features.forEach(function(f){
       var hay = (f.name+" "+f.sources.join(" ")+" "+(TAGLABEL[f.tag]||f.tag)).toLowerCase();
       if(q && hay.indexOf(q)===-1) return;
       shown++;
       var on = state.features.has(f.id);
+      var locked = !on && f.xp > left;   // can't afford to add it
       var b = document.createElement("button");
-      b.className="toggle"; b.type="button"; b.setAttribute("aria-pressed", String(on));
+      b.className = "toggle" + (locked ? " is-locked" : "");
+      b.type="button";
+      b.setAttribute("aria-pressed", String(on));
+      if(locked){ b.setAttribute("aria-disabled","true"); b.title="Not enough experience left"; }
       var chips = '<span class="chip chip--tag">'+(TAGLABEL[f.tag]||f.tag)+'</span>'+
         f.sources.map(function(s){ return '<span class="chip">'+s+'</span>'; }).join("");
       b.innerHTML = '<span class="toggle__check">'+CHECK+'</span>'+
@@ -320,10 +344,10 @@
         '<span class="feat__meta">'+chips+'</span></span>'+
         '<span class="toggle__xp">'+f.xp+'<small> xp</small></span>';
       b.addEventListener("click", function(){
+        if(!state.features.has(f.id) && f.xp > remaining()) return;  // locked
         if(state.features.has(f.id)) state.features.delete(f.id);
         else state.features.add(f.id);
-        b.setAttribute("aria-pressed", String(state.features.has(f.id)));
-        renderMeter();
+        refresh();
       });
       host.appendChild(b);
     });
@@ -337,13 +361,14 @@
     state.query = e.target.value; renderFeatures();
   });
   document.getElementById("clear-feats").addEventListener("click", function(){
-    state.features.clear(); renderFeatures(); renderMeter();
+    state.features.clear(); refresh();
   });
 
   document.getElementById("foot").innerHTML =
-    'Canonical prices: commodities from <code>data/level1_catalog.yaml</code>; features at power-points × '+D.rate+
-    '. Rebuilding a standard class lands near (not exactly) 100 — that exact-100 was a per-class device. '+
-    'Tune any price in the data and re-run <code>tools/build_web.py</code>.';
+    'Commodity prices from <code>data/level1_catalog.yaml</code>; feature prices from '+
+    '<code>CLASSLESS_FEATURE_PRICE</code> in <code>tools/build_web.py</code> (standouts get a premium; '+
+    'the rest default to power-points × '+D.rate+'). With premiums, a full caster now runs a little over 100 — '+
+    'so even a "pure" build trims something. Higher-level pieces (priced beyond the 100 you start with) are the planned next step.';
 
   renderCommodities();
   renderFeatures();
