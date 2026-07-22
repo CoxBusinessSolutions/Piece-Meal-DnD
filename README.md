@@ -36,14 +36,28 @@ that keeps it fair is splitting each class's pieces into two kinds:
 
 The consequence is exactly the intended one: a class that buys **fewer/cheaper
 commodities has more of its 100 flowing into its signature features**, so those
-features "carry more weight." Compare the two extremes:
+features "carry more weight." All 12 classes, sorted by how much they spend on
+commodities (durability + proficiencies) vs. how much is left for signature
+features:
 
-| | Commodity load | Left for signature features |
-|---|---:|---:|
-| **Fighter** (all armor, all weapons, d10) | 50 | 50 → Fighting Style 31, Second Wind 19 |
-| **Rogue** (4 skills, light armor, tools, d8) | 46 | 54 → Sneak Attack 25, Expertise 24, Cant 5 |
-| **Cleric** (all armor, simple weapons, d8) | 44 | 56 → Spellcasting 28, Disciple 17, Cantrips 11 |
-| **Wizard** (no armor, 5 weapons, d6) | 28 | 72 → Spellcasting 33, Arcane Recovery 20, Cantrips 13, Spellbook 6 |
+| Class | Hit die | Commodities | Features | Biggest single feature |
+|---|:--:|---:|---:|---|
+| Sorcerer | d6 | 28 | 72 | Spellcasting 33 |
+| Wizard | d6 | 28 | 72 | Spellcasting 33 |
+| Monk | d8 | 35 | 65 | Martial Arts 41 |
+| Warlock | d8 | 35 | 65 | Pact Magic 29 |
+| Druid | d8 | 43 | 57 | Spellcasting 36 |
+| Cleric | d8 | 44 | 56 | Spellcasting 28 |
+| Rogue | d8 | 46 | 54 | Sneak Attack 25 |
+| Barbarian | d12 | 48 | 52 | Rage 33 |
+| Bard | d8 | 49 | 51 | Spellcasting 21 |
+| Ranger | d10 | 49 | 51 | Favored Enemy 26 |
+| Fighter | d10 | 50 | 50 | Fighting Style 31 |
+| Paladin | d10 | 50 | 50 | Lay on Hands 31 |
+
+The glass cannons (d6, no armor) keep only 28 in commodities and pour 72 into
+magic; the plate-and-shield martials (d10, all armor) spend a full half of their
+budget just being durable. Same 100 for everyone — very different characters.
 
 Because every commodity has a fixed price, the budget is a real constraint: a
 100-XP character **can't** buy all-armor (12) + a d10 body (10) + all martial
@@ -96,16 +110,13 @@ Three spell mechanics are modeled, all with the same upgrade-chain style:
 
 ```
 data/level1_catalog.yaml   Shared, fixed prices for level-1 commodities
-data/fighter.yaml          Source of truth — Fighter (reference pure martial)
-data/wizard.yaml           Source of truth — Wizard  (reference full caster)
-data/rogue.yaml            Source of truth — Rogue   (skirmisher)
-data/cleric.yaml           Source of truth — Cleric  (hybrid full caster)
-data/paladin.yaml          Source of truth — Paladin (reference half-caster)
-data/ranger.yaml           Source of truth — Ranger  (half-caster)
-data/warlock.yaml          Source of truth — Warlock (reference Pact Magic)
-data/*.md                  Generated breakdown tables (do not edit by hand)
+data/<class>.yaml          Source of truth — one file per class (all 12)
+data/<class>.md            Generated breakdown tables (do not edit by hand)
 tools/price.py             Pricer / validator
 ```
+
+All 12 SRD classes are present: barbarian, bard, cleric, druid, fighter, monk,
+paladin, ranger, rogue, sorcerer, warlock, wizard.
 
 ## Usage
 
@@ -128,17 +139,17 @@ done
 
 ## Status
 
-Complete (level-1 creation budget **and** levels 2–20 in-play ledger):
+**All 12 SRD classes are complete** — both the level-1 creation budget (each
+summing to exactly 100) and the levels 2–20 in-play ledger (each reconciling to
+the SRD thresholds through 355,000). Every class shape is represented:
 
-- **Fighter** — reference pure martial.
-- **Wizard** — reference full caster.
-- **Rogue** — reference skirmisher.
-- **Cleric** — reference hybrid full caster.
-- **Paladin** — reference half-caster.
-- **Ranger** — half-caster.
-- **Warlock** — reference Pact Magic.
+- **Pure martial** — Barbarian, Fighter
+- **Martial + resource** — Monk (Ki)
+- **Skirmisher** — Rogue
+- **Half-caster** — Paladin, Ranger
+- **Full caster** — Bard, Cleric, Druid, Sorcerer, Wizard
+- **Pact Magic** — Warlock
 
-That's 7 of the 12 SRD classes, and every caster shape is now covered. The
-remaining 5 (**Barbarian, Bard, Druid, Monk, Sorcerer**) reuse these templates:
-Barbarian/Monk follow the martial model, Bard/Druid/Sorcerer follow the full
-caster.
+Possible next steps: tune the commodity/point values, add the non-SRD classes or
+alternate subclasses, or build a front-end that reads these YAMLs as an
+à-la-carte character-builder shop.
