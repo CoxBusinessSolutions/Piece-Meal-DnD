@@ -260,6 +260,9 @@ the low-level view clean; the menu grows as you level up.
 - **Repeatable picks.** Ability Score Improvements and extra spell slots use a
   stepper so you can buy them more than once. HP and proficiency-bonus bumps are
   still left out (commodity-ish).
+- **Load a standard class.** A "Quick start" dropdown reconstructs a stock class
+  at the current level — its commodity kit plus every feature it gains up to
+  that level — as a baseline you then tweak.
 
 ## Roadmap / next steps
 
@@ -268,10 +271,13 @@ the low-level view clean; the menu grows as you level up.
   pieces gated by their real in-play XP, **enforced prerequisite chains**,
   **repeatable ASIs / extra slots**, and mean-at-earliest-level canonical prices
   (see *Levels beyond 1*).
+- **Load a standard class — done:** a "Quick start" dropdown fills the stock
+  class at the chosen level (its commodity kit + its features) as a starting
+  point to tweak. Because HP/proficiency bumps aren't in the menu, a loaded
+  class sits comfortably under budget, leaving room to deviate.
 - **Further polish.** Repeatable-pick cost could escalate (a 5th ASI costing
   more than the 1st); repeatable slots could cap at their real per-class limits;
-  and the menu could group by level band or offer a "load a standard class"
-  preset.
+  and the menu could group by level band for easier scanning.
 - **Tune the economy.** Revisit any of the Design-notes choices above; re-run
   `tools/price.py --check` after each change.
 - **Broaden content.** More subclasses per class, or non-SRD classes/options
