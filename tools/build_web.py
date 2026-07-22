@@ -56,6 +56,20 @@ CLASSLESS_FEATURE_PRICE = {
     "Expertise (first pair)": 22,
 }
 
+# SRD cumulative XP thresholds. The classless "build as level" budget presets are
+# 100 (creation) + these, so higher-level pieces — priced at their real in-play
+# XP — unlock only as you raise the dial. That is the "you'd need to be higher
+# level to buy this" gating.
+SRD_THRESHOLDS = {1: 0, 2: 300, 3: 900, 4: 2700, 5: 6500, 6: 14000, 7: 23000,
+                  8: 34000, 9: 48000, 10: 64000, 11: 85000, 12: 100000,
+                  13: 120000, 14: 140000, 15: 165000, 16: 195000, 17: 225000,
+                  18: 265000, 19: 305000, 20: 355000}
+BUDGET_LEVELS = [1, 2, 3, 5, 8, 11, 14, 17, 20]
+
+# Which levels 2-20 piece tags become buyable "features" in the classless menu.
+# hp / proficiency-bonus / ASI are commodity-ish or plain stat bumps, left out.
+HL_TAGS = {"marquee", "spellcasting", "scaling", "slots", "utility"}
+
 # Load the pricer as a module so we reuse its exact pricing logic.
 _spec = importlib.util.spec_from_file_location(
     "price", os.path.join(ROOT, "tools", "price.py"))
@@ -124,6 +138,7 @@ def build_classless(catalog, classes):
     # Features: union of every class's level-1 unique features, de-duplicated by
     # name, priced at points x rate, tagged with the classes that grant them.
     feats = {}
+    # Level-1 signature pieces (premium-priced, deduplicated), tagged level 1.
     for cls in classes.values():
         for p in cls["level1"]:
             if p["type"] != "feature":
@@ -137,13 +152,38 @@ def build_classless(catalog, classes):
             xp = CLASSLESS_FEATURE_PRICE.get(name, pts * CLASSLESS_RATE)
             f = feats.setdefault(name, {
                 "id": fid, "name": name, "tag": p["detail"],
-                "points": pts, "xp": xp, "sources": []})
+                "xp": xp, "level": 1, "sources": []})
             if cls["name"] not in f["sources"]:
                 f["sources"].append(cls["name"])
-    features = sorted(feats.values(), key=lambda f: (-f["xp"], f["name"]))
+
+    # Higher-level pieces, priced at their real in-play XP, so they are gated:
+    # unaffordable at the 100-XP starting budget and unlocking only as the level
+    # dial raises the budget. De-duplicated by name (cheapest / earliest wins).
+    for cls in classes.values():
+        for r in cls["levels"]:
+            if r["tag"] not in HL_TAGS:
+                continue
+            name = r["name"]
+            f = feats.get(name)
+            if f is None:
+                feats[name] = {
+                    "id": re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-"),
+                    "name": name, "tag": r["tag"], "xp": r["xp"],
+                    "level": r["lvl"], "sources": [cls["name"]]}
+            elif f["level"] > 1:  # merge into an existing higher-level entry
+                f["xp"] = min(f["xp"], r["xp"])
+                f["level"] = min(f["level"], r["lvl"])
+                if cls["name"] not in f["sources"]:
+                    f["sources"].append(cls["name"])
+            # else: name already owned by a level-1 feature; leave it.
+
+    features = sorted(feats.values(), key=lambda f: (f["level"], -f["xp"], f["name"]))
+    budgets = [{"level": L, "budget": catalog["creation_budget"] + SRD_THRESHOLDS[L]}
+               for L in BUDGET_LEVELS]
 
     return {
-        "budget": catalog["creation_budget"], "rate": CLASSLESS_RATE,
+        "budget": catalog["creation_budget"], "budgets": budgets,
+        "rate": CLASSLESS_RATE,
         "commodities": {
             "save": c["save"], "skill": c["skill"], "tool": c["tool"],
             "starting_kit": c["starting_kit"], "shield": armor["shield"],

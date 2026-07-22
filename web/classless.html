@@ -40,7 +40,7 @@
   .pm__wrap{max-width:1000px; margin:0 auto}
   .pm a{color:var(--accent)}
 
-  .hd{margin-bottom:18px}
+  .hd{margin-bottom:16px}
   .hd__top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
   .hd__kicker{font-family:var(--mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin:0 0 6px}
   .hd__title{font-family:var(--serif); font-weight:600; font-size:clamp(26px,4.6vw,38px); margin:0; text-wrap:balance}
@@ -49,8 +49,12 @@
     border:1px solid var(--line); border-radius:999px; padding:6px 12px; color:var(--ink-soft)}
   .switch:hover{border-color:var(--accent-soft); color:var(--ink)}
 
+  /* Level dial */
+  .levels{display:flex; align-items:center; gap:10px 14px; flex-wrap:wrap; margin:14px 0 4px}
+  .levels__label{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft)}
+
   /* Sticky budget meter */
-  .meterbar{position:sticky; top:0; z-index:5; padding:14px 0 10px; background:var(--bg)}
+  .meterbar{position:sticky; top:0; z-index:5; padding:12px 0 10px; background:var(--bg)}
   .meter__nums{display:flex; align-items:baseline; gap:8px; margin-bottom:8px; font-family:var(--mono)}
   .meter__spent{font-size:26px; font-weight:600; font-variant-numeric:tabular-nums}
   .meter__of{color:var(--ink-soft); font-size:14px}
@@ -104,7 +108,7 @@
   .toggle__check svg{width:12px;height:12px;opacity:0}
   .toggle[aria-pressed="true"] .toggle__check{background:var(--accent); border-color:var(--accent)}
   .toggle[aria-pressed="true"] .toggle__check svg{opacity:1}
-  .toggle[aria-pressed="false"]{opacity:.55}
+  .toggle[aria-pressed="false"]{opacity:.72}
   .toggle__xp{font-family:var(--mono); font-weight:600; font-variant-numeric:tabular-nums}
   .toggle__xp small{color:var(--ink-soft); font-weight:400}
   .toggle.is-locked{opacity:.32; cursor:not-allowed}
@@ -121,12 +125,14 @@
   .chip{font-family:var(--mono); font-size:9.5px; letter-spacing:.03em; text-transform:uppercase; color:var(--ink-soft);
     border:1px solid var(--line); border-radius:999px; padding:1px 7px}
   .chip--tag{color:var(--feature); border-color:color-mix(in srgb, var(--feature) 40%, var(--line))}
+  .chip--lv{color:var(--accent); border-color:var(--accent-soft)}
 
-  .feat-tools{display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap}
-  .feat-tools input[type="search"]{flex:1; min-width:160px; font-family:var(--sans); font-size:13px; padding:7px 11px;
+  .feat-tools{display:flex; gap:10px 12px; align-items:center; margin-bottom:12px; flex-wrap:wrap}
+  .feat-tools input[type="search"]{flex:1; min-width:150px; font-family:var(--sans); font-size:13px; padding:7px 11px;
     border-radius:8px; border:1px solid var(--line); background:var(--panel-2); color:var(--ink)}
   .feat-tools input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
-  .feat-list{display:flex; flex-direction:column; gap:6px; max-height:none}
+  .hidetog{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-soft); cursor:pointer; white-space:nowrap}
+  .feat-list{display:flex; flex-direction:column; gap:6px}
 
   .btn{font-family:var(--sans); font-size:12.5px; padding:5px 11px; border-radius:8px; cursor:pointer;
     background:transparent; border:1px solid var(--line); color:var(--ink-soft)}
@@ -134,7 +140,7 @@
 
   .foot{margin-top:24px; color:var(--ink-soft); font-size:12.5px; line-height:1.6}
   .foot code{font-family:var(--mono); background:var(--panel-2); padding:1px 5px; border-radius:4px; font-size:12px}
-  button:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  button:focus-visible, a:focus-visible, input:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
   @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
 
@@ -148,7 +154,12 @@
         </div>
         <a class="switch" href="./index.html">← By-class builder</a>
       </div>
-      <p class="hd__sub">Forget classes. Spend one <b>100-experience</b> budget on any mix of pieces — a d12 body with a wizard's spellcasting, heavy armor with sneak attack, whatever you can afford. Commodities cost a fixed price; features are priced by power, and the biggest picks (full spellcasting) cost far more, so taking one means giving up others. You can't have it all — that's the point.</p>
+      <p class="hd__sub">Forget classes. Set how much experience you've earned, then spend it on any mix of pieces. At level 1 you have 100 — enough for a signature or two. The powerful ideas (Extra Attack, higher-level spells) cost real earned XP, so you literally can't buy them until you've leveled up. You can't have it all — that's the point.</p>
+
+      <div class="levels">
+        <span class="levels__label">Build as level</span>
+        <div class="seg" id="budget"></div>
+      </div>
     </header>
 
     <div class="meterbar">
@@ -159,16 +170,17 @@
     <div class="cols">
       <section class="card">
         <h2 class="card__title">Commodities</h2>
-        <p class="card__hint">The shared basics. Fixed prices — the same for any build.</p>
+        <p class="card__hint">The shared basics — your body and training. Fixed prices.</p>
         <div id="commodities"></div>
       </section>
 
       <section class="card">
         <h2 class="card__title">Features</h2>
-        <p class="card__hint">Every class's signature level-1 pieces, deduplicated. Priced by power — standouts cost more. Pieces you can't afford grey out.</p>
+        <p class="card__hint">Signature pieces from every class, deduplicated. Level-1 picks are cheap; higher-level pieces cost their real earned XP.</p>
         <div class="feat-tools">
           <input type="search" id="search" placeholder="Filter features…" aria-label="Filter features">
-          <button class="btn" id="clear-feats">Clear all</button>
+          <label class="hidetog"><input type="checkbox" id="hide-locked" checked> Hide unaffordable</label>
+          <button class="btn" id="clear-feats">Clear</button>
         </div>
         <div class="feat-list" id="features"></div>
       </section>
@@ -178,53 +190,67 @@
   </div>
 </div>
 
-<script>window.__PIECEMEAL_CLASSLESS__ = /*DATA_START*/{"budget":100,"rate":6,"commodities":{"save":4,"skill":3,"tool":3,"starting_kit":6,"shield":2,"hitDie":[{"id":"d6","label":"d6","xp":6},{"id":"d8","label":"d8","xp":8},{"id":"d10","label":"d10","xp":10},{"id":"d12","label":"d12","xp":12}],"armor":[{"id":"none","label":"None","xp":0},{"id":"light","label":"Light","xp":3},{"id":"medium","label":"Light + Medium","xp":6},{"id":"heavy","label":"Light + Medium + Heavy","xp":10}],"weapon":[{"id":"none","label":"None","xp":0},{"id":"limited","label":"Limited list","xp":2},{"id":"simple","label":"All simple","xp":4},{"id":"simple_plus_few_martial","label":"Simple + a few martial","xp":6},{"id":"simple_and_martial","label":"Simple + Martial","xp":8}]},"features":[{"id":"spellcasting","name":"Spellcasting (1st-level spells)","tag":"spellcasting","points":5,"xp":45,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"pact-magic","name":"Pact Magic (1st-level spell slots)","tag":"spellcasting","points":5,"xp":38,"sources":["Warlock"]},{"id":"rage","name":"Rage","tag":"marquee","points":5,"xp":30,"sources":["Barbarian"]},{"id":"martial-arts","name":"Martial Arts (d4)","tag":"marquee","points":5,"xp":28,"sources":["Monk"]},{"id":"sneak-attack-1d6","name":"Sneak Attack (1d6)","tag":"marquee","points":5,"xp":28,"sources":["Rogue"]},{"id":"bardic-inspiration","name":"Bardic Inspiration (d6)","tag":"marquee","points":5,"xp":26,"sources":["Bard"]},{"id":"fighting-style","name":"Fighting Style","tag":"marquee","points":5,"xp":24,"sources":["Fighter"]},{"id":"lay-on-hands","name":"Lay on Hands","tag":"marquee","points":5,"xp":24,"sources":["Paladin"]},{"id":"expertise-1","name":"Expertise (first pair)","tag":"marquee","points":5,"xp":22,"sources":["Rogue"]},{"id":"arcane-recovery","name":"Arcane Recovery","tag":"utility","points":3,"xp":18,"sources":["Wizard"]},{"id":"divine-sense","name":"Divine Sense","tag":"utility","points":3,"xp":18,"sources":["Paladin"]},{"id":"draconic-resilience","name":"Draconic Bloodline: Draconic Resilience","tag":"utility","points":3,"xp":18,"sources":["Sorcerer"]},{"id":"favored-enemy","name":"Favored Enemy","tag":"utility","points":3,"xp":18,"sources":["Ranger"]},{"id":"disciple-of-life","name":"Life Domain: Disciple of Life","tag":"utility","points":3,"xp":18,"sources":["Cleric"]},{"id":"natural-explorer","name":"Natural Explorer","tag":"utility","points":3,"xp":18,"sources":["Ranger"]},{"id":"second-wind","name":"Second Wind","tag":"utility","points":3,"xp":18,"sources":["Fighter"]},{"id":"dark-ones-blessing","name":"The Fiend: Dark One's Blessing","tag":"utility","points":3,"xp":18,"sources":["Warlock"]},{"id":"unarmored-defense","name":"Unarmored Defense","tag":"utility","points":3,"xp":18,"sources":["Barbarian","Monk"]},{"id":"cantrips-known","name":"Cantrips Known","tag":"proficiency","points":2,"xp":12,"sources":["Bard","Cleric","Druid","Sorcerer","Warlock","Wizard"]},{"id":"dragon-ancestor","name":"Draconic Bloodline: Dragon Ancestor","tag":"ribbon","points":1,"xp":6,"sources":["Sorcerer"]},{"id":"druidic","name":"Druidic","tag":"ribbon","points":1,"xp":6,"sources":["Druid"]},{"id":"spellbook","name":"Spellbook","tag":"ribbon","points":1,"xp":6,"sources":["Wizard"]},{"id":"expanded-spell-list","name":"The Fiend: Expanded Spell List","tag":"ribbon","points":1,"xp":6,"sources":["Warlock"]},{"id":"thieves-cant","name":"Thieves' Cant","tag":"ribbon","points":1,"xp":6,"sources":["Rogue"]}]}/*DATA_END*/;</script>
+<script>window.__PIECEMEAL_CLASSLESS__ = /*DATA_START*/{"budget":100,"budgets":[{"level":1,"budget":100},{"level":2,"budget":400},{"level":3,"budget":1000},{"level":5,"budget":6600},{"level":8,"budget":34100},{"level":11,"budget":85100},{"level":14,"budget":140100},{"level":17,"budget":225100},{"level":20,"budget":355100}],"rate":6,"commodities":{"save":4,"skill":3,"tool":3,"starting_kit":6,"shield":2,"hitDie":[{"id":"d6","label":"d6","xp":6},{"id":"d8","label":"d8","xp":8},{"id":"d10","label":"d10","xp":10},{"id":"d12","label":"d12","xp":12}],"armor":[{"id":"none","label":"None","xp":0},{"id":"light","label":"Light","xp":3},{"id":"medium","label":"Light + Medium","xp":6},{"id":"heavy","label":"Light + Medium + Heavy","xp":10}],"weapon":[{"id":"none","label":"None","xp":0},{"id":"limited","label":"Limited list","xp":2},{"id":"simple","label":"All simple","xp":4},{"id":"simple_plus_few_martial","label":"Simple + a few martial","xp":6},{"id":"simple_and_martial","label":"Simple + Martial","xp":8}]},"features":[{"id":"spellcasting","name":"Spellcasting (1st-level spells)","tag":"spellcasting","xp":45,"level":1,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"pact-magic","name":"Pact Magic (1st-level spell slots)","tag":"spellcasting","xp":38,"level":1,"sources":["Warlock"]},{"id":"rage","name":"Rage","tag":"marquee","xp":30,"level":1,"sources":["Barbarian"]},{"id":"martial-arts","name":"Martial Arts (d4)","tag":"marquee","xp":28,"level":1,"sources":["Monk"]},{"id":"sneak-attack-1d6","name":"Sneak Attack (1d6)","tag":"marquee","xp":28,"level":1,"sources":["Rogue"]},{"id":"bardic-inspiration","name":"Bardic Inspiration (d6)","tag":"marquee","xp":26,"level":1,"sources":["Bard"]},{"id":"fighting-style","name":"Fighting Style","tag":"marquee","xp":24,"level":1,"sources":["Fighter"]},{"id":"lay-on-hands","name":"Lay on Hands","tag":"marquee","xp":24,"level":1,"sources":["Paladin"]},{"id":"expertise-1","name":"Expertise (first pair)","tag":"marquee","xp":22,"level":1,"sources":["Rogue"]},{"id":"arcane-recovery","name":"Arcane Recovery","tag":"utility","xp":18,"level":1,"sources":["Wizard"]},{"id":"divine-sense","name":"Divine Sense","tag":"utility","xp":18,"level":1,"sources":["Paladin"]},{"id":"draconic-resilience","name":"Draconic Bloodline: Draconic Resilience","tag":"utility","xp":18,"level":1,"sources":["Sorcerer"]},{"id":"favored-enemy","name":"Favored Enemy","tag":"utility","xp":18,"level":1,"sources":["Ranger"]},{"id":"disciple-of-life","name":"Life Domain: Disciple of Life","tag":"utility","xp":18,"level":1,"sources":["Cleric"]},{"id":"natural-explorer","name":"Natural Explorer","tag":"utility","xp":18,"level":1,"sources":["Ranger"]},{"id":"second-wind","name":"Second Wind","tag":"utility","xp":18,"level":1,"sources":["Fighter"]},{"id":"dark-ones-blessing","name":"The Fiend: Dark One's Blessing","tag":"utility","xp":18,"level":1,"sources":["Warlock"]},{"id":"unarmored-defense","name":"Unarmored Defense","tag":"utility","xp":18,"level":1,"sources":["Barbarian","Monk"]},{"id":"cantrips-known","name":"Cantrips Known","tag":"proficiency","xp":12,"level":1,"sources":["Bard","Cleric","Druid","Sorcerer","Warlock","Wizard"]},{"id":"dragon-ancestor","name":"Draconic Bloodline: Dragon Ancestor","tag":"ribbon","xp":6,"level":1,"sources":["Sorcerer"]},{"id":"druidic","name":"Druidic","tag":"ribbon","xp":6,"level":1,"sources":["Druid"]},{"id":"spellbook","name":"Spellbook","tag":"ribbon","xp":6,"level":1,"sources":["Wizard"]},{"id":"expanded-spell-list","name":"The Fiend: Expanded Spell List","tag":"ribbon","xp":6,"level":1,"sources":["Warlock"]},{"id":"thieves-cant","name":"Thieves' Cant","tag":"ribbon","xp":6,"level":1,"sources":["Rogue"]},{"id":"action-surge-one-use","name":"Action Surge (one use)","tag":"marquee","xp":214,"level":2,"sources":["Fighter"]},{"id":"eldritch-invocations-2-known","name":"Eldritch Invocations (2 known)","tag":"marquee","xp":214,"level":2,"sources":["Warlock"]},{"id":"font-of-magic-sorcery-points","name":"Font of Magic (Sorcery Points)","tag":"marquee","xp":214,"level":2,"sources":["Sorcerer"]},{"id":"evocation-sculpt-spells","name":"Evocation: Sculpt Spells","tag":"marquee","xp":188,"level":2,"sources":["Wizard"]},{"id":"cunning-action","name":"Cunning Action","tag":"utility","xp":180,"level":2,"sources":["Rogue"]},{"id":"ki-flurry-of-blows-patient-defense-step-of-the-wind","name":"Ki (Flurry of Blows, Patient Defense, Step of the Wind)","tag":"marquee","xp":150,"level":2,"sources":["Monk"]},{"id":"reckless-attack","name":"Reckless Attack","tag":"marquee","xp":150,"level":2,"sources":["Barbarian"]},{"id":"wild-shape","name":"Wild Shape","tag":"marquee","xp":125,"level":2,"sources":["Druid"]},{"id":"channel-divinity-turn-undead","name":"Channel Divinity: Turn Undead","tag":"marquee","xp":116,"level":2,"sources":["Cleric"]},{"id":"jack-of-all-trades","name":"Jack of All Trades","tag":"utility","xp":113,"level":2,"sources":["Bard"]},{"id":"song-of-rest-d6","name":"Song of Rest (d6)","tag":"utility","xp":112,"level":2,"sources":["Bard"]},{"id":"danger-sense","name":"Danger Sense","tag":"utility","xp":90,"level":2,"sources":["Barbarian"]},{"id":"unarmored-movement","name":"Unarmored Movement","tag":"utility","xp":90,"level":2,"sources":["Monk"]},{"id":"divine-smite","name":"Divine Smite","tag":"marquee","xp":88,"level":2,"sources":["Paladin"]},{"id":"circle-of-the-land-natural-recovery","name":"Circle of the Land: Natural Recovery","tag":"utility","xp":75,"level":2,"sources":["Druid"]},{"id":"channel-divinity-1-rest","name":"Channel Divinity (1/rest)","tag":"utility","xp":69,"level":2,"sources":["Cleric"]},{"id":"life-domain-channel-divinity-preserve-life","name":"Life Domain: Channel Divinity \u2014 Preserve Life","tag":"utility","xp":69,"level":2,"sources":["Cleric"]},{"id":"champion-improved-critical","name":"Champion: Improved Critical","tag":"marquee","xp":429,"level":3,"sources":["Fighter"]},{"id":"path-of-the-berserker-frenzy","name":"Path of the Berserker: Frenzy","tag":"marquee","xp":429,"level":3,"sources":["Barbarian"]},{"id":"oath-of-devotion-channel-divinity-sacred-weapon-turn-the-unholy","name":"Oath of Devotion: Channel Divinity (Sacred Weapon, Turn the Unholy)","tag":"marquee","xp":333,"level":3,"sources":["Paladin"]},{"id":"hunter-hunter-s-prey","name":"Hunter: Hunter's Prey","tag":"marquee","xp":300,"level":3,"sources":["Ranger"]},{"id":"way-of-the-open-hand-open-hand-technique","name":"Way of the Open Hand: Open Hand Technique","tag":"marquee","xp":300,"level":3,"sources":["Monk"]},{"id":"metamagic-2-options","name":"Metamagic (2 options)","tag":"marquee","xp":250,"level":3,"sources":["Sorcerer"]},{"id":"pact-boon-chain-blade-tome","name":"Pact Boon (Chain / Blade / Tome)","tag":"marquee","xp":250,"level":3,"sources":["Warlock"]},{"id":"pact-magic-2nd-level-slots","name":"Pact Magic: 2nd-level slots","tag":"spellcasting","xp":250,"level":3,"sources":["Warlock"]},{"id":"deflect-missiles","name":"Deflect Missiles","tag":"utility","xp":180,"level":3,"sources":["Monk"]},{"id":"primeval-awareness","name":"Primeval Awareness","tag":"utility","xp":180,"level":3,"sources":["Ranger"]},{"id":"sneak-attack-2d6","name":"Sneak Attack (2d6)","tag":"scaling","xp":180,"level":3,"sources":["Rogue"]},{"id":"thief-fast-hands","name":"Thief: Fast Hands","tag":"utility","xp":180,"level":3,"sources":["Rogue"]},{"id":"college-of-lore-cutting-words","name":"College of Lore: Cutting Words","tag":"marquee","xp":158,"level":3,"sources":["Bard"]},{"id":"spellcasting-2nd-level-spells","name":"Spellcasting: 2nd-level spells","tag":"spellcasting","xp":158,"level":3,"sources":["Bard","Cleric","Druid","Paladin","Ranger","Sorcerer","Wizard"]},{"id":"slow-fall","name":"Slow Fall","tag":"utility","xp":600,"level":4,"sources":["Monk"]},{"id":"wild-shape-improvement-cr-1-2","name":"Wild Shape improvement (CR 1/2)","tag":"scaling","xp":491,"level":4,"sources":["Druid"]},{"id":"pact-magic-3rd-level-slots","name":"Pact Magic: 3rd-level slots","tag":"spellcasting","xp":1583,"level":5,"sources":["Warlock"]},{"id":"uncanny-dodge","name":"Uncanny Dodge","tag":"marquee","xp":1583,"level":5,"sources":["Rogue"]},{"id":"spellcasting-3rd-level-spells","name":"Spellcasting: 3rd-level spells","tag":"spellcasting","xp":1267,"level":5,"sources":["Bard","Cleric","Druid","Paladin","Ranger","Sorcerer","Wizard"]},{"id":"extra-attack-two-attacks","name":"Extra Attack (two attacks)","tag":"marquee","xp":1118,"level":5,"sources":["Barbarian","Fighter","Monk","Paladin","Ranger"]},{"id":"stunning-strike","name":"Stunning Strike","tag":"marquee","xp":1118,"level":5,"sources":["Monk"]},{"id":"destroy-undead-cr-1-2","name":"Destroy Undead (CR 1/2)","tag":"scaling","xp":950,"level":5,"sources":["Cleric"]},{"id":"eldritch-invocation-3rd-known","name":"Eldritch Invocation (3rd known)","tag":"scaling","xp":950,"level":5,"sources":["Warlock"]},{"id":"fast-movement","name":"Fast Movement","tag":"utility","xp":950,"level":5,"sources":["Barbarian"]},{"id":"sneak-attack-3d6","name":"Sneak Attack (3d6)","tag":"scaling","xp":950,"level":5,"sources":["Rogue"]},{"id":"bardic-inspiration-die-d8","name":"Bardic Inspiration die (d8)","tag":"scaling","xp":760,"level":5,"sources":["Bard"]},{"id":"font-of-inspiration","name":"Font of Inspiration","tag":"utility","xp":760,"level":5,"sources":["Bard"]},{"id":"martial-arts-die-d6","name":"Martial Arts die (d6)","tag":"scaling","xp":670,"level":5,"sources":["Monk"]},{"id":"aura-of-protection","name":"Aura of Protection","tag":"marquee","xp":5357,"level":6,"sources":["Paladin"]},{"id":"draconic-bloodline-elemental-affinity","name":"Draconic Bloodline: Elemental Affinity","tag":"marquee","xp":5357,"level":6,"sources":["Sorcerer"]},{"id":"the-fiend-dark-one-s-own-luck","name":"The Fiend: Dark One's Own Luck","tag":"marquee","xp":5357,"level":6,"sources":["Warlock"]},{"id":"expertise-second-pair","name":"Expertise (second pair)","tag":"marquee","xp":4706,"level":6,"sources":["Bard","Rogue"]},{"id":"circle-of-the-land-land-s-stride","name":"Circle of the Land: Land's Stride","tag":"utility","xp":4500,"level":6,"sources":["Druid"]},{"id":"evocation-potent-cantrip","name":"Evocation: Potent Cantrip","tag":"utility","xp":4500,"level":6,"sources":["Wizard"]},{"id":"path-of-the-berserker-mindless-rage","name":"Path of the Berserker: Mindless Rage","tag":"utility","xp":4500,"level":6,"sources":["Barbarian"]},{"id":"college-of-lore-additional-magical-secrets","name":"College of Lore: Additional Magical Secrets","tag":"marquee","xp":3750,"level":6,"sources":["Bard"]},{"id":"channel-divinity-2-rest","name":"Channel Divinity (2/rest)","tag":"scaling","xp":2813,"level":6,"sources":["Cleric"]},{"id":"favored-enemy-improvement","name":"Favored Enemy improvement","tag":"scaling","xp":2813,"level":6,"sources":["Ranger"]},{"id":"ki-empowered-strikes","name":"Ki-Empowered Strikes","tag":"utility","xp":2813,"level":6,"sources":["Monk"]},{"id":"life-domain-blessed-healer","name":"Life Domain: Blessed Healer","tag":"utility","xp":2812,"level":6,"sources":["Cleric"]},{"id":"natural-explorer-improvement","name":"Natural Explorer improvement","tag":"scaling","xp":2812,"level":6,"sources":["Ranger"]},{"id":"way-of-the-open-hand-wholeness-of-body","name":"Way of the Open Hand: Wholeness of Body","tag":"utility","xp":2812,"level":6,"sources":["Monk"]},{"id":"countercharm","name":"Countercharm","tag":"utility","xp":2250,"level":6,"sources":["Bard"]},{"id":"oath-of-devotion-aura-of-devotion","name":"Oath of Devotion: Aura of Devotion","tag":"marquee","xp":6429,"level":7,"sources":["Paladin"]},{"id":"champion-remarkable-athlete","name":"Champion: Remarkable Athlete","tag":"utility","xp":5400,"level":7,"sources":["Fighter"]},{"id":"feral-instinct","name":"Feral Instinct","tag":"utility","xp":5400,"level":7,"sources":["Barbarian"]},{"id":"hunter-defensive-tactics","name":"Hunter: Defensive Tactics","tag":"utility","xp":5400,"level":7,"sources":["Ranger"]},{"id":"spellcasting-4th-level-spells","name":"Spellcasting: 4th-level spells","tag":"spellcasting","xp":5000,"level":7,"sources":["Bard","Cleric","Druid","Paladin","Ranger","Sorcerer","Wizard"]},{"id":"evasion","name":"Evasion","tag":"marquee","xp":4500,"level":7,"sources":["Monk","Rogue"]},{"id":"pact-magic-4th-level-slots","name":"Pact Magic: 4th-level slots","tag":"spellcasting","xp":4500,"level":7,"sources":["Warlock"]},{"id":"eldritch-invocation-4th-known","name":"Eldritch Invocation (4th known)","tag":"scaling","xp":2700,"level":7,"sources":["Warlock"]},{"id":"sneak-attack-4d6","name":"Sneak Attack (4d6)","tag":"scaling","xp":2700,"level":7,"sources":["Rogue"]},{"id":"stillness-of-mind","name":"Stillness of Mind","tag":"utility","xp":2700,"level":7,"sources":["Monk"]},{"id":"life-domain-divine-strike","name":"Life Domain: Divine Strike","tag":"marquee","xp":3929,"level":8,"sources":["Cleric"]},{"id":"land-s-stride","name":"Land's Stride","tag":"utility","xp":3667,"level":8,"sources":["Ranger"]},{"id":"wild-shape-improvement-cr-1-flying","name":"Wild Shape improvement (CR 1, flying)","tag":"scaling","xp":3667,"level":8,"sources":["Druid"]},{"id":"destroy-undead-cr-1","name":"Destroy Undead (CR 1)","tag":"scaling","xp":2357,"level":8,"sources":["Cleric"]},{"id":"indomitable-one-use","name":"Indomitable (one use)","tag":"utility","xp":6000,"level":9,"sources":["Fighter"]},{"id":"unarmored-movement-improvement-vertical-surfaces","name":"Unarmored Movement improvement (vertical surfaces)","tag":"scaling","xp":6000,"level":9,"sources":["Monk"]},{"id":"pact-magic-5th-level-slots","name":"Pact Magic: 5th-level slots","tag":"spellcasting","xp":5833,"level":9,"sources":["Warlock"]},{"id":"spellcasting-5th-level-spells","name":"Spellcasting: 5th-level spells","tag":"spellcasting","xp":5833,"level":9,"sources":["Bard","Cleric","Druid","Paladin","Ranger","Sorcerer","Wizard"]},{"id":"brutal-critical-1-die","name":"Brutal Critical (1 die)","tag":"scaling","xp":4200,"level":9,"sources":["Barbarian"]},{"id":"rage-damage-3","name":"Rage Damage +3","tag":"scaling","xp":4200,"level":9,"sources":["Barbarian"]},{"id":"sneak-attack-5d6","name":"Sneak Attack (5d6)","tag":"scaling","xp":4200,"level":9,"sources":["Rogue"]},{"id":"thief-supreme-sneak","name":"Thief: Supreme Sneak","tag":"utility","xp":4200,"level":9,"sources":["Rogue"]},{"id":"eldritch-invocation-5th-known","name":"Eldritch Invocation (5th known)","tag":"scaling","xp":3500,"level":9,"sources":["Warlock"]},{"id":"song-of-rest-die-d8","name":"Song of Rest die (d8)","tag":"scaling","xp":3500,"level":9,"sources":["Bard"]},{"id":"aura-of-courage","name":"Aura of Courage","tag":"marquee","xp":11429,"level":10,"sources":["Paladin"]},{"id":"champion-additional-fighting-style","name":"Champion: Additional Fighting Style","tag":"scaling","xp":9600,"level":10,"sources":["Fighter"]},{"id":"path-of-the-berserker-intimidating-presence","name":"Path of the Berserker: Intimidating Presence","tag":"utility","xp":9600,"level":10,"sources":["Barbarian"]},{"id":"purity-of-body","name":"Purity of Body","tag":"utility","xp":9600,"level":10,"sources":["Monk"]},{"id":"circle-of-the-land-nature-s-ward","name":"Circle of the Land: Nature's Ward","tag":"marquee","xp":8889,"level":10,"sources":["Druid"]},{"id":"divine-intervention","name":"Divine Intervention","tag":"marquee","xp":8889,"level":10,"sources":["Cleric"]},{"id":"evocation-empowered-evocation","name":"Evocation: Empowered Evocation","tag":"marquee","xp":8889,"level":10,"sources":["Wizard"]},{"id":"the-fiend-fiendish-resilience","name":"The Fiend: Fiendish Resilience","tag":"marquee","xp":8889,"level":10,"sources":["Warlock"]},{"id":"metamagic-3rd-option","name":"Metamagic (3rd option)","tag":"scaling","xp":6857,"level":10,"sources":["Sorcerer"]},{"id":"hide-in-plain-sight","name":"Hide in Plain Sight","tag":"utility","xp":6000,"level":10,"sources":["Ranger"]},{"id":"natural-explorer-improvement-2nd","name":"Natural Explorer improvement (2nd)","tag":"scaling","xp":6000,"level":10,"sources":["Ranger"]},{"id":"magical-secrets","name":"Magical Secrets","tag":"marquee","xp":4706,"level":10,"sources":["Bard"]},{"id":"bardic-inspiration-die-d10","name":"Bardic Inspiration die (d10)","tag":"scaling","xp":2824,"level":10,"sources":["Bard"]},{"id":"hunter-multiattack","name":"Hunter: Multiattack","tag":"marquee","xp":15000,"level":11,"sources":["Ranger"]},{"id":"mystic-arcanum-6th-level","name":"Mystic Arcanum (6th level)","tag":"spellcasting","xp":15000,"level":11,"sources":["Warlock"]},{"id":"relentless-rage","name":"Relentless Rage","tag":"marquee","xp":15000,"level":11,"sources":["Barbarian"]},{"id":"extra-attack-three-attacks","name":"Extra Attack (three attacks)","tag":"scaling","xp":12600,"level":11,"sources":["Fighter"]},{"id":"improved-divine-smite","name":"Improved Divine Smite","tag":"scaling","xp":12600,"level":11,"sources":["Paladin"]},{"id":"reliable-talent","name":"Reliable Talent","tag":"marquee","xp":10500,"level":11,"sources":["Rogue"]},{"id":"spellcasting-6th-level-spells","name":"Spellcasting: 6th-level spells","tag":"spellcasting","xp":10500,"level":11,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"way-of-the-open-hand-tranquility","name":"Way of the Open Hand: Tranquility","tag":"marquee","xp":10500,"level":11,"sources":["Monk"]},{"id":"destroy-undead-cr-2","name":"Destroy Undead (CR 2)","tag":"scaling","xp":6300,"level":11,"sources":["Cleric"]},{"id":"martial-arts-die-d8","name":"Martial Arts die (d8)","tag":"scaling","xp":6300,"level":11,"sources":["Monk"]},{"id":"sneak-attack-6d6","name":"Sneak Attack (6d6)","tag":"scaling","xp":6300,"level":11,"sources":["Rogue"]},{"id":"eldritch-invocation-6th-known","name":"Eldritch Invocation (6th known)","tag":"scaling","xp":5000,"level":12,"sources":["Warlock"]},{"id":"mystic-arcanum-7th-level","name":"Mystic Arcanum (7th level)","tag":"spellcasting","xp":11111,"level":13,"sources":["Warlock"]},{"id":"brutal-critical-2-dice","name":"Brutal Critical (2 dice)","tag":"scaling","xp":8572,"level":13,"sources":["Barbarian"]},{"id":"indomitable-two-uses","name":"Indomitable (two uses)","tag":"scaling","xp":8572,"level":13,"sources":["Fighter"]},{"id":"spellcasting-7th-level-spells","name":"Spellcasting: 7th-level spells","tag":"spellcasting","xp":8334,"level":13,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"sneak-attack-7d6","name":"Sneak Attack (7d6)","tag":"scaling","xp":6000,"level":13,"sources":["Rogue"]},{"id":"thief-use-magic-device","name":"Thief: Use Magic Device","tag":"utility","xp":6000,"level":13,"sources":["Rogue"]},{"id":"song-of-rest-die-d10","name":"Song of Rest die (d10)","tag":"scaling","xp":5000,"level":13,"sources":["Bard"]},{"id":"circle-of-the-land-nature-s-sanctuary","name":"Circle of the Land: Nature's Sanctuary","tag":"marquee","xp":14286,"level":14,"sources":["Druid"]},{"id":"diamond-soul","name":"Diamond Soul","tag":"marquee","xp":14286,"level":14,"sources":["Monk"]},{"id":"draconic-bloodline-dragon-wings","name":"Draconic Bloodline: Dragon Wings","tag":"marquee","xp":14286,"level":14,"sources":["Sorcerer"]},{"id":"evocation-overchannel","name":"Evocation: Overchannel","tag":"marquee","xp":14286,"level":14,"sources":["Wizard"]},{"id":"the-fiend-hurl-through-hell","name":"The Fiend: Hurl Through Hell","tag":"marquee","xp":14286,"level":14,"sources":["Warlock"]},{"id":"cleansing-touch","name":"Cleansing Touch","tag":"utility","xp":12000,"level":14,"sources":["Paladin"]},{"id":"destroy-undead-cr-3","name":"Destroy Undead (CR 3)","tag":"scaling","xp":12000,"level":14,"sources":["Cleric"]},{"id":"path-of-the-berserker-retaliation","name":"Path of the Berserker: Retaliation","tag":"utility","xp":12000,"level":14,"sources":["Barbarian"]},{"id":"favored-enemy-improvement-2nd","name":"Favored Enemy improvement (2nd)","tag":"scaling","xp":7500,"level":14,"sources":["Ranger"]},{"id":"vanish","name":"Vanish","tag":"utility","xp":7500,"level":14,"sources":["Ranger"]},{"id":"college-of-lore-peerless-skill","name":"College of Lore: Peerless Skill","tag":"utility","xp":6000,"level":14,"sources":["Bard"]},{"id":"hunter-superior-hunter-s-defense","name":"Hunter: Superior Hunter's Defense","tag":"marquee","xp":17857,"level":15,"sources":["Ranger"]},{"id":"persistent-rage","name":"Persistent Rage","tag":"marquee","xp":17857,"level":15,"sources":["Barbarian"]},{"id":"champion-superior-critical","name":"Champion: Superior Critical","tag":"scaling","xp":15000,"level":15,"sources":["Fighter"]},{"id":"oath-of-devotion-purity-of-spirit","name":"Oath of Devotion: Purity of Spirit","tag":"utility","xp":15000,"level":15,"sources":["Paladin"]},{"id":"mystic-arcanum-8th-level","name":"Mystic Arcanum (8th level)","tag":"spellcasting","xp":12500,"level":15,"sources":["Warlock"]},{"id":"slippery-mind","name":"Slippery Mind","tag":"marquee","xp":12500,"level":15,"sources":["Rogue"]},{"id":"spellcasting-8th-level-spells","name":"Spellcasting: 8th-level spells","tag":"spellcasting","xp":12500,"level":15,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"bardic-inspiration-die-d12","name":"Bardic Inspiration die (d12)","tag":"scaling","xp":7500,"level":15,"sources":["Bard"]},{"id":"eldritch-invocation-7th-known","name":"Eldritch Invocation (7th known)","tag":"scaling","xp":7500,"level":15,"sources":["Warlock"]},{"id":"sneak-attack-8d6","name":"Sneak Attack (8d6)","tag":"scaling","xp":7500,"level":15,"sources":["Rogue"]},{"id":"rage-damage-4","name":"Rage Damage +4","tag":"scaling","xp":10000,"level":16,"sources":["Barbarian"]},{"id":"mystic-arcanum-9th-level","name":"Mystic Arcanum (9th level)","tag":"spellcasting","xp":16667,"level":17,"sources":["Warlock"]},{"id":"brutal-critical-3-dice","name":"Brutal Critical (3 dice)","tag":"scaling","xp":12857,"level":17,"sources":["Barbarian"]},{"id":"thief-thief-s-reflexes","name":"Thief: Thief's Reflexes","tag":"marquee","xp":12500,"level":17,"sources":["Rogue"]},{"id":"way-of-the-open-hand-quivering-palm","name":"Way of the Open Hand: Quivering Palm","tag":"marquee","xp":12500,"level":17,"sources":["Monk"]},{"id":"action-surge-two-uses","name":"Action Surge (two uses)","tag":"scaling","xp":9000,"level":17,"sources":["Fighter"]},{"id":"indomitable-three-uses","name":"Indomitable (three uses)","tag":"scaling","xp":9000,"level":17,"sources":["Fighter"]},{"id":"life-domain-supreme-healing","name":"Life Domain: Supreme Healing","tag":"marquee","xp":8824,"level":17,"sources":["Cleric"]},{"id":"spellcasting-9th-level-spells","name":"Spellcasting: 9th-level spells","tag":"spellcasting","xp":8824,"level":17,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"martial-arts-die-d10","name":"Martial Arts die (d10)","tag":"scaling","xp":7500,"level":17,"sources":["Monk"]},{"id":"metamagic-4th-option","name":"Metamagic (4th option)","tag":"scaling","xp":7500,"level":17,"sources":["Sorcerer"]},{"id":"sneak-attack-9d6","name":"Sneak Attack (9d6)","tag":"scaling","xp":7500,"level":17,"sources":["Rogue"]},{"id":"song-of-rest-die-d12","name":"Song of Rest die (d12)","tag":"scaling","xp":7500,"level":17,"sources":["Bard"]},{"id":"destroy-undead-cr-4","name":"Destroy Undead (CR 4)","tag":"scaling","xp":5294,"level":17,"sources":["Cleric"]},{"id":"champion-survivor","name":"Champion: Survivor","tag":"marquee","xp":28571,"level":18,"sources":["Fighter"]},{"id":"elusive","name":"Elusive","tag":"marquee","xp":28571,"level":18,"sources":["Rogue"]},{"id":"empty-body","name":"Empty Body","tag":"marquee","xp":28571,"level":18,"sources":["Monk"]},{"id":"auras-increase-to-30-feet","name":"Auras increase to 30 feet","tag":"scaling","xp":24000,"level":18,"sources":["Paladin"]},{"id":"feral-senses","name":"Feral Senses","tag":"utility","xp":24000,"level":18,"sources":["Ranger"]},{"id":"indomitable-might","name":"Indomitable Might","tag":"utility","xp":24000,"level":18,"sources":["Barbarian"]},{"id":"draconic-bloodline-draconic-presence","name":"Draconic Bloodline: Draconic Presence","tag":"marquee","xp":20000,"level":18,"sources":["Sorcerer"]},{"id":"spell-mastery","name":"Spell Mastery","tag":"marquee","xp":20000,"level":18,"sources":["Wizard"]},{"id":"beast-spells","name":"Beast Spells","tag":"marquee","xp":18182,"level":18,"sources":["Druid"]},{"id":"channel-divinity-3-rest","name":"Channel Divinity (3/rest)","tag":"scaling","xp":15000,"level":18,"sources":["Cleric"]},{"id":"eldritch-invocation-8th-known","name":"Eldritch Invocation (8th known)","tag":"scaling","xp":15000,"level":18,"sources":["Warlock"]},{"id":"pact-magic-additional-slot-4-total","name":"Pact Magic: additional slot (4 total)","tag":"slots","xp":15000,"level":18,"sources":["Warlock"]},{"id":"spellcasting-additional-slots","name":"Spellcasting: additional slots","tag":"slots","xp":10909,"level":18,"sources":["Bard","Cleric","Druid","Sorcerer","Wizard"]},{"id":"sneak-attack-10d6","name":"Sneak Attack (10d6)","tag":"scaling","xp":13333,"level":19,"sources":["Rogue"]},{"id":"eldritch-master","name":"Eldritch Master","tag":"marquee","xp":35714,"level":20,"sources":["Warlock"]},{"id":"extra-attack-four-attacks","name":"Extra Attack (four attacks)","tag":"marquee","xp":35714,"level":20,"sources":["Fighter"]},{"id":"foe-slayer","name":"Foe Slayer","tag":"marquee","xp":35714,"level":20,"sources":["Ranger"]},{"id":"oath-of-devotion-holy-nimbus","name":"Oath of Devotion: Holy Nimbus","tag":"marquee","xp":35714,"level":20,"sources":["Paladin"]},{"id":"primal-champion","name":"Primal Champion","tag":"marquee","xp":35714,"level":20,"sources":["Barbarian"]},{"id":"stroke-of-luck","name":"Stroke of Luck","tag":"marquee","xp":35714,"level":20,"sources":["Rogue"]},{"id":"perfect-self","name":"Perfect Self","tag":"utility","xp":30000,"level":20,"sources":["Monk"]},{"id":"archdruid","name":"Archdruid","tag":"marquee","xp":25000,"level":20,"sources":["Druid"]},{"id":"signature-spells","name":"Signature Spells","tag":"marquee","xp":25000,"level":20,"sources":["Wizard"]},{"id":"divine-intervention-improvement","name":"Divine Intervention Improvement","tag":"scaling","xp":18750,"level":20,"sources":["Cleric"]},{"id":"sorcerous-restoration","name":"Sorcerous Restoration","tag":"utility","xp":18750,"level":20,"sources":["Sorcerer"]},{"id":"superior-inspiration","name":"Superior Inspiration","tag":"utility","xp":18750,"level":20,"sources":["Bard"]}]}/*DATA_END*/;</script>
 <script>
 (function(){
   var D = window.__PIECEMEAL_CLASSLESS__;
   var C = D.commodities;
   var TAGLABEL = {marquee:"signature", utility:"utility", proficiency:"proficiency",
     ribbon:"ribbon", scaling:"upgrade", spellcasting:"spellcasting", slots:"spell slots", hp:"hit points"};
+  var fmt = function(n){ return n.toLocaleString(); };
 
   var state = {
+    budget: D.budget,
     hitDie: "d8", armor: "none", shield: false, weapon: "simple",
     saves: 2, skills: 2, tools: 0, kit: true,
-    features: new Set(), query: ""
+    features: new Set(), query: "", hideLocked: true
   };
 
   function opt(list, id){ for(var i=0;i<list.length;i++) if(list[i].id===id) return list[i]; return list[0]; }
+  var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
 
   function commodityTotal(){
-    var t = 0;
-    t += opt(C.hitDie, state.hitDie).xp;
-    t += opt(C.armor, state.armor).xp;
-    t += state.shield ? C.shield : 0;
-    t += opt(C.weapon, state.weapon).xp;
-    t += state.saves * C.save;
-    t += state.skills * C.skill;
-    t += state.tools * C.tool;
-    t += state.kit ? C.starting_kit : 0;
-    return t;
+    return opt(C.hitDie, state.hitDie).xp + opt(C.armor, state.armor).xp +
+      (state.shield ? C.shield : 0) + opt(C.weapon, state.weapon).xp +
+      state.saves*C.save + state.skills*C.skill + state.tools*C.tool +
+      (state.kit ? C.starting_kit : 0);
   }
   function featureTotal(){
     var t = 0;
     D.features.forEach(function(f){ if(state.features.has(f.id)) t += f.xp; });
     return t;
   }
+  function remaining(){ return state.budget - commodityTotal() - featureTotal(); }
+  function refresh(){ renderMeter(); renderFeatures(); }
+
+  // ---- Level dial ----
+  function renderBudget(){
+    var host = document.getElementById("budget");
+    host.innerHTML = "";
+    D.budgets.forEach(function(bd){
+      var b = document.createElement("button"); b.type="button";
+      b.setAttribute("aria-pressed", String(bd.budget===state.budget));
+      b.innerHTML = "Lv "+bd.level+'<span class="px">'+fmt(bd.budget)+'</span>';
+      b.addEventListener("click", function(){
+        state.budget = bd.budget; renderBudget(); refresh();
+      });
+      host.appendChild(b);
+    });
+  }
 
   // ---- Budget meter ----
   function renderMeter(){
     var comm = commodityTotal(), feat = featureTotal(), spent = comm + feat;
-    var remain = D.budget - spent;
+    var remain = state.budget - spent;
     var el = document.getElementById("meter");
     el.className = "meter" + (remain < 0 ? " is-over" : "");
-    var remLabel = remain < 0 ? "<b>"+(-remain)+"</b> over budget" : "<b>"+remain+"</b> left";
-    var commW = Math.max(0, Math.min(100, comm));
-    var featW = Math.max(0, Math.min(100 - commW, feat));
+    var remLabel = remain < 0 ? "<b>"+fmt(-remain)+"</b> over" : "<b>"+fmt(remain)+"</b> left";
+    var commW = Math.max(0, Math.min(100, comm/state.budget*100));
+    var featW = Math.max(0, Math.min(100-commW, feat/state.budget*100));
     el.innerHTML =
       '<div class="meter__nums">'+
-        '<span class="meter__spent">'+spent+'</span>'+
-        '<span class="meter__of">/ '+D.budget+' experience</span>'+
+        '<span class="meter__spent">'+fmt(spent)+'</span>'+
+        '<span class="meter__of">/ '+fmt(state.budget)+' experience</span>'+
         '<span class="meter__remain">'+remLabel+'</span>'+
       '</div>'+
       '<div class="meter__track">'+
@@ -232,25 +258,19 @@
         '<div class="meter__seg meter__seg--feature" style="width:'+featW+'%"></div>'+
       '</div>'+
       '<div class="meter__key">'+
-        '<span><i class="dot dot--commodity"></i>Commodities '+comm+'</span>'+
-        '<span><i class="dot dot--feature"></i>Features '+feat+' · '+state.features.size+' picked</span>'+
-        '<button class="btn" id="reset">Reset</button>'+
+        '<span><i class="dot dot--commodity"></i>Commodities '+fmt(comm)+'</span>'+
+        '<span><i class="dot dot--feature"></i>Features '+fmt(feat)+' · '+state.features.size+' picked</span>'+
+        '<button class="btn" id="reset">Reset build</button>'+
       '</div>';
     var warn = document.getElementById("warn");
     if(remain < 0){
       warn.hidden = false;
-      warn.innerHTML = "You're <b>"+(-remain)+"</b> experience over budget — remove a piece or pick a cheaper commodity.";
-    } else {
-      warn.hidden = true;
-    }
-    document.getElementById("reset").addEventListener("click", resetAll);
+      warn.innerHTML = "You're <b>"+fmt(-remain)+"</b> experience over budget — remove a piece or raise your level.";
+    } else { warn.hidden = true; }
+    document.getElementById("reset").addEventListener("click", resetBuild);
   }
 
-  function refresh(){ renderMeter(); renderFeatures(); }
-
-  function remaining(){ return D.budget - commodityTotal() - featureTotal(); }
-
-  function resetAll(){
+  function resetBuild(){
     state.hitDie="d8"; state.armor="none"; state.shield=false; state.weapon="simple";
     state.saves=2; state.skills=2; state.tools=0; state.kit=true; state.features.clear();
     renderCommodities(); refresh();
@@ -258,7 +278,6 @@
 
   // ---- Commodities ----
   function seg(label, unit, options, current, onPick){
-    var priced = unit ? "" : "";
     var html = '<div class="field"><div class="field__label"><span>'+label+'</span>'+
       (unit ? '<small>'+unit+'</small>' : '')+'</div><div class="seg">';
     options.forEach(function(o){
@@ -266,8 +285,7 @@
         o.label+'<span class="px">'+o.xp+'</span></button>';
     });
     html += '</div></div>';
-    var wrap = document.createElement("div");
-    wrap.innerHTML = html;
+    var wrap = document.createElement("div"); wrap.innerHTML = html;
     wrap.querySelectorAll(".seg button").forEach(function(b){
       b.addEventListener("click", function(){ onPick(b.dataset.id); });
     });
@@ -301,8 +319,6 @@
     return b;
   }
 
-  var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
-
   function renderCommodities(){
     var host = document.getElementById("commodities");
     host.innerHTML = "";
@@ -318,9 +334,8 @@
       state.skills=v; renderCommodities(); refresh(); }));
     host.appendChild(stepper("Tools", C.tool, state.tools, 0, 4, function(v){
       state.tools=v; renderCommodities(); refresh(); }));
-    var kit = toggleRow("Shield (+"+C.shield+")", C.shield, state.shield, function(){
-      state.shield=!state.shield; renderCommodities(); refresh(); });
-    host.appendChild(kit);
+    host.appendChild(toggleRow("Shield (+"+C.shield+")", C.shield, state.shield, function(){
+      state.shield=!state.shield; renderCommodities(); refresh(); }));
     var sk = toggleRow("Starting equipment package", C.starting_kit, state.kit, function(){
       state.kit=!state.kit; renderCommodities(); refresh(); });
     sk.style.marginTop="6px";
@@ -333,24 +348,25 @@
     host.innerHTML = "";
     var q = state.query.trim().toLowerCase();
     var left = remaining();
-    var shown = 0;
+    var shown = 0, hiddenLocked = 0;
     D.features.forEach(function(f){
       var hay = (f.name+" "+f.sources.join(" ")+" "+(TAGLABEL[f.tag]||f.tag)).toLowerCase();
       if(q && hay.indexOf(q)===-1) return;
-      shown++;
       var on = state.features.has(f.id);
-      var locked = !on && f.xp > left;   // can't afford to add it
+      var locked = !on && f.xp > left;
+      if(locked && state.hideLocked){ hiddenLocked++; return; }
+      shown++;
       var b = document.createElement("button");
       b.className = "toggle" + (locked ? " is-locked" : "");
-      b.type="button";
-      b.setAttribute("aria-pressed", String(on));
-      if(locked){ b.setAttribute("aria-disabled","true"); b.title="Not enough experience left"; }
-      var chips = '<span class="chip chip--tag">'+(TAGLABEL[f.tag]||f.tag)+'</span>'+
+      b.type="button"; b.setAttribute("aria-pressed", String(on));
+      if(locked){ b.setAttribute("aria-disabled","true"); b.title="Not enough experience — raise your level"; }
+      var lv = f.level>1 ? '<span class="chip chip--lv">Lv '+f.level+'</span>' : '';
+      var chips = lv + '<span class="chip chip--tag">'+(TAGLABEL[f.tag]||f.tag)+'</span>'+
         f.sources.map(function(s){ return '<span class="chip">'+s+'</span>'; }).join("");
       b.innerHTML = '<span class="toggle__check">'+CHECK+'</span>'+
         '<span class="feat__main"><span class="feat__name">'+f.name+'</span>'+
         '<span class="feat__meta">'+chips+'</span></span>'+
-        '<span class="toggle__xp">'+f.xp+'<small> xp</small></span>';
+        '<span class="toggle__xp">'+fmt(f.xp)+'<small> xp</small></span>';
       b.addEventListener("click", function(){
         if(!state.features.has(f.id) && f.xp > remaining()) return;  // locked
         if(state.features.has(f.id)) state.features.delete(f.id);
@@ -360,24 +376,34 @@
       host.appendChild(b);
     });
     if(shown===0){
-      var e = document.createElement("p"); e.className="card__hint"; e.textContent="No features match “"+q+"”.";
+      var e = document.createElement("p"); e.className="card__hint";
+      e.textContent = q ? "No features match “"+state.query+"”." :
+        "Nothing affordable yet — raise your level, or untick “Hide unaffordable”.";
       host.appendChild(e);
+    } else if(hiddenLocked>0){
+      var n = document.createElement("p"); n.className="card__hint"; n.style.marginTop="10px";
+      n.textContent = hiddenLocked+" higher-level piece"+(hiddenLocked>1?"s":"")+" hidden — raise your level to afford "+(hiddenLocked>1?"them":"it")+".";
+      host.appendChild(n);
     }
   }
 
   document.getElementById("search").addEventListener("input", function(e){
     state.query = e.target.value; renderFeatures();
   });
+  document.getElementById("hide-locked").addEventListener("change", function(e){
+    state.hideLocked = e.target.checked; renderFeatures();
+  });
   document.getElementById("clear-feats").addEventListener("click", function(){
     state.features.clear(); refresh();
   });
 
   document.getElementById("foot").innerHTML =
-    'Commodity prices from <code>data/level1_catalog.yaml</code>; feature prices from '+
-    '<code>CLASSLESS_FEATURE_PRICE</code> in <code>tools/build_web.py</code> (standouts get a premium; '+
-    'the rest default to power-points × '+D.rate+'). With premiums, a full caster now runs a little over 100 — '+
-    'so even a "pure" build trims something. Higher-level pieces (priced beyond the 100 you start with) are the planned next step.';
+    'Commodity prices from <code>data/level1_catalog.yaml</code>; level-1 feature premiums from '+
+    '<code>CLASSLESS_FEATURE_PRICE</code> in <code>tools/build_web.py</code>; higher-level pieces are '+
+    'priced at their real in-play XP (SRD threshold deltas). This is a level-less à-la-carte model — '+
+    'prerequisites (e.g. lower spell tiers) are not enforced yet.';
 
+  renderBudget();
   renderCommodities();
   renderFeatures();
   renderMeter();
