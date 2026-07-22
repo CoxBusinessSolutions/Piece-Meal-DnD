@@ -113,10 +113,29 @@ data/level1_catalog.yaml   Shared, fixed prices for level-1 commodities
 data/<class>.yaml          Source of truth — one file per class (all 12)
 data/<class>.md            Generated breakdown tables (do not edit by hand)
 tools/price.py             Pricer / validator
+tools/build_web.py         Bundles the data into the web builder
+web/index.html             Character builder — open in any browser (generated)
+web/app.html               Builder source (body-only; data injected by build)
 ```
 
 All 12 SRD classes are present: barbarian, bard, cleric, druid, fighter, monk,
 paladin, ranger, rogue, sorcerer, warlock, wizard.
+
+## Web builder
+
+A dependency-free character builder: pick a class, see where its 100-experience
+creation budget goes (commodities vs. signature features, as a two-tone meter you
+can toggle piece by piece), and browse its full levels 2–20 progression with the
+upgrade-chains marked.
+
+```bash
+python3 tools/build_web.py     # regenerate web/ after any data change
+```
+
+Then open `web/index.html` in a browser — no server needed; the class data is
+embedded straight into the page. `web/app.html` is the editable source (the
+build injects the data between its `DATA_START/DATA_END` markers and wraps it
+into the standalone `index.html`).
 
 ## Usage
 
