@@ -113,29 +113,37 @@ data/level1_catalog.yaml   Shared, fixed prices for level-1 commodities
 data/<class>.yaml          Source of truth — one file per class (all 12)
 data/<class>.md            Generated breakdown tables (do not edit by hand)
 tools/price.py             Pricer / validator
-tools/build_web.py         Bundles the data into the web builder
-web/index.html             Character builder — open in any browser (generated)
-web/app.html               Builder source (body-only; data injected by build)
+tools/build_web.py         Bundles the data into both web builders
+web/index.html             Per-class builder — open in any browser (generated)
+web/app.html               Per-class builder source (body-only)
+web/classless.html         Classless builder — open in any browser (generated)
+web/classless-app.html     Classless builder source (body-only)
 ```
 
 All 12 SRD classes are present: barbarian, bard, cleric, druid, fighter, monk,
 paladin, ranger, rogue, sorcerer, warlock, wizard.
 
-## Web builder
+## Web builders
 
-A dependency-free character builder: pick a class, see where its 100-experience
-creation budget goes (commodities vs. signature features, as a two-tone meter you
-can toggle piece by piece), and browse its full levels 2–20 progression with the
-upgrade-chains marked.
+Two dependency-free builders, both self-contained (open in any browser, no
+server) and theme-aware:
+
+- **Per-class** (`web/index.html`) — pick a class, see where its 100-experience
+  budget goes (commodities vs. signature features, as a two-tone meter you can
+  toggle piece by piece), and browse its full levels 2–20 progression with the
+  upgrade-chains marked.
+- **Classless** (`web/classless.html`) — forget classes: spend one 100-XP budget
+  on any mix of pieces (a d12 body with a wizard's spellcasting, heavy armor with
+  sneak attack). Commodity pickers plus the deduplicated feature menu, priced
+  canonically (see below).
 
 ```bash
-python3 tools/build_web.py     # regenerate web/ after any data change
+python3 tools/build_web.py     # regenerate both after any data change
 ```
 
-Then open `web/index.html` in a browser — no server needed; the class data is
-embedded straight into the page. `web/app.html` is the editable source (the
-build injects the data between its `DATA_START/DATA_END` markers and wraps it
-into the standalone `index.html`).
+The `*-app.html` files are the editable sources; the build injects the data
+between their `DATA_START/DATA_END` markers and wraps each into a standalone
+page.
 
 ### Hosting on GitHub Pages
 
@@ -209,16 +217,28 @@ weight) followed by re-running the pricer, so the whole economy re-balances.
 - **Life Domain's heavy armor** is folded into the armor commodity, so it costs
   the same heavy-armor price any class pays rather than being a floating feature.
 
+## Classless pricing
+
+The per-class model normalizes each feature's price *within* its class, so the
+same feature has different prices in different classes (Spellcasting is 33 in
+Wizard, 28 in Cleric; Fighting Style appears in four classes). A single shared
+menu needs **one canonical price per piece**, so the classless builder prices
+every feature at **`rubric points × 6`** and keeps commodities at their fixed
+catalog prices. De-duplication then falls out for free (all "Unarmored Defense"
+or "Spellcasting" entries collapse to one, tagged with the classes that grant
+it). The rate lives in `tools/build_web.py` (`CLASSLESS_RATE`).
+
+The trade-off: rebuilding a *standard* class this way lands near ~95–100, not
+exactly 100 — that exact-100 was a within-class device that can't survive as a
+single global price. Deviating (drop plate to afford spellcasting) is the play.
+
 ## Roadmap / next steps
 
-- **Classless builder (the big one).** Today's builder is per-class — you spend
-  the 100 within one class. The original vision is a single menu of *every*
-  piece where you mix freely (Wizard spellcasting + a d8 body + heavy armor),
-  which needs one **canonical price per piece** first: the current feature
-  prices are normalized *within* each class, so the same feature (e.g. "Fighting
-  Style" across four classes, or "Spellcasting" in Cleric vs. Wizard) has
-  different prices that must be de-duplicated into a single agreed number. That
-  is a pricing-model decision, not just UI work.
+- **Refine the classless builder.** A working v1 ships (`web/classless.html`).
+  Possible follow-ups: give standout pieces a premium beyond their rubric points
+  (e.g. make Spellcasting pricier than a generic marquee), collapse the
+  near-duplicate "Cantrips Known (2/3/4)" entries, add level 2–20 to the
+  classless flow, and enforce/soft-warn the budget on overspend.
 - **Tune the economy.** Revisit any of the Design-notes choices above; re-run
   `tools/price.py --check` after each change.
 - **Broaden content.** More subclasses per class, or non-SRD classes/options
