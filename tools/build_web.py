@@ -107,11 +107,30 @@ def build_class(path, catalog):
                "upgrades": upgrades.get(r["id"])}
               for r in rows if r["ledger"] == "xp"]
 
+    # Commodity kit, so the classless "load a standard class" preset can set the
+    # hit die / armor / weapons / save-skill-tool counts to match this class.
+    l1 = doc["levels"][1]["pieces"]
+    def _find(kind):
+        return [q for q in l1 if q.get("commodity") == kind]
+    tiers = _find("armor")[0].get("tiers", []) if _find("armor") else []
+    armor_tier = ("heavy" if "heavy" in tiers else "medium" if "medium" in tiers
+                  else "light" if "light" in tiers else "none")
+    weapons = _find("weapon")
+    commodity_cfg = {
+        "hitDie": doc["hit_die"], "armor": armor_tier, "shield": "shield" in tiers,
+        "weapon": weapons[0].get("tier") if weapons else "none",
+        "saves": len(_find("save")),
+        "skills": sum(q.get("qty", 1) for q in _find("skill")),
+        "tools": sum(q.get("qty", 1) for q in _find("tool")),
+        "kit": bool(_find("starting_kit")),
+    }
+
     return doc["class"].lower(), {
         "name": doc["class"], "subclass": doc.get("subclass", ""),
         "hitDie": doc["hit_die"], "caster": caster,
         "role": ROLE.get(caster, "Martial"),
         "budget": catalog["creation_budget"],
+        "commodityCfg": commodity_cfg,
         "level1": level1, "levels": levels,
     }
 
@@ -199,9 +218,31 @@ def build_classless(catalog, classes):
     budgets = [{"level": L, "budget": catalog["creation_budget"] + SRD_THRESHOLDS[L]}
                for L in BUDGET_LEVELS]
 
+    # "Load a standard class" presets: each class's commodity kit plus every
+    # feature grant (menu id + the level THIS class gains it), so the UI can
+    # reconstruct the stock class at the chosen level as a starting point.
+    presets = {}
+    for key, cls in classes.items():
+        grants = []
+        for p in cls["level1"]:
+            if p["type"] != "feature":
+                continue
+            nm = "Cantrips Known" if p["name"].startswith("Cantrips Known") else p["name"]
+            fid = name_to_id.get(nm)
+            if fid:
+                grants.append({"id": fid, "level": 1})
+        for r in cls["levels"]:
+            if r["tag"] not in HL_TAGS:
+                continue
+            fid = name_to_id.get(r["name"])
+            if fid:
+                grants.append({"id": fid, "level": r["lvl"]})
+        presets[key] = {"name": cls["name"], "subclass": cls.get("subclass", ""),
+                        "commodities": cls["commodityCfg"], "grants": grants}
+
     return {
         "budget": catalog["creation_budget"], "budgets": budgets,
-        "rate": CLASSLESS_RATE,
+        "rate": CLASSLESS_RATE, "order": list(classes.keys()), "presets": presets,
         "commodities": {
             "save": c["save"], "skill": c["skill"], "tool": c["tool"],
             "starting_kit": c["starting_kit"], "shield": armor["shield"],
