@@ -118,6 +118,7 @@ web/index.html             Per-class builder — open in any browser (generated)
 web/app.html               Per-class builder source (body-only)
 web/classless.html         Classless builder — open in any browser (generated)
 web/classless-app.html     Classless builder source (body-only)
+.github/workflows/pages.yml  Deploys web/ to GitHub Pages on push to main
 ```
 
 All 12 SRD classes are present: barbarian, bard, cleric, druid, fighter, monk,
