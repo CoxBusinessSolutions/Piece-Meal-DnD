@@ -314,16 +314,21 @@ the low-level view clean; the menu grows as you level up.
   base. Done: Wizard (8 schools); Fighter (Champion, Battle Master, Eldritch
   Knight); Barbarian (Berserker, Totem Warrior); Bard (Lore, Valor); Druid
   (Land, Moon); Ranger (Hunter, Beast Master); Rogue (Thief, Assassin); Monk
-  (Open Hand, Way of Shadow). **Phase 2:** a subclass picker in the web builders
-  (today `build_web.py` merges only each class's default fragment).
+  (Open Hand, Way of Shadow); Sorcerer (Draconic Bloodline, Wild Magic); Warlock
+  (The Fiend, The Archfey, The Great Old One). **Phase 2:** a subclass picker in
+  the web builders (today `build_web.py` merges only each class's default
+  fragment).
+  - **Level-1 subclasses.** Sorcerer origins and Warlock patrons grant features
+    at level 1, so `merge_subclass` inserts fragment pieces *after* the level-1
+    commodities (keeping saves/armor/etc. first) and among the unique features.
   - **Ordering note.** When a subclass feature interleaves with base features at
     a level (e.g. Bard L3, Monk L6), the prepend-merge reorders those rows; that
     can flip a largest-remainder tiebreak by ±1 XP. Prices still reconcile and no
     pieces change — it is cosmetic. Wizard/Fighter, whose subclass pieces lead
     their level, stay byte-identical.
-  - **Deferred subclasses.** Rogue's Arcane Trickster and Monk's Way of the Four
-    Elements add a spell/discipline sub-scheme; Sorcerer/Warlock (level-1 origin
-    features) and Paladin (oath + Channel Divinity) are next.
+  - **Deferred / next.** Rogue's Arcane Trickster and Monk's Way of the Four
+    Elements add a spell/discipline sub-scheme; Paladin (Oath of the Ancients,
+    Oath of Vengeance — oath spells + Channel Divinity) is the next clean-ish one.
   - **Cleric domains — needs a merge extension first.** Unlike the others,
     cleric domains vary the *level-1* proficiencies (heavy armor, martial
     weapons, bonus skills), which the additive merge can't express. Add

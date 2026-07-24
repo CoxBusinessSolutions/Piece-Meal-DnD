@@ -1,0 +1,39 @@
+# Piece-Meal-DnD — Sorcerer subclass fragment: Wild Magic
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+# The level-1 pieces are weighted to match Draconic Bloodline's level-1 footprint
+# (3 + 1) so the 100-experience creation budget stays balanced across origins;
+# retune if you want Wild Magic Surge to carry more of the budget.
+#   python3 tools/price.py data/sorcerer.yaml \
+#       --subclass data/subclasses/sorcerer/wildmagic.yaml --check
+
+attaches_to: sorcerer
+subclass: Wild Magic
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  1:
+    - id: wild-magic-surge
+      name: "Wild Magic: Wild Magic Surge"
+      tag: utility
+      points: 3        # PLACEHOLDER
+    - id: tides-of-chaos
+      name: "Wild Magic: Tides of Chaos"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+  6:
+    - id: bend-luck
+      name: "Wild Magic: Bend Luck"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  14:
+    - id: controlled-chaos
+      name: "Wild Magic: Controlled Chaos"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  18:
+    - id: spell-bombardment
+      name: "Wild Magic: Spell Bombardment"
+      tag: marquee
+      points: 5        # PLACEHOLDER

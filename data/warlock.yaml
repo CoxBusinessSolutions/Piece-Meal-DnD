@@ -1,4 +1,4 @@
-# Piece-Meal-DnD — Warlock (The Fiend)
+# Piece-Meal-DnD — Warlock (BASE chassis; subclasses in data/subclasses/warlock/)
 #
 # PACT MAGIC — a third caster shape. Instead of a full spell-slot table, the
 # Warlock has a handful of short-rest slots that all rise to the same level:
@@ -10,7 +10,6 @@
 # upgrade-pieces at every level the invocations-known count rises.
 
 class: Warlock
-subclass: The Fiend
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d8
 caster: pact
@@ -85,18 +84,10 @@ levels:
         name: "Pact Magic (1st-level spell slots)"
         tag: spellcasting
         points: 5
-      - id: dark-ones-blessing
-        name: "The Fiend: Dark One's Blessing"
-        tag: utility
-        points: 3
       - id: cantrips-known-2
         name: "Cantrips Known (2)"
         tag: proficiency
         points: 2
-      - id: expanded-spell-list
-        name: "The Fiend: Expanded Spell List"
-        tag: ribbon
-        points: 1
   2:
     pieces:
       - id: eldritch-invocations
@@ -159,10 +150,6 @@ levels:
         points: 2
   6:
     pieces:
-      - id: dark-ones-own-luck
-        name: "The Fiend: Dark One's Own Luck"
-        tag: marquee
-        points: 5
       - id: hp-6
         name: "Hit Points (d8)"
         tag: hp
@@ -215,10 +202,6 @@ levels:
         points: 2
   10:
     pieces:
-      - id: fiendish-resilience
-        name: "The Fiend: Fiendish Resilience"
-        tag: marquee
-        points: 5
       - id: cantrips-known-4
         name: "Cantrips Known (4)"
         tag: proficiency
@@ -270,10 +253,6 @@ levels:
         points: 2
   14:
     pieces:
-      - id: hurl-through-hell
-        name: "The Fiend: Hurl Through Hell"
-        tag: marquee
-        points: 5
       - id: hp-14
         name: "Hit Points (d8)"
         tag: hp

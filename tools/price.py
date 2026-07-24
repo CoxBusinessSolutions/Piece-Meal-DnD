@@ -65,8 +65,11 @@ def merge_subclass(doc, frag):
 
     A fragment (data/subclasses/<class>/<name>.yaml) carries only its
     arcane-tradition / archetype pieces keyed by the level they are gained.
-    Those pieces are inserted at the FRONT of each level's list, matching the
-    order the original woven class files used (subclass feature, then HP). The
+    Those pieces are inserted after any leading run of COMMODITY pieces and
+    before the level's other pieces. For levels 2-20 there are no commodities,
+    so this is a plain front-insert (subclass feature, then HP), matching the
+    original woven files. For level 1 it keeps the commodities first and slots
+    the subclass features in among the unique features, where they belong. The
     base class's XP thresholds are untouched, so every level still reconciles.
     """
     doc["subclass"] = frag.get("subclass", doc.get("subclass", ""))
@@ -77,7 +80,11 @@ def merge_subclass(doc, frag):
     for lvl, pieces in (frag.get("pieces") or {}).items():
         lvl = int(lvl)
         doc["levels"].setdefault(lvl, {"pieces": []})
-        doc["levels"][lvl]["pieces"] = list(pieces) + doc["levels"][lvl]["pieces"]
+        existing = doc["levels"][lvl]["pieces"]
+        i = 0
+        while i < len(existing) and "commodity" in existing[i]:
+            i += 1
+        doc["levels"][lvl]["pieces"] = existing[:i] + list(pieces) + existing[i:]
     return doc
 
 
