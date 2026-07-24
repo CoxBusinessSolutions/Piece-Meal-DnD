@@ -311,8 +311,13 @@ the low-level view clean; the menu grows as you level up.
   `tools/price.py --check` after each change.
 - **Subclasses — in progress.** Base classes now carry no subclass features;
   each subclass is a fragment under `data/subclasses/<class>/` merged onto the
-  base (all 8 Wizard schools done). **Phase 2:** a subclass picker in the web
-  builders (today `build_web.py` merges only each class's default fragment).
+  base. Done: all 8 Wizard schools; Fighter's Champion, Battle Master, and
+  Eldritch Knight. **Phase 2:** a subclass picker in the web builders (today
+  `build_web.py` merges only each class's default fragment).
+  - **Cleric domains — needs a merge extension first.** Unlike Wizard/Fighter,
+    cleric domains vary the *level-1* proficiencies (heavy armor, martial
+    weapons, bonus skills), which the additive merge can't express. Add
+    piece-override-by-id to `merge_subclass` before porting the 6 domains.
   - **Phase 2 — revisit subclass commitment.** Subclass features are currently
     free-floating (no `upgrades:` chains), so feature *timing* is gated by XP
     but school *commitment* is not enforced. When wiring the classless picker,

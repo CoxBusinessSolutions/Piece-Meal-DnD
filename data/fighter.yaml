@@ -1,16 +1,20 @@
-# Piece-Meal-DnD — Fighter (Champion)
+# Piece-Meal-DnD — Fighter (BASE chassis)
 #
-# The pure-martial archetype. This pass defines the level-1 CHARACTER-CREATION
-# breakdown (100-experience budget, priced against data/level1_catalog.yaml).
-# Levels 2-20 (the in-play XP ledger) are stubbed with the SRD thresholds and
-# rubric so they can be filled in later exactly like Rogue/Cleric.
+# The pure-martial archetype. This file is the CLASS BASE only: commodities,
+# Fighting Style, Second Wind, Action Surge, Extra Attack, Indomitable, ASIs,
+# proficiency bumps, and HP. It carries NO subclass (martial-archetype) features.
+#
+# Martial-archetype features live in data/subclasses/fighter/<name>.yaml and are
+# spliced onto this base at levels 3/7/10/15/18 by:
+#   tools/price.py  data/fighter.yaml --subclass data/subclasses/fighter/champion.yaml
+#   tools/build_web.py  (auto-merges the default subclass)
 #
 # Fighter carries the most commodity load at level 1 (all armor + shields, all
 # weapons, a d10 body), so LESS of its 100 is left for signature features — but
-# those two features (Fighting Style, Second Wind) each end up worth a lot.
+# those two features (Fighting Style, Second Wind) each end up worth a lot. All
+# martial archetypes share this identical level-1 chassis.
 
 class: Fighter
-subclass: Champion
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d10
 caster: none
@@ -100,11 +104,8 @@ levels:
         tag: hp
         points: 2
   3:
+    # Subclass features (3rd-level) are merged in from data/subclasses/fighter/.
     pieces:
-      - id: improved-critical-3
-        name: "Champion: Improved Critical"
-        tag: marquee
-        points: 5
       - id: hp-3
         name: "Hit Points (d10)"
         tag: hp
@@ -144,11 +145,8 @@ levels:
         tag: hp
         points: 2
   7:
+    # Subclass features (7th-level) are merged in from data/subclasses/fighter/.
     pieces:
-      - id: remarkable-athlete-7
-        name: "Champion: Remarkable Athlete"
-        tag: utility
-        points: 3
       - id: hp-7
         name: "Hit Points (d10)"
         tag: hp
@@ -178,12 +176,8 @@ levels:
         tag: hp
         points: 2
   10:
+    # Subclass features (10th-level) are merged in from data/subclasses/fighter/.
     pieces:
-      - id: additional-fighting-style-10
-        name: "Champion: Additional Fighting Style"
-        tag: scaling
-        points: 3
-        upgrades: fighting-style
       - id: hp-10
         name: "Hit Points (d10)"
         tag: hp
@@ -235,12 +229,8 @@ levels:
         tag: hp
         points: 2
   15:
+    # Subclass features (15th-level) are merged in from data/subclasses/fighter/.
     pieces:
-      - id: superior-critical-15
-        name: "Champion: Superior Critical"
-        tag: scaling
-        points: 3
-        upgrades: improved-critical-3
       - id: hp-15
         name: "Hit Points (d10)"
         tag: hp
@@ -276,11 +266,8 @@ levels:
         tag: hp
         points: 2
   18:
+    # Subclass features (18th-level) are merged in from data/subclasses/fighter/.
     pieces:
-      - id: survivor-18
-        name: "Champion: Survivor"
-        tag: marquee
-        points: 5
       - id: hp-18
         name: "Hit Points (d10)"
         tag: hp
