@@ -1,4 +1,4 @@
-# Piece-Meal-DnD — Paladin (Oath of Devotion)
+# Piece-Meal-DnD — Paladin (BASE chassis; subclasses in data/subclasses/paladin/)
 #
 # The first HALF-CASTER. Spellcasting does not begin until level 2, and the
 # spell-slot table tops out at 5th level, unlocking a new tier every four class
@@ -7,7 +7,6 @@
 # level-1 creation-budget commodity model as everyone else.
 
 class: Paladin
-subclass: Oath of Devotion
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d10
 caster: half
@@ -106,16 +105,8 @@ levels:
         points: 2
   3:
     pieces:
-      - id: channel-divinity
-        name: "Oath of Devotion: Channel Divinity (Sacred Weapon, Turn the Unholy)"
-        tag: marquee
-        points: 5
       - id: divine-health
         name: "Divine Health"
-        tag: ribbon
-        points: 1
-      - id: oath-spells
-        name: "Oath of Devotion: Oath Spells"
         tag: ribbon
         points: 1
       - id: hp-3
@@ -163,10 +154,6 @@ levels:
         points: 2
   7:
     pieces:
-      - id: aura-of-devotion
-        name: "Oath of Devotion: Aura of Devotion"
-        tag: marquee
-        points: 5
       - id: hp-7
         name: "Hit Points (d10)"
         tag: hp
@@ -254,10 +241,6 @@ levels:
         points: 2
   15:
     pieces:
-      - id: purity-of-spirit
-        name: "Oath of Devotion: Purity of Spirit"
-        tag: utility
-        points: 3
       - id: hp-15
         name: "Hit Points (d10)"
         tag: hp
@@ -310,10 +293,6 @@ levels:
         points: 2
   20:
     pieces:
-      - id: holy-nimbus
-        name: "Oath of Devotion: Holy Nimbus"
-        tag: marquee
-        points: 5
       - id: hp-20
         name: "Hit Points (d10)"
         tag: hp

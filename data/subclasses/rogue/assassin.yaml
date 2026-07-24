@@ -1,0 +1,36 @@
+# Piece-Meal-DnD — Rogue subclass fragment: Assassin
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/rogue.yaml \
+#       --subclass data/subclasses/rogue/assassin.yaml --check
+
+attaches_to: rogue
+subclass: Assassin
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: assassin-bonus-proficiencies
+      name: "Assassin: Bonus Proficiencies"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+    - id: assassinate
+      name: "Assassin: Assassinate"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  9:
+    - id: infiltration-expertise
+      name: "Assassin: Infiltration Expertise"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  13:
+    - id: impostor
+      name: "Assassin: Impostor"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  17:
+    - id: death-strike
+      name: "Assassin: Death Strike"
+      tag: marquee
+      points: 5        # PLACEHOLDER

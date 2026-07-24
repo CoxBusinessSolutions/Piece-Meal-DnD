@@ -1,0 +1,32 @@
+# Piece-Meal-DnD — Monk subclass fragment: Way of Shadow
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/monk.yaml \
+#       --subclass data/subclasses/monk/wayofshadow.yaml --check
+
+attaches_to: monk
+subclass: Way of Shadow
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: shadow-arts
+      name: "Way of Shadow: Shadow Arts"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: shadow-step
+      name: "Way of Shadow: Shadow Step"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  11:
+    - id: cloak-of-shadows
+      name: "Way of Shadow: Cloak of Shadows"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  17:
+    - id: opportunist
+      name: "Way of Shadow: Opportunist"
+      tag: utility
+      points: 3        # PLACEHOLDER

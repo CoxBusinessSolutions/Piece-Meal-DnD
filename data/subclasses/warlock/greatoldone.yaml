@@ -1,0 +1,38 @@
+# Piece-Meal-DnD — Warlock subclass fragment: The Great Old One
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS,
+# set to match The Fiend's level-by-level footprint so the creation budget and
+# in-play ledger stay balanced across patrons.
+#   python3 tools/price.py data/warlock.yaml \
+#       --subclass data/subclasses/warlock/greatoldone.yaml --check
+
+attaches_to: warlock
+subclass: The Great Old One
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  1:
+    - id: awakened-mind
+      name: "The Great Old One: Awakened Mind"
+      tag: utility
+      points: 3        # PLACEHOLDER
+    - id: goo-expanded-spell-list
+      name: "The Great Old One: Expanded Spell List"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+  6:
+    - id: entropic-ward
+      name: "The Great Old One: Entropic Ward"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  10:
+    - id: thought-shield
+      name: "The Great Old One: Thought Shield"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  14:
+    - id: create-thrall
+      name: "The Great Old One: Create Thrall"
+      tag: marquee
+      points: 5        # PLACEHOLDER

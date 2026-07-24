@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Wizard subclass fragment: School of Abjuration
+#
+# Mechanical feature/level facts (what unlocks, and when) referenced from the
+# Player's Handbook. NO descriptive text is reproduced. The `points` weights are
+# ORIGINAL, tunable PLACEHOLDERS — adjust to taste, then re-price. Merge with:
+#   python3 tools/price.py data/wizard.yaml \
+#       --subclass data/subclasses/wizard/abjuration.yaml --check
+
+attaches_to: wizard
+subclass: School of Abjuration
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  2:
+    - id: abjuration-savant
+      name: "Abjuration: Abjuration Savant"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+    - id: arcane-ward
+      name: "Abjuration: Arcane Ward"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: projected-ward
+      name: "Abjuration: Projected Ward"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  10:
+    - id: improved-abjuration
+      name: "Abjuration: Improved Abjuration"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  14:
+    - id: spell-resistance
+      name: "Abjuration: Spell Resistance"
+      tag: marquee
+      points: 5        # PLACEHOLDER

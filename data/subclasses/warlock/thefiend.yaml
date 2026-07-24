@@ -1,0 +1,38 @@
+# Piece-Meal-DnD — Warlock subclass fragment: The Fiend
+#
+# SRD reference otherworldly patron (the default merged into the web build).
+# Only the patron features, keyed by level; spliced onto data/warlock.yaml.
+# Patron features begin at level 1, so two of these split the creation budget.
+#   python3 tools/price.py data/warlock.yaml \
+#       --subclass data/subclasses/warlock/thefiend.yaml --check
+
+attaches_to: warlock
+subclass: The Fiend
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  1:
+    - id: dark-ones-blessing
+      name: "The Fiend: Dark One's Blessing"
+      tag: utility
+      points: 3
+    - id: expanded-spell-list
+      name: "The Fiend: Expanded Spell List"
+      tag: ribbon
+      points: 1
+  6:
+    - id: dark-ones-own-luck
+      name: "The Fiend: Dark One's Own Luck"
+      tag: marquee
+      points: 5
+  10:
+    - id: fiendish-resilience
+      name: "The Fiend: Fiendish Resilience"
+      tag: marquee
+      points: 5
+  14:
+    - id: hurl-through-hell
+      name: "The Fiend: Hurl Through Hell"
+      tag: marquee
+      points: 5

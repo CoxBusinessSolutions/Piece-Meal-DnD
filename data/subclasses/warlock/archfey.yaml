@@ -1,0 +1,38 @@
+# Piece-Meal-DnD — Warlock subclass fragment: The Archfey
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS,
+# set to match The Fiend's level-by-level footprint so the creation budget and
+# in-play ledger stay balanced across patrons.
+#   python3 tools/price.py data/warlock.yaml \
+#       --subclass data/subclasses/warlock/archfey.yaml --check
+
+attaches_to: warlock
+subclass: The Archfey
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  1:
+    - id: fey-presence
+      name: "The Archfey: Fey Presence"
+      tag: utility
+      points: 3        # PLACEHOLDER
+    - id: archfey-expanded-spell-list
+      name: "The Archfey: Expanded Spell List"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+  6:
+    - id: misty-escape
+      name: "The Archfey: Misty Escape"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  10:
+    - id: beguiling-defenses
+      name: "The Archfey: Beguiling Defenses"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  14:
+    - id: dark-delirium
+      name: "The Archfey: Dark Delirium"
+      tag: marquee
+      points: 5        # PLACEHOLDER

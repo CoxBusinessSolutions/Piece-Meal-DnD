@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Paladin subclass fragment: Oath of Devotion
+#
+# SRD reference sacred oath (the default merged into the web build). Only the
+# oath features, keyed by level; spliced onto data/paladin.yaml.
+#   python3 tools/price.py data/paladin.yaml \
+#       --subclass data/subclasses/paladin/devotion.yaml --check
+
+attaches_to: paladin
+subclass: Oath of Devotion
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  3:
+    - id: channel-divinity
+      name: "Oath of Devotion: Channel Divinity (Sacred Weapon, Turn the Unholy)"
+      tag: marquee
+      points: 5
+    - id: oath-spells
+      name: "Oath of Devotion: Oath Spells"
+      tag: ribbon
+      points: 1
+  7:
+    - id: aura-of-devotion
+      name: "Oath of Devotion: Aura of Devotion"
+      tag: marquee
+      points: 5
+  15:
+    - id: purity-of-spirit
+      name: "Oath of Devotion: Purity of Spirit"
+      tag: utility
+      points: 3
+  20:
+    - id: holy-nimbus
+      name: "Oath of Devotion: Holy Nimbus"
+      tag: marquee
+      points: 5

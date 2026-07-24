@@ -1,4 +1,4 @@
-# Piece-Meal-DnD — Monk (Way of the Open Hand)
+# Piece-Meal-DnD — Monk (BASE chassis; subclasses in data/subclasses/monk/)
 #
 # Pure martial with a resource system: Ki (Flurry of Blows, Patient Defense,
 # Step of the Wind) is one buyable piece, and the Martial Arts die growth
@@ -7,7 +7,6 @@
 # its 100 flows into Martial Arts.
 
 class: Monk
-subclass: Way of the Open Hand
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d8
 caster: none
@@ -102,10 +101,6 @@ levels:
         points: 2
   3:
     pieces:
-      - id: open-hand-technique
-        name: "Way of the Open Hand: Open Hand Technique"
-        tag: marquee
-        points: 5
       - id: deflect-missiles
         name: "Deflect Missiles"
         tag: utility
@@ -155,10 +150,6 @@ levels:
     pieces:
       - id: ki-empowered-strikes
         name: "Ki-Empowered Strikes"
-        tag: utility
-        points: 3
-      - id: wholeness-of-body
-        name: "Way of the Open Hand: Wholeness of Body"
         tag: utility
         points: 3
       - id: hp-6
@@ -216,10 +207,6 @@ levels:
         points: 2
   11:
     pieces:
-      - id: tranquility
-        name: "Way of the Open Hand: Tranquility"
-        tag: marquee
-        points: 5
       - id: martial-arts-die-11
         name: "Martial Arts die (d8)"
         tag: scaling
@@ -285,10 +272,6 @@ levels:
         points: 2
   17:
     pieces:
-      - id: quivering-palm
-        name: "Way of the Open Hand: Quivering Palm"
-        tag: marquee
-        points: 5
       - id: martial-arts-die-17
         name: "Martial Arts die (d10)"
         tag: scaling

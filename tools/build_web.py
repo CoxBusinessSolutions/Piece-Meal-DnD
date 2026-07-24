@@ -83,8 +83,19 @@ ROLE = {"none": "Martial", "half": "Half-caster",
         "full": "Full caster", "pact": "Pact Magic"}
 
 
-def build_class(path, catalog):
-    doc = yaml.safe_load(open(path))
+def load_subclasses(class_key):
+    """Fragments for a base class, from data/subclasses/<key>/*.yaml (sorted)."""
+    d = os.path.join(DATA_DIR, "subclasses", class_key)
+    if not os.path.isdir(d):
+        return []
+    return [yaml.safe_load(open(p, encoding="utf-8"))
+            for p in sorted(glob.glob(os.path.join(d, "*.yaml")))]
+
+
+def build_class(path, catalog, subclass=None):
+    doc = yaml.safe_load(open(path, encoding="utf-8"))
+    if subclass:
+        price.merge_subclass(doc, subclass)
     doc["_catalog"] = catalog
 
     # id -> the piece it upgrades, so the UI can show the chain.
@@ -254,11 +265,11 @@ def build_classless(catalog, classes):
 
 def inject(src_path, payload):
     """Replace the DATA marker block in a body-only source and return it."""
-    src = open(src_path).read()
+    src = open(src_path, encoding="utf-8").read()
     new = re.sub(r"/\*DATA_START\*/.*?/\*DATA_END\*/",
                  lambda m: "/*DATA_START*/" + payload + "/*DATA_END*/",
                  src, flags=re.S)
-    open(src_path, "w").write(new)
+    open(src_path, "w", encoding="utf-8").write(new)
     return new
 
 
@@ -271,12 +282,19 @@ def wrap(body, title):
 
 
 def main():
-    catalog = yaml.safe_load(open(os.path.join(DATA_DIR, "level1_catalog.yaml")))
+    catalog = yaml.safe_load(open(os.path.join(DATA_DIR, "level1_catalog.yaml"), encoding="utf-8"))
     classes, order = {}, []
     for path in sorted(glob.glob(os.path.join(DATA_DIR, "*.yaml"))):
         if os.path.basename(path) == "level1_catalog.yaml":
             continue
-        key, payload = build_class(path, catalog)
+        # A base class merges its default subclass (or the first, alphabetically)
+        # so the per-class page still shows a full build. The full per-subclass
+        # picker is layered on top of this in a later pass.
+        file_key = os.path.splitext(os.path.basename(path))[0]
+        frags = load_subclasses(file_key)
+        default = next((f for f in frags if f.get("default")),
+                       frags[0] if frags else None)
+        key, payload = build_class(path, catalog, subclass=default)
         classes[key] = payload
         order.append(key)
 
@@ -284,14 +302,14 @@ def main():
     per_class = json.dumps({"order": order, "classes": classes},
                            separators=(",", ":"))
     body = inject(os.path.join(WEB_DIR, "app.html"), per_class)
-    open(os.path.join(WEB_DIR, "index.html"), "w").write(
+    open(os.path.join(WEB_DIR, "index.html"), "w", encoding="utf-8").write(
         wrap(body, "Piece-Meal D&amp;D — Character Builder"))
 
     # Classless builder.
     classless = json.dumps(build_classless(catalog, classes),
                            separators=(",", ":"))
     cbody = inject(os.path.join(WEB_DIR, "classless-app.html"), classless)
-    open(os.path.join(WEB_DIR, "classless.html"), "w").write(
+    open(os.path.join(WEB_DIR, "classless.html"), "w", encoding="utf-8").write(
         wrap(cbody, "Piece-Meal D&amp;D — Classless Builder"))
 
     n_feat = len(json.loads(classless)["features"])

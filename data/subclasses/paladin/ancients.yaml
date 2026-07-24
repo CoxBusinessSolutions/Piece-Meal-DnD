@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Paladin subclass fragment: Oath of the Ancients
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS,
+# set to match Oath of Devotion's level-by-level footprint.
+#   python3 tools/price.py data/paladin.yaml \
+#       --subclass data/subclasses/paladin/ancients.yaml --check
+
+attaches_to: paladin
+subclass: Oath of the Ancients
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: ancients-channel-divinity
+      name: "Oath of the Ancients: Channel Divinity (Nature's Wrath, Turn the Faithless)"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+    - id: ancients-oath-spells
+      name: "Oath of the Ancients: Oath Spells"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+  7:
+    - id: aura-of-warding
+      name: "Oath of the Ancients: Aura of Warding"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  15:
+    - id: undying-sentinel
+      name: "Oath of the Ancients: Undying Sentinel"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  20:
+    - id: elder-champion
+      name: "Oath of the Ancients: Elder Champion"
+      tag: marquee
+      points: 5        # PLACEHOLDER

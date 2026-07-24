@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Cleric subclass fragment: Trickery Domain
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/cleric.yaml \
+#       --subclass data/subclasses/cleric/trickery.yaml --check
+
+attaches_to: cleric
+subclass: Trickery Domain
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  1:
+    - id: blessing-of-the-trickster
+      name: "Trickery Domain: Blessing of the Trickster"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  2:
+    - id: invoke-duplicity
+      name: "Trickery Domain: Channel Divinity - Invoke Duplicity"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: cloak-of-shadows
+      name: "Trickery Domain: Channel Divinity - Cloak of Shadows"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  8:
+    - id: trickery-divine-strike
+      name: "Trickery Domain: Divine Strike"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  17:
+    - id: improved-duplicity
+      name: "Trickery Domain: Improved Duplicity"
+      tag: utility
+      points: 3        # PLACEHOLDER

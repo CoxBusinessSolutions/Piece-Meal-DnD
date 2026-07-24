@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Wizard subclass fragment: School of Divination
+#
+# Mechanical feature/level facts (what unlocks, and when) referenced from the
+# Player's Handbook. NO descriptive text is reproduced. The `points` weights are
+# ORIGINAL, tunable PLACEHOLDERS — adjust to taste, then re-price. Merge with:
+#   python3 tools/price.py data/wizard.yaml \
+#       --subclass data/subclasses/wizard/divination.yaml --check
+
+attaches_to: wizard
+subclass: School of Divination
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  2:
+    - id: divination-savant
+      name: "Divination: Divination Savant"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+    - id: portent
+      name: "Divination: Portent"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: expert-divination
+      name: "Divination: Expert Divination"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  10:
+    - id: the-third-eye
+      name: "Divination: The Third Eye"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  14:
+    - id: greater-portent
+      name: "Divination: Greater Portent"
+      tag: marquee
+      points: 5        # PLACEHOLDER

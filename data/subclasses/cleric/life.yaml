@@ -1,0 +1,46 @@
+# Piece-Meal-DnD — Cleric subclass fragment: Life Domain
+#
+# SRD reference divine domain (the default merged into the web build). Domain
+# features are at levels 1/2/6/8/17. The Life Domain grants heavy-armor
+# proficiency, expressed here as an OVERRIDE of the base `armor-1` commodity
+# (so it stays a single priced row) rather than an extra piece.
+#   python3 tools/price.py data/cleric.yaml \
+#       --subclass data/subclasses/cleric/life.yaml --check
+
+attaches_to: cleric
+subclass: Life Domain
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+overrides:
+  - id: armor-1
+    set:
+      name: "Armor Proficiency: light, medium, heavy (Life Domain), shields"
+      tiers: [light, medium, heavy, shield]
+
+pieces:
+  1:
+    - id: disciple-of-life
+      name: "Life Domain: Disciple of Life"
+      tag: utility
+      points: 3
+  2:
+    - id: preserve-life
+      name: "Life Domain: Channel Divinity - Preserve Life"
+      tag: utility
+      points: 3
+  6:
+    - id: blessed-healer
+      name: "Life Domain: Blessed Healer"
+      tag: utility
+      points: 3
+  8:
+    - id: divine-strike
+      name: "Life Domain: Divine Strike"
+      tag: marquee
+      points: 5
+  17:
+    - id: supreme-healing
+      name: "Life Domain: Supreme Healing"
+      tag: marquee
+      points: 5

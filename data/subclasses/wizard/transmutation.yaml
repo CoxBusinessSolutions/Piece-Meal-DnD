@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Wizard subclass fragment: School of Transmutation
+#
+# Mechanical feature/level facts (what unlocks, and when) referenced from the
+# Player's Handbook. NO descriptive text is reproduced. The `points` weights are
+# ORIGINAL, tunable PLACEHOLDERS — adjust to taste, then re-price. Merge with:
+#   python3 tools/price.py data/wizard.yaml \
+#       --subclass data/subclasses/wizard/transmutation.yaml --check
+
+attaches_to: wizard
+subclass: School of Transmutation
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  2:
+    - id: transmutation-savant
+      name: "Transmutation: Transmutation Savant"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+    - id: minor-alchemy
+      name: "Transmutation: Minor Alchemy"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  6:
+    - id: transmuters-stone
+      name: "Transmutation: Transmuter's Stone"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  10:
+    - id: shapechanger
+      name: "Transmutation: Shapechanger"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  14:
+    - id: master-transmuter
+      name: "Transmutation: Master Transmuter"
+      tag: marquee
+      points: 5        # PLACEHOLDER

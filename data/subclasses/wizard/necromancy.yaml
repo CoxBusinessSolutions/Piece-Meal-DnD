@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Wizard subclass fragment: School of Necromancy
+#
+# Mechanical feature/level facts (what unlocks, and when) referenced from the
+# Player's Handbook. NO descriptive text is reproduced. The `points` weights are
+# ORIGINAL, tunable PLACEHOLDERS — adjust to taste, then re-price. Merge with:
+#   python3 tools/price.py data/wizard.yaml \
+#       --subclass data/subclasses/wizard/necromancy.yaml --check
+
+attaches_to: wizard
+subclass: School of Necromancy
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  2:
+    - id: necromancy-savant
+      name: "Necromancy: Necromancy Savant"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+    - id: grim-harvest
+      name: "Necromancy: Grim Harvest"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: undead-thralls
+      name: "Necromancy: Undead Thralls"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  10:
+    - id: inured-to-undeath
+      name: "Necromancy: Inured to Undeath"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  14:
+    - id: command-undead
+      name: "Necromancy: Command Undead"
+      tag: marquee
+      points: 5        # PLACEHOLDER

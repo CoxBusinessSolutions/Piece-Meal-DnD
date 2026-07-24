@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Wizard subclass fragment: School of Conjuration
+#
+# Mechanical feature/level facts (what unlocks, and when) referenced from the
+# Player's Handbook. NO descriptive text is reproduced. The `points` weights are
+# ORIGINAL, tunable PLACEHOLDERS — adjust to taste, then re-price. Merge with:
+#   python3 tools/price.py data/wizard.yaml \
+#       --subclass data/subclasses/wizard/conjuration.yaml --check
+
+attaches_to: wizard
+subclass: School of Conjuration
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  2:
+    - id: conjuration-savant
+      name: "Conjuration: Conjuration Savant"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+    - id: minor-conjuration
+      name: "Conjuration: Minor Conjuration"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  6:
+    - id: benign-transposition
+      name: "Conjuration: Benign Transposition"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  10:
+    - id: focused-conjuration
+      name: "Conjuration: Focused Conjuration"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  14:
+    - id: durable-summons
+      name: "Conjuration: Durable Summons"
+      tag: utility
+      points: 3        # PLACEHOLDER

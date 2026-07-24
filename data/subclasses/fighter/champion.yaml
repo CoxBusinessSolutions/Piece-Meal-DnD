@@ -1,0 +1,45 @@
+# Piece-Meal-DnD — Fighter subclass fragment: Champion
+#
+# A SUBCLASS FRAGMENT: only the martial-archetype features, keyed by the level
+# they are gained (3/7/10/15/18). Spliced onto data/fighter.yaml (the base
+# chassis) by tools/price.py (--subclass) and tools/build_web.py.
+#
+#   python3 tools/price.py data/fighter.yaml \
+#       --subclass data/subclasses/fighter/champion.yaml --check
+#
+# Champion is the SRD reference archetype, so it is the default merged into the
+# web build — leaving it identical to the pre-fragment output.
+
+attaches_to: fighter
+subclass: Champion
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  3:
+    - id: improved-critical-3
+      name: "Champion: Improved Critical"
+      tag: marquee
+      points: 5
+  7:
+    - id: remarkable-athlete-7
+      name: "Champion: Remarkable Athlete"
+      tag: utility
+      points: 3
+  10:
+    - id: additional-fighting-style-10
+      name: "Champion: Additional Fighting Style"
+      tag: scaling
+      points: 3
+      upgrades: fighting-style
+  15:
+    - id: superior-critical-15
+      name: "Champion: Superior Critical"
+      tag: scaling
+      points: 3
+      upgrades: improved-critical-3
+  18:
+    - id: survivor-18
+      name: "Champion: Survivor"
+      tag: marquee
+      points: 5

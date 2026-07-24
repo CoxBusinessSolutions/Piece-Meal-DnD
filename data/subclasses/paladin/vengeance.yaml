@@ -1,0 +1,38 @@
+# Piece-Meal-DnD — Paladin subclass fragment: Oath of Vengeance
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+# Vengeance has no level-7 aura (it gains Relentless Avenger instead), so its
+# level-7 weight is lighter than Devotion/Ancients — tune to taste.
+#   python3 tools/price.py data/paladin.yaml \
+#       --subclass data/subclasses/paladin/vengeance.yaml --check
+
+attaches_to: paladin
+subclass: Oath of Vengeance
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: vengeance-channel-divinity
+      name: "Oath of Vengeance: Channel Divinity (Abjure Enemy, Vow of Enmity)"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+    - id: vengeance-oath-spells
+      name: "Oath of Vengeance: Oath Spells"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+  7:
+    - id: relentless-avenger
+      name: "Oath of Vengeance: Relentless Avenger"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  15:
+    - id: soul-of-vengeance
+      name: "Oath of Vengeance: Soul of Vengeance"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  20:
+    - id: avenging-angel
+      name: "Oath of Vengeance: Avenging Angel"
+      tag: marquee
+      points: 5        # PLACEHOLDER
