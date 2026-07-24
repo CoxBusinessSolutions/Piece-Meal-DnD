@@ -110,7 +110,8 @@ Three spell mechanics are modeled, all with the same upgrade-chain style:
 
 ```
 data/level1_catalog.yaml   Shared, fixed prices for level-1 commodities
-data/<class>.yaml          Source of truth — one file per class (all 12)
+data/<class>.yaml          Base chassis — one file per class (all 12)
+data/subclasses/<class>/<name>.yaml  Subclass fragments merged onto a base
 data/<class>.md            Generated breakdown tables (do not edit by hand)
 tools/price.py             Pricer / validator
 tools/build_web.py         Bundles the data into both web builders
@@ -123,6 +124,33 @@ web/classless-app.html     Classless builder source (body-only)
 
 All 12 SRD classes are present: barbarian, bard, cleric, druid, fighter, monk,
 paladin, ranger, rogue, sorcerer, warlock, wizard.
+
+### Subclasses (fragments)
+
+A base class file (`data/<class>.yaml`) carries the shared chassis only —
+commodities, spellcasting/resource package, HP, ASI, proficiency bumps, and the
+base-class capstones — and **no subclass features**. Each subclass lives in its
+own fragment under `data/subclasses/<class>/<name>.yaml`, listing only the
+archetype pieces keyed by the level they are gained. The pricer splices a
+fragment onto its base:
+
+```bash
+python3 tools/price.py data/wizard.yaml \
+    --subclass data/subclasses/wizard/necromancy.yaml --check
+```
+
+Because each level's XP cost is split across whatever pieces are present, any
+fragment reconciles to the SRD thresholds automatically — you only choose the
+`points` weights. `tools/build_web.py` merges each class's **default** fragment
+(the one flagged `default: true`, or the first alphabetically) so the web build
+stays whole.
+
+**Licensing boundary.** The 12 base chassis and their one SRD subclass are open
+**SRD 5.1 (CC-BY-4.0)**. Fragments for non-SRD subclasses (e.g. the extra Wizard
+schools) record only **mechanical feature/level facts** (which feature unlocks,
+and when) plus **original power-point weights** — no rules prose is reproduced.
+Their `source:` line marks them as such rather than as SRD content. Keep it that
+way when adding more: names and level-timing are facts; descriptions are not.
 
 ## Web builders
 
@@ -281,6 +309,15 @@ the low-level view clean; the menu grows as you level up.
   and the menu could group by level band for easier scanning.
 - **Tune the economy.** Revisit any of the Design-notes choices above; re-run
   `tools/price.py --check` after each change.
+- **Subclasses — in progress.** Base classes now carry no subclass features;
+  each subclass is a fragment under `data/subclasses/<class>/` merged onto the
+  base (all 8 Wizard schools done). **Phase 2:** a subclass picker in the web
+  builders (today `build_web.py` merges only each class's default fragment).
+  - **Phase 2 — revisit subclass commitment.** Subclass features are currently
+    free-floating (no `upgrades:` chains), so feature *timing* is gated by XP
+    but school *commitment* is not enforced. When wiring the classless picker,
+    decide whether to chain each school (L6→L2→…, giving "needs X" chips +
+    cascade-removal) or keep them mixable per the classless "anything goes" ethos.
 - **Broaden content.** More subclasses per class, or non-SRD classes/options
   (mind the SRD 5.1 licensing boundary for anything beyond it).
 - **Builder niceties.** Save/share a specific build (permalink), export to a

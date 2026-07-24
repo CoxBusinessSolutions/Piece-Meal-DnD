@@ -83,8 +83,19 @@ ROLE = {"none": "Martial", "half": "Half-caster",
         "full": "Full caster", "pact": "Pact Magic"}
 
 
-def build_class(path, catalog):
+def load_subclasses(class_key):
+    """Fragments for a base class, from data/subclasses/<key>/*.yaml (sorted)."""
+    d = os.path.join(DATA_DIR, "subclasses", class_key)
+    if not os.path.isdir(d):
+        return []
+    return [yaml.safe_load(open(p, encoding="utf-8"))
+            for p in sorted(glob.glob(os.path.join(d, "*.yaml")))]
+
+
+def build_class(path, catalog, subclass=None):
     doc = yaml.safe_load(open(path, encoding="utf-8"))
+    if subclass:
+        price.merge_subclass(doc, subclass)
     doc["_catalog"] = catalog
 
     # id -> the piece it upgrades, so the UI can show the chain.
@@ -276,7 +287,14 @@ def main():
     for path in sorted(glob.glob(os.path.join(DATA_DIR, "*.yaml"))):
         if os.path.basename(path) == "level1_catalog.yaml":
             continue
-        key, payload = build_class(path, catalog)
+        # A base class merges its default subclass (or the first, alphabetically)
+        # so the per-class page still shows a full build. The full per-subclass
+        # picker is layered on top of this in a later pass.
+        file_key = os.path.splitext(os.path.basename(path))[0]
+        frags = load_subclasses(file_key)
+        default = next((f for f in frags if f.get("default")),
+                       frags[0] if frags else None)
+        key, payload = build_class(path, catalog, subclass=default)
         classes[key] = payload
         order.append(key)
 

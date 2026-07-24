@@ -60,6 +60,27 @@ def largest_remainder(total, weights):
     return floors
 
 
+def merge_subclass(doc, frag):
+    """Splice a subclass fragment onto a base-class doc, in place.
+
+    A fragment (data/subclasses/<class>/<name>.yaml) carries only its
+    arcane-tradition / archetype pieces keyed by the level they are gained.
+    Those pieces are inserted at the FRONT of each level's list, matching the
+    order the original woven class files used (subclass feature, then HP). The
+    base class's XP thresholds are untouched, so every level still reconciles.
+    """
+    doc["subclass"] = frag.get("subclass", doc.get("subclass", ""))
+    fsrc = frag.get("source")
+    if fsrc and fsrc != doc.get("source"):
+        base = doc.get("source", "")
+        doc["source"] = f"{base}; subclass — {fsrc}" if base else fsrc
+    for lvl, pieces in (frag.get("pieces") or {}).items():
+        lvl = int(lvl)
+        doc["levels"].setdefault(lvl, {"pieces": []})
+        doc["levels"][lvl]["pieces"] = list(pieces) + doc["levels"][lvl]["pieces"]
+    return doc
+
+
 def load_catalog(class_path):
     """Load the shared level-1 commodity catalog next to the class file."""
     cat_path = os.path.join(os.path.dirname(class_path), "level1_catalog.yaml")
@@ -227,6 +248,9 @@ def render_markdown(doc, rows):
 def main():
     ap = argparse.ArgumentParser(description="Price and validate a class YAML.")
     ap.add_argument("path")
+    ap.add_argument("--subclass", metavar="FRAGMENT",
+                    help="merge a subclass fragment "
+                         "(data/subclasses/<class>/<name>.yaml) onto the base")
     ap.add_argument("--markdown", action="store_true", help="emit Markdown tables")
     ap.add_argument("--check", action="store_true",
                     help="only validate; print nothing on success")
@@ -234,6 +258,9 @@ def main():
 
     with open(args.path, encoding="utf-8") as f:
         doc = yaml.safe_load(f)
+    if args.subclass:
+        with open(args.subclass, encoding="utf-8") as f:
+            merge_subclass(doc, yaml.safe_load(f))
     doc["_catalog"] = load_catalog(args.path)
 
     rows, problems = price_class(doc)

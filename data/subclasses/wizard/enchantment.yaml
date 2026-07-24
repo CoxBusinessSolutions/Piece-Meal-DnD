@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Wizard subclass fragment: School of Enchantment
+#
+# Mechanical feature/level facts (what unlocks, and when) referenced from the
+# Player's Handbook. NO descriptive text is reproduced. The `points` weights are
+# ORIGINAL, tunable PLACEHOLDERS — adjust to taste, then re-price. Merge with:
+#   python3 tools/price.py data/wizard.yaml \
+#       --subclass data/subclasses/wizard/enchantment.yaml --check
+
+attaches_to: wizard
+subclass: School of Enchantment
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  2:
+    - id: enchantment-savant
+      name: "Enchantment: Enchantment Savant"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+    - id: hypnotic-gaze
+      name: "Enchantment: Hypnotic Gaze"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  6:
+    - id: instinctive-charm
+      name: "Enchantment: Instinctive Charm"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  10:
+    - id: split-enchantment
+      name: "Enchantment: Split Enchantment"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  14:
+    - id: alter-memories
+      name: "Enchantment: Alter Memories"
+      tag: utility
+      points: 3        # PLACEHOLDER
