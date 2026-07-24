@@ -313,8 +313,9 @@ the low-level view clean; the menu grows as you level up.
   each subclass is a fragment under `data/subclasses/<class>/` merged onto the
   base. Done: Wizard (8 schools); Fighter (Champion, Battle Master, Eldritch
   Knight); Barbarian (Berserker, Totem Warrior); Bard (Lore, Valor); Druid
-  (Land, Moon); Ranger (Hunter, Beast Master); Rogue (Thief, Assassin); Monk
-  (Open Hand, Way of Shadow); Sorcerer (Draconic Bloodline, Wild Magic); Warlock
+  (Land, Moon); Ranger (Hunter, Beast Master); Rogue (Thief, Assassin, Arcane
+  Trickster); Monk (Open Hand, Way of Shadow, Way of the Four Elements); Sorcerer
+  (Draconic Bloodline, Wild Magic); Warlock
   (The Fiend, The Archfey, The Great Old One); Paladin (Oath of Devotion, Oath of
   the Ancients, Oath of Vengeance). **Phase 2:** a subclass picker in the web
   builders (today `build_web.py` merges only each class's default fragment).
@@ -326,8 +327,8 @@ the low-level view clean; the menu grows as you level up.
     can flip a largest-remainder tiebreak by ±1 XP. Prices still reconcile and no
     pieces change — it is cosmetic. Wizard/Fighter, whose subclass pieces lead
     their level, stay byte-identical.
-  - **Deferred.** Rogue's Arcane Trickster and Monk's Way of the Four Elements
-    add a spell/discipline sub-scheme (like Eldritch Knight) — still to do.
+  - **Only Cleric left.** Every class but Cleric now has all its PHB subclasses
+    (Arcane Trickster and Four Elements were the last sub-scheme ones).
   - **Cleric domains — needs a merge extension first.** Unlike the others,
     cleric domains vary the *level-1* proficiencies (heavy armor, martial
     weapons, bonus skills), which the additive merge can't express. Add
