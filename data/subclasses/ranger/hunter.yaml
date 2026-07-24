@@ -1,0 +1,33 @@
+# Piece-Meal-DnD — Ranger subclass fragment: Hunter
+#
+# SRD reference ranger archetype (the default merged into the web build). Only
+# the archetype features, keyed by level; spliced onto data/ranger.yaml.
+#   python3 tools/price.py data/ranger.yaml \
+#       --subclass data/subclasses/ranger/hunter.yaml --check
+
+attaches_to: ranger
+subclass: Hunter
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  3:
+    - id: hunters-prey
+      name: "Hunter: Hunter's Prey"
+      tag: marquee
+      points: 5
+  7:
+    - id: defensive-tactics
+      name: "Hunter: Defensive Tactics"
+      tag: utility
+      points: 3
+  11:
+    - id: multiattack
+      name: "Hunter: Multiattack"
+      tag: marquee
+      points: 5
+  15:
+    - id: superior-hunters-defense
+      name: "Hunter: Superior Hunter's Defense"
+      tag: marquee
+      points: 5

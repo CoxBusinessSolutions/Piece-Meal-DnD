@@ -1,4 +1,4 @@
-# Piece-Meal-DnD — Rogue
+# Piece-Meal-DnD — Rogue (BASE chassis; subclasses in data/subclasses/rogue/)
 #
 # The source of truth for the Rogue class. Each level lists the "pieces" you
 # gain at that level, tagged and weighted in "power points". The pricer
@@ -116,14 +116,6 @@ levels:
         points: 2
   3:
     pieces:
-      - id: archetype-fast-hands
-        name: "Thief: Fast Hands"
-        tag: utility
-        points: 3
-      - id: archetype-second-story-work
-        name: "Thief: Second-Story Work"
-        tag: proficiency
-        points: 2
       - id: sneak-attack-2d6
         name: "Sneak Attack (2d6)"
         tag: scaling
@@ -200,10 +192,6 @@ levels:
         points: 2
   9:
     pieces:
-      - id: archetype-supreme-sneak
-        name: "Thief: Supreme Sneak"
-        tag: utility
-        points: 3
       - id: sneak-attack-5d6
         name: "Sneak Attack (5d6)"
         tag: scaling
@@ -254,10 +242,6 @@ levels:
         points: 2
   13:
     pieces:
-      - id: archetype-use-magic-device
-        name: "Thief: Use Magic Device"
-        tag: utility
-        points: 3
       - id: sneak-attack-7d6
         name: "Sneak Attack (7d6)"
         tag: scaling
@@ -308,10 +292,6 @@ levels:
         points: 2
   17:
     pieces:
-      - id: archetype-thiefs-reflexes
-        name: "Thief: Thief's Reflexes"
-        tag: marquee
-        points: 5
       - id: sneak-attack-9d6
         name: "Sneak Attack (9d6)"
         tag: scaling

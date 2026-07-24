@@ -1,0 +1,36 @@
+# Piece-Meal-DnD — Barbarian subclass fragment: Path of the Totem Warrior
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/barbarian.yaml \
+#       --subclass data/subclasses/barbarian/totemwarrior.yaml --check
+
+attaches_to: barbarian
+subclass: Path of the Totem Warrior
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: spirit-seeker
+      name: "Totem Warrior: Spirit Seeker"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+    - id: totem-spirit
+      name: "Totem Warrior: Totem Spirit"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: aspect-of-the-beast
+      name: "Totem Warrior: Aspect of the Beast"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  10:
+    - id: spirit-walker
+      name: "Totem Warrior: Spirit Walker"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  14:
+    - id: totemic-attunement
+      name: "Totem Warrior: Totemic Attunement"
+      tag: marquee
+      points: 5        # PLACEHOLDER

@@ -1,0 +1,32 @@
+# Piece-Meal-DnD — Ranger subclass fragment: Beast Master
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/ranger.yaml \
+#       --subclass data/subclasses/ranger/beastmaster.yaml --check
+
+attaches_to: ranger
+subclass: Beast Master
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: rangers-companion
+      name: "Beast Master: Ranger's Companion"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  7:
+    - id: exceptional-training
+      name: "Beast Master: Exceptional Training"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  11:
+    - id: bestial-fury
+      name: "Beast Master: Bestial Fury"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  15:
+    - id: share-spells
+      name: "Beast Master: Share Spells"
+      tag: utility
+      points: 3        # PLACEHOLDER

@@ -1,0 +1,36 @@
+# Piece-Meal-DnD — Druid subclass fragment: Circle of the Moon
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/druid.yaml \
+#       --subclass data/subclasses/druid/moon.yaml --check
+
+attaches_to: druid
+subclass: Circle of the Moon
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  2:
+    - id: combat-wild-shape
+      name: "Circle of the Moon: Combat Wild Shape"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+    - id: circle-forms
+      name: "Circle of the Moon: Circle Forms"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  6:
+    - id: primal-strike
+      name: "Circle of the Moon: Primal Strike"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  10:
+    - id: elemental-wild-shape
+      name: "Circle of the Moon: Elemental Wild Shape"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  14:
+    - id: thousand-forms
+      name: "Circle of the Moon: Thousand Forms"
+      tag: utility
+      points: 3        # PLACEHOLDER

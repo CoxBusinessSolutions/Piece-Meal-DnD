@@ -1,0 +1,32 @@
+# Piece-Meal-DnD — Bard subclass fragment: College of Lore
+#
+# SRD reference bard college (the default merged into the web build). Only the
+# college features, keyed by level; spliced onto data/bard.yaml.
+#   python3 tools/price.py data/bard.yaml \
+#       --subclass data/subclasses/bard/lore.yaml --check
+
+attaches_to: bard
+subclass: College of Lore
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  3:
+    - id: cutting-words
+      name: "College of Lore: Cutting Words"
+      tag: marquee
+      points: 5
+    - id: lore-bonus-proficiencies
+      name: "College of Lore: Bonus Proficiencies"
+      tag: proficiency
+      points: 2
+  6:
+    - id: additional-magical-secrets
+      name: "College of Lore: Additional Magical Secrets"
+      tag: marquee
+      points: 5
+  14:
+    - id: peerless-skill
+      name: "College of Lore: Peerless Skill"
+      tag: utility
+      points: 3

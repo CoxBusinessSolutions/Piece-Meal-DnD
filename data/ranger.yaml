@@ -1,4 +1,4 @@
-# Piece-Meal-DnD — Ranger (Hunter)
+# Piece-Meal-DnD — Ranger (BASE chassis; subclasses in data/subclasses/ranger/)
 #
 # The second HALF-CASTER. Same spell schedule as the Paladin (spellcasting from
 # level 2, tiers at 2/5/9/13/17, capping at 5th). Its exploration features
@@ -7,7 +7,6 @@
 # Superior Hunter's Defense) are each a single marquee piece.
 
 class: Ranger
-subclass: Hunter
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d10
 caster: half
@@ -102,10 +101,6 @@ levels:
         points: 2
   3:
     pieces:
-      - id: hunters-prey
-        name: "Hunter: Hunter's Prey"
-        tag: marquee
-        points: 5
       - id: primeval-awareness
         name: "Primeval Awareness"
         tag: utility
@@ -161,10 +156,6 @@ levels:
         points: 2
   7:
     pieces:
-      - id: defensive-tactics
-        name: "Hunter: Defensive Tactics"
-        tag: utility
-        points: 3
       - id: hp-7
         name: "Hit Points (d10)"
         tag: hp
@@ -215,10 +206,6 @@ levels:
         points: 2
   11:
     pieces:
-      - id: multiattack
-        name: "Hunter: Multiattack"
-        tag: marquee
-        points: 5
       - id: hp-11
         name: "Hit Points (d10)"
         tag: hp
@@ -265,10 +252,6 @@ levels:
         points: 2
   15:
     pieces:
-      - id: superior-hunters-defense
-        name: "Hunter: Superior Hunter's Defense"
-        tag: marquee
-        points: 5
       - id: hp-15
         name: "Hit Points (d10)"
         tag: hp

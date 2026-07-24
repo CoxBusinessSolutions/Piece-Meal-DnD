@@ -311,10 +311,20 @@ the low-level view clean; the menu grows as you level up.
   `tools/price.py --check` after each change.
 - **Subclasses — in progress.** Base classes now carry no subclass features;
   each subclass is a fragment under `data/subclasses/<class>/` merged onto the
-  base. Done: all 8 Wizard schools; Fighter's Champion, Battle Master, and
-  Eldritch Knight. **Phase 2:** a subclass picker in the web builders (today
-  `build_web.py` merges only each class's default fragment).
-  - **Cleric domains — needs a merge extension first.** Unlike Wizard/Fighter,
+  base. Done: Wizard (8 schools); Fighter (Champion, Battle Master, Eldritch
+  Knight); Barbarian (Berserker, Totem Warrior); Bard (Lore, Valor); Druid
+  (Land, Moon); Ranger (Hunter, Beast Master); Rogue (Thief, Assassin); Monk
+  (Open Hand, Way of Shadow). **Phase 2:** a subclass picker in the web builders
+  (today `build_web.py` merges only each class's default fragment).
+  - **Ordering note.** When a subclass feature interleaves with base features at
+    a level (e.g. Bard L3, Monk L6), the prepend-merge reorders those rows; that
+    can flip a largest-remainder tiebreak by ±1 XP. Prices still reconcile and no
+    pieces change — it is cosmetic. Wizard/Fighter, whose subclass pieces lead
+    their level, stay byte-identical.
+  - **Deferred subclasses.** Rogue's Arcane Trickster and Monk's Way of the Four
+    Elements add a spell/discipline sub-scheme; Sorcerer/Warlock (level-1 origin
+    features) and Paladin (oath + Channel Divinity) are next.
+  - **Cleric domains — needs a merge extension first.** Unlike the others,
     cleric domains vary the *level-1* proficiencies (heavy armor, martial
     weapons, bonus skills), which the additive merge can't express. Add
     piece-override-by-id to `merge_subclass` before porting the 6 domains.
