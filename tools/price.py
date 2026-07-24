@@ -65,7 +65,7 @@ def load_catalog(class_path):
     cat_path = os.path.join(os.path.dirname(class_path), "level1_catalog.yaml")
     if not os.path.exists(cat_path):
         return None
-    with open(cat_path) as f:
+    with open(cat_path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -232,7 +232,7 @@ def main():
                     help="only validate; print nothing on success")
     args = ap.parse_args()
 
-    with open(args.path) as f:
+    with open(args.path, encoding="utf-8") as f:
         doc = yaml.safe_load(f)
     doc["_catalog"] = load_catalog(args.path)
 

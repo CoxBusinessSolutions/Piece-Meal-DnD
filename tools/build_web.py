@@ -84,7 +84,7 @@ ROLE = {"none": "Martial", "half": "Half-caster",
 
 
 def build_class(path, catalog):
-    doc = yaml.safe_load(open(path))
+    doc = yaml.safe_load(open(path, encoding="utf-8"))
     doc["_catalog"] = catalog
 
     # id -> the piece it upgrades, so the UI can show the chain.
@@ -254,11 +254,11 @@ def build_classless(catalog, classes):
 
 def inject(src_path, payload):
     """Replace the DATA marker block in a body-only source and return it."""
-    src = open(src_path).read()
+    src = open(src_path, encoding="utf-8").read()
     new = re.sub(r"/\*DATA_START\*/.*?/\*DATA_END\*/",
                  lambda m: "/*DATA_START*/" + payload + "/*DATA_END*/",
                  src, flags=re.S)
-    open(src_path, "w").write(new)
+    open(src_path, "w", encoding="utf-8").write(new)
     return new
 
 
@@ -271,7 +271,7 @@ def wrap(body, title):
 
 
 def main():
-    catalog = yaml.safe_load(open(os.path.join(DATA_DIR, "level1_catalog.yaml")))
+    catalog = yaml.safe_load(open(os.path.join(DATA_DIR, "level1_catalog.yaml"), encoding="utf-8"))
     classes, order = {}, []
     for path in sorted(glob.glob(os.path.join(DATA_DIR, "*.yaml"))):
         if os.path.basename(path) == "level1_catalog.yaml":
@@ -284,14 +284,14 @@ def main():
     per_class = json.dumps({"order": order, "classes": classes},
                            separators=(",", ":"))
     body = inject(os.path.join(WEB_DIR, "app.html"), per_class)
-    open(os.path.join(WEB_DIR, "index.html"), "w").write(
+    open(os.path.join(WEB_DIR, "index.html"), "w", encoding="utf-8").write(
         wrap(body, "Piece-Meal D&amp;D — Character Builder"))
 
     # Classless builder.
     classless = json.dumps(build_classless(catalog, classes),
                            separators=(",", ":"))
     cbody = inject(os.path.join(WEB_DIR, "classless-app.html"), classless)
-    open(os.path.join(WEB_DIR, "classless.html"), "w").write(
+    open(os.path.join(WEB_DIR, "classless.html"), "w", encoding="utf-8").write(
         wrap(cbody, "Piece-Meal D&amp;D — Classless Builder"))
 
     n_feat = len(json.loads(classless)["features"])
