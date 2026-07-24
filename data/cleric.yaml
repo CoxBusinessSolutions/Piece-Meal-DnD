@@ -1,4 +1,4 @@
-# Piece-Meal-DnD — Cleric (Life Domain)
+# Piece-Meal-DnD — Cleric (BASE chassis; subclasses in data/subclasses/cleric/)
 #
 # The first CASTER. Adds a spellcasting sub-scheme on top of the martial model:
 # progression through the spell-slot table is decomposed into buyable
@@ -14,7 +14,6 @@
 # no spellcasting piece. See README for the full rationale.
 
 class: Cleric
-subclass: Life Domain
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d8
 caster: full
@@ -77,9 +76,9 @@ levels:
         commodity: hit_die
         variant: d8
       - id: armor-1
-        name: "Armor Proficiency: light, medium, heavy (Life Domain), shields"
+        name: "Armor Proficiency: light, medium, shields"
         commodity: armor
-        tiers: [light, medium, heavy, shield]
+        tiers: [light, medium, shield]
       - id: weapons-1
         name: "Weapons: simple"
         commodity: weapon
@@ -92,10 +91,6 @@ levels:
         name: "Spellcasting (1st-level spells)"
         tag: spellcasting
         points: 5
-      - id: disciple-of-life
-        name: "Life Domain: Disciple of Life"
-        tag: utility
-        points: 3
       - id: cantrips-known-3
         name: "Cantrips Known (3)"
         tag: proficiency
@@ -110,10 +105,6 @@ levels:
         name: "Channel Divinity: Turn Undead"
         tag: marquee
         points: 5
-      - id: preserve-life
-        name: "Life Domain: Channel Divinity — Preserve Life"
-        tag: utility
-        points: 3
       - id: hp-2
         name: "Hit Points (d8)"
         tag: hp
@@ -171,10 +162,6 @@ levels:
         tag: scaling
         points: 3
         upgrades: channel-divinity-1
-      - id: blessed-healer
-        name: "Life Domain: Blessed Healer"
-        tag: utility
-        points: 3
       - id: hp-6
         name: "Hit Points (d8)"
         tag: hp
@@ -201,10 +188,6 @@ levels:
         tag: scaling
         points: 3
         upgrades: destroy-undead-half
-      - id: divine-strike
-        name: "Life Domain: Divine Strike"
-        tag: marquee
-        points: 5
       - id: hp-8
         name: "Hit Points (d8)"
         tag: hp
@@ -324,10 +307,6 @@ levels:
         tag: scaling
         points: 3
         upgrades: destroy-undead-3
-      - id: supreme-healing
-        name: "Life Domain: Supreme Healing"
-        tag: marquee
-        points: 5
       - id: proficiency-bonus-17
         name: "Proficiency Bonus +1 (to +6)"
         tag: proficiency

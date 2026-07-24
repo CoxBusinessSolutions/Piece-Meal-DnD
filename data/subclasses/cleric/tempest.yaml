@@ -1,0 +1,49 @@
+# Piece-Meal-DnD — Cleric subclass fragment: Tempest Domain
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+# Tempest grants heavy armor (additive) and martial weapons (an OVERRIDE of the
+# base `weapons-1` tier, since weapon tiers are absolute, not additive).
+#   python3 tools/price.py data/cleric.yaml \
+#       --subclass data/subclasses/cleric/tempest.yaml --check
+
+attaches_to: cleric
+subclass: Tempest Domain
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+overrides:
+  - id: weapons-1
+    set:
+      name: "Weapons: simple + martial (Tempest Domain)"
+      tier: simple_and_martial
+
+pieces:
+  1:
+    - id: tempest-heavy-armor
+      name: "Armor Proficiency: heavy (Tempest Domain)"
+      commodity: armor
+      tiers: [heavy]
+    - id: wrath-of-the-storm
+      name: "Tempest Domain: Wrath of the Storm"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  2:
+    - id: destructive-wrath
+      name: "Tempest Domain: Channel Divinity - Destructive Wrath"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: thunderbolt-strike
+      name: "Tempest Domain: Thunderbolt Strike"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  8:
+    - id: tempest-divine-strike
+      name: "Tempest Domain: Divine Strike"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  17:
+    - id: stormborn
+      name: "Tempest Domain: Stormborn"
+      tag: utility
+      points: 3        # PLACEHOLDER

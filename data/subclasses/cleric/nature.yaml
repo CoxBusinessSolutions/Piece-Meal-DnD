@@ -1,0 +1,43 @@
+# Piece-Meal-DnD — Cleric subclass fragment: Nature Domain
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+# Nature grants heavy-armor proficiency (added additively as an extra armor
+# commodity piece; +4 XP, priced from the shared catalog).
+#   python3 tools/price.py data/cleric.yaml \
+#       --subclass data/subclasses/cleric/nature.yaml --check
+
+attaches_to: cleric
+subclass: Nature Domain
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  1:
+    - id: nature-heavy-armor
+      name: "Armor Proficiency: heavy (Nature Domain)"
+      commodity: armor
+      tiers: [heavy]
+    - id: acolyte-of-nature
+      name: "Nature Domain: Acolyte of Nature (druid cantrip + skill)"
+      tag: proficiency
+      points: 2        # PLACEHOLDER
+  2:
+    - id: charm-animals-and-plants
+      name: "Nature Domain: Channel Divinity - Charm Animals and Plants"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  6:
+    - id: dampen-elements
+      name: "Nature Domain: Dampen Elements"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  8:
+    - id: nature-divine-strike
+      name: "Nature Domain: Divine Strike"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  17:
+    - id: master-of-nature
+      name: "Nature Domain: Master of Nature"
+      tag: utility
+      points: 3        # PLACEHOLDER

@@ -1,0 +1,41 @@
+# Piece-Meal-DnD — Cleric subclass fragment: Light Domain
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/cleric.yaml \
+#       --subclass data/subclasses/cleric/light.yaml --check
+
+attaches_to: cleric
+subclass: Light Domain
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  1:
+    - id: light-bonus-cantrip
+      name: "Light Domain: Bonus Cantrip (Light)"
+      tag: proficiency
+      points: 2        # PLACEHOLDER
+    - id: warding-flare
+      name: "Light Domain: Warding Flare"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  2:
+    - id: radiance-of-the-dawn
+      name: "Light Domain: Channel Divinity - Radiance of the Dawn"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: improved-flare
+      name: "Light Domain: Improved Flare"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  8:
+    - id: light-potent-spellcasting
+      name: "Light Domain: Potent Spellcasting"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  17:
+    - id: corona-of-light
+      name: "Light Domain: Corona of Light"
+      tag: marquee
+      points: 5        # PLACEHOLDER

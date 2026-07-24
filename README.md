@@ -317,8 +317,10 @@ the low-level view clean; the menu grows as you level up.
   Trickster); Monk (Open Hand, Way of Shadow, Way of the Four Elements); Sorcerer
   (Draconic Bloodline, Wild Magic); Warlock
   (The Fiend, The Archfey, The Great Old One); Paladin (Oath of Devotion, Oath of
-  the Ancients, Oath of Vengeance). **Phase 2:** a subclass picker in the web
-  builders (today `build_web.py` merges only each class's default fragment).
+  the Ancients, Oath of Vengeance); Cleric (Life, Knowledge, Light, Nature,
+  Tempest, Trickery, War). **All 12 classes now have every PHB subclass.**
+  **Phase 2:** a subclass picker in the web builders (today `build_web.py`
+  merges only each class's default fragment).
   - **Level-1 subclasses.** Sorcerer origins and Warlock patrons grant features
     at level 1, so `merge_subclass` inserts fragment pieces *after* the level-1
     commodities (keeping saves/armor/etc. first) and among the unique features.
@@ -327,12 +329,12 @@ the low-level view clean; the menu grows as you level up.
     can flip a largest-remainder tiebreak by ±1 XP. Prices still reconcile and no
     pieces change — it is cosmetic. Wizard/Fighter, whose subclass pieces lead
     their level, stay byte-identical.
-  - **Only Cleric left.** Every class but Cleric now has all its PHB subclasses
-    (Arcane Trickster and Four Elements were the last sub-scheme ones).
-  - **Cleric domains — needs a merge extension first.** Unlike the others,
-    cleric domains vary the *level-1* proficiencies (heavy armor, martial
-    weapons, bonus skills), which the additive merge can't express. Add
-    piece-override-by-id to `merge_subclass` before porting the 6 domains.
+  - **Subclass proficiency changes.** A fragment can `override` a base commodity
+    it can't express additively — Tempest/War Domain upgrade `weapons-1` from
+    simple to simple_and_martial that way. Additive grants (heavy armor as an
+    extra `[heavy]` armor piece, Knowledge's bonus skills as a skill commodity)
+    are just extra pieces. Heavy-and-martial domains spend more of their 100 on
+    durability, so less is left for their features — the intended trade-off.
   - **Phase 2 — revisit subclass commitment.** Subclass features are currently
     free-floating (no `upgrades:` chains), so feature *timing* is gated by XP
     but school *commitment* is not enforced. When wiring the classless picker,

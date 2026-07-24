@@ -1,0 +1,39 @@
+# Piece-Meal-DnD — Cleric subclass fragment: Knowledge Domain
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+# Blessings of Knowledge grants two extra skill proficiencies (with expertise)
+# and two languages; the two skills are priced as an additive skill commodity.
+#   python3 tools/price.py data/cleric.yaml \
+#       --subclass data/subclasses/cleric/knowledge.yaml --check
+
+attaches_to: cleric
+subclass: Knowledge Domain
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  1:
+    - id: blessings-of-knowledge
+      name: "Knowledge Domain: Blessings of Knowledge (2 skills + 2 languages)"
+      commodity: skill
+      qty: 2
+  2:
+    - id: knowledge-of-the-ages
+      name: "Knowledge Domain: Channel Divinity - Knowledge of the Ages"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  6:
+    - id: read-thoughts
+      name: "Knowledge Domain: Channel Divinity - Read Thoughts"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  8:
+    - id: knowledge-potent-spellcasting
+      name: "Knowledge Domain: Potent Spellcasting"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  17:
+    - id: visions-of-the-past
+      name: "Knowledge Domain: Visions of the Past"
+      tag: utility
+      points: 3        # PLACEHOLDER

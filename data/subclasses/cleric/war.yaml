@@ -1,0 +1,49 @@
+# Piece-Meal-DnD — Cleric subclass fragment: War Domain
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+# War grants heavy armor (additive) and martial weapons (an OVERRIDE of the base
+# `weapons-1` tier, since weapon tiers are absolute, not additive).
+#   python3 tools/price.py data/cleric.yaml \
+#       --subclass data/subclasses/cleric/war.yaml --check
+
+attaches_to: cleric
+subclass: War Domain
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+overrides:
+  - id: weapons-1
+    set:
+      name: "Weapons: simple + martial (War Domain)"
+      tier: simple_and_martial
+
+pieces:
+  1:
+    - id: war-heavy-armor
+      name: "Armor Proficiency: heavy (War Domain)"
+      commodity: armor
+      tiers: [heavy]
+    - id: war-priest
+      name: "War Domain: War Priest"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  2:
+    - id: guided-strike
+      name: "War Domain: Channel Divinity - Guided Strike"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: war-gods-blessing
+      name: "War Domain: Channel Divinity - War God's Blessing"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  8:
+    - id: war-divine-strike
+      name: "War Domain: Divine Strike"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  17:
+    - id: avatar-of-battle
+      name: "War Domain: Avatar of Battle"
+      tag: utility
+      points: 3        # PLACEHOLDER

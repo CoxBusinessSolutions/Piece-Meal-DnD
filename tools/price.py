@@ -85,6 +85,20 @@ def merge_subclass(doc, frag):
         while i < len(existing) and "commodity" in existing[i]:
             i += 1
         doc["levels"][lvl]["pieces"] = existing[:i] + list(pieces) + existing[i:]
+    # Optional `overrides`: patch an existing base piece in place (matched by id
+    # across any level). Used when a subclass changes a shared commodity it can't
+    # express additively -- e.g. War Domain upgrading base `weapons-1` from simple
+    # to simple_and_martial. Additive grants (heavy armor, bonus skills) are just
+    # extra commodity pieces in `pieces` instead.
+    for ov in frag.get("overrides") or []:
+        matched = False
+        for lvl in doc["levels"].values():
+            for p in lvl["pieces"]:
+                if p.get("id") == ov["id"]:
+                    p.update(ov.get("set", {}))
+                    matched = True
+        if not matched:
+            raise SystemExit(f"override targets unknown piece id '{ov['id']}'")
     return doc
 
 
