@@ -1,0 +1,61 @@
+# Piece-Meal-DnD — Druid subclass fragment: Circle of the Land
+#
+# SRD reference druid circle (the default merged into the web build). Only the
+# circle features, keyed by level; spliced onto data/druid.yaml. Includes the
+# Circle Spells upgrade-chain (bonus always-prepared spells by tier).
+#   python3 tools/price.py data/druid.yaml \
+#       --subclass data/subclasses/druid/land.yaml --check
+
+attaches_to: druid
+subclass: Circle of the Land
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  2:
+    - id: bonus-cantrip
+      name: "Circle of the Land: Bonus Cantrip"
+      tag: proficiency
+      points: 2
+    - id: natural-recovery
+      name: "Circle of the Land: Natural Recovery"
+      tag: utility
+      points: 3
+  3:
+    - id: circle-spells-3
+      name: "Circle of the Land: Circle Spells (1st)"
+      tag: proficiency
+      points: 2
+  5:
+    - id: circle-spells-5
+      name: "Circle of the Land: Circle Spells (2nd)"
+      tag: proficiency
+      points: 2
+      upgrades: circle-spells-3
+  6:
+    - id: lands-stride
+      name: "Circle of the Land: Land's Stride"
+      tag: utility
+      points: 3
+  7:
+    - id: circle-spells-7
+      name: "Circle of the Land: Circle Spells (3rd)"
+      tag: proficiency
+      points: 2
+      upgrades: circle-spells-5
+  9:
+    - id: circle-spells-9
+      name: "Circle of the Land: Circle Spells (4th/5th)"
+      tag: proficiency
+      points: 2
+      upgrades: circle-spells-7
+  10:
+    - id: natures-ward
+      name: "Circle of the Land: Nature's Ward"
+      tag: marquee
+      points: 5
+  14:
+    - id: natures-sanctuary
+      name: "Circle of the Land: Nature's Sanctuary"
+      tag: marquee
+      points: 5

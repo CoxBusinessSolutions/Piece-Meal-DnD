@@ -1,4 +1,4 @@
-# Piece-Meal-DnD — Sorcerer (Draconic Bloodline)
+# Piece-Meal-DnD — Sorcerer (BASE chassis; subclasses in data/subclasses/sorcerer/)
 #
 # Full caster (spells from level 1, new tier every odd level to 9th). Its
 # resource system is Font of Magic (Sorcery Points) plus Metamagic, which grows
@@ -7,7 +7,6 @@
 # into the spell package.
 
 class: Sorcerer
-subclass: Draconic Bloodline
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d6
 caster: full
@@ -80,18 +79,10 @@ levels:
         name: "Spellcasting (1st-level spells)"
         tag: spellcasting
         points: 5
-      - id: draconic-resilience
-        name: "Draconic Bloodline: Draconic Resilience"
-        tag: utility
-        points: 3
       - id: cantrips-known-4
         name: "Cantrips Known (4)"
         tag: proficiency
         points: 2
-      - id: dragon-ancestor
-        name: "Draconic Bloodline: Dragon Ancestor"
-        tag: ribbon
-        points: 1
   2:
     pieces:
       - id: font-of-magic
@@ -149,10 +140,6 @@ levels:
         points: 2
   6:
     pieces:
-      - id: elemental-affinity
-        name: "Draconic Bloodline: Elemental Affinity"
-        tag: marquee
-        points: 5
       - id: hp-6
         name: "Hit Points (d6)"
         tag: hp
@@ -247,10 +234,6 @@ levels:
         points: 2
   14:
     pieces:
-      - id: dragon-wings
-        name: "Draconic Bloodline: Dragon Wings"
-        tag: marquee
-        points: 5
       - id: hp-14
         name: "Hit Points (d6)"
         tag: hp
@@ -298,10 +281,6 @@ levels:
         points: 2
   18:
     pieces:
-      - id: draconic-presence
-        name: "Draconic Bloodline: Draconic Presence"
-        tag: marquee
-        points: 5
       - id: spell-slots-18
         name: "Spellcasting: additional slots"
         tag: slots

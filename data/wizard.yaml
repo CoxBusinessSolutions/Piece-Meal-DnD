@@ -1,16 +1,19 @@
-# Piece-Meal-DnD — Wizard (School of Evocation)
+# Piece-Meal-DnD — Wizard (BASE chassis)
 #
-# The pure-caster archetype. This pass defines the level-1 CHARACTER-CREATION
-# breakdown (100-experience budget, priced against data/level1_catalog.yaml).
-# Levels 2-20 (the in-play XP ledger) are stubbed with the SRD thresholds and
-# rubric so they can be filled in later exactly like Rogue/Cleric.
+# The pure-caster archetype. This file is the CLASS BASE only: commodities, the
+# spellcasting package, HP, ASI, proficiency bumps, and the base-class capstones
+# (Spell Mastery, Signature Spells). It carries NO subclass features.
+#
+# Subclass (arcane-tradition) features live in data/subclasses/wizard/<school>.yaml
+# and are spliced onto this base at levels 2/6/10/14 by:
+#   tools/price.py  data/wizard.yaml --subclass data/subclasses/wizard/evocation.yaml
+#   tools/build_web.py  (auto-merges the default subclass)
 #
 # Wizard is the opposite of the Fighter: almost no commodity load (a d6 body, no
 # armor, a five-weapon list), so the vast majority of its 100 pours into the
 # spellcasting package. That is the glass-cannon trade-off made numeric.
 
 class: Wizard
-subclass: School of Evocation
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d6
 caster: full
@@ -100,15 +103,8 @@ levels:
         tag: ribbon
         points: 1
   2:
+    # Subclass features (2nd-level) are merged in from data/subclasses/wizard/.
     pieces:
-      - id: sculpt-spells
-        name: "Evocation: Sculpt Spells"
-        tag: marquee
-        points: 5
-      - id: evocation-savant
-        name: "Evocation: Evocation Savant"
-        tag: ribbon
-        points: 1
       - id: hp-2
         name: "Hit Points (d6)"
         tag: hp
@@ -155,11 +151,8 @@ levels:
         tag: hp
         points: 2
   6:
+    # Subclass features (6th-level) are merged in from data/subclasses/wizard/.
     pieces:
-      - id: potent-cantrip
-        name: "Evocation: Potent Cantrip"
-        tag: utility
-        points: 3
       - id: hp-6
         name: "Hit Points (d6)"
         tag: hp
@@ -201,11 +194,8 @@ levels:
         tag: hp
         points: 2
   10:
+    # Subclass features (10th-level) are merged in from data/subclasses/wizard/.
     pieces:
-      - id: empowered-evocation
-        name: "Evocation: Empowered Evocation"
-        tag: marquee
-        points: 5
       - id: cantrips-known-5
         name: "Cantrips Known (5)"
         tag: proficiency
@@ -252,11 +242,8 @@ levels:
         tag: hp
         points: 2
   14:
+    # Subclass features (14th-level) are merged in from data/subclasses/wizard/.
     pieces:
-      - id: overchannel
-        name: "Evocation: Overchannel"
-        tag: marquee
-        points: 5
       - id: hp-14
         name: "Hit Points (d6)"
         tag: hp

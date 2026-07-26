@@ -1,0 +1,68 @@
+# Piece-Meal-DnD — Rogue subclass fragment: Arcane Trickster
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/rogue.yaml \
+#       --subclass data/subclasses/rogue/arcanetrickster.yaml --check
+#
+# Like the Eldritch Knight, Arcane Trickster bolts a THIRD-CASTER (enchantment/
+# illusion wizard spells) onto a martial base. Spell-tier unlocks follow the
+# third-caster table: 1st@3, 2nd@7, 3rd@13, 4th@19; cantrips 3 -> 4 at 3/10.
+# The base `caster` field stays "none"; the Phase-2 picker can override the role.
+
+attaches_to: rogue
+subclass: Arcane Trickster
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: at-spellcasting
+      name: "Arcane Trickster: Spellcasting (1st-level spells)"
+      tag: spellcasting
+      points: 5        # PLACEHOLDER
+    - id: at-cantrips-known-3
+      name: "Arcane Trickster: Cantrips Known (3)"
+      tag: proficiency
+      points: 2        # PLACEHOLDER
+    - id: mage-hand-legerdemain
+      name: "Arcane Trickster: Mage Hand Legerdemain"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  7:
+    - id: at-spell-tier-2nd
+      name: "Arcane Trickster: 2nd-level spells"
+      tag: spellcasting
+      points: 5        # PLACEHOLDER
+      upgrades: at-spellcasting
+  9:
+    - id: magical-ambush
+      name: "Arcane Trickster: Magical Ambush"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  10:
+    - id: at-cantrips-known-4
+      name: "Arcane Trickster: Cantrips Known (4)"
+      tag: proficiency
+      points: 2        # PLACEHOLDER
+      upgrades: at-cantrips-known-3
+  13:
+    - id: at-spell-tier-3rd
+      name: "Arcane Trickster: 3rd-level spells"
+      tag: spellcasting
+      points: 5        # PLACEHOLDER
+      upgrades: at-spell-tier-2nd
+    - id: versatile-trickster
+      name: "Arcane Trickster: Versatile Trickster"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  17:
+    - id: spell-thief
+      name: "Arcane Trickster: Spell Thief"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  19:
+    - id: at-spell-tier-4th
+      name: "Arcane Trickster: 4th-level spells"
+      tag: spellcasting
+      points: 5        # PLACEHOLDER
+      upgrades: at-spell-tier-3rd

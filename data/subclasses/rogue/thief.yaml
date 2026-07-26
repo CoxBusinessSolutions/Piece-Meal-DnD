@@ -1,0 +1,37 @@
+# Piece-Meal-DnD — Rogue subclass fragment: Thief
+#
+# SRD reference roguish archetype (the default merged into the web build). Only
+# the archetype features, keyed by level; spliced onto data/rogue.yaml.
+#   python3 tools/price.py data/rogue.yaml \
+#       --subclass data/subclasses/rogue/thief.yaml --check
+
+attaches_to: rogue
+subclass: Thief
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  3:
+    - id: archetype-fast-hands
+      name: "Thief: Fast Hands"
+      tag: utility
+      points: 3
+    - id: archetype-second-story-work
+      name: "Thief: Second-Story Work"
+      tag: proficiency
+      points: 2
+  9:
+    - id: archetype-supreme-sneak
+      name: "Thief: Supreme Sneak"
+      tag: utility
+      points: 3
+  13:
+    - id: archetype-use-magic-device
+      name: "Thief: Use Magic Device"
+      tag: utility
+      points: 3
+  17:
+    - id: archetype-thiefs-reflexes
+      name: "Thief: Thief's Reflexes"
+      tag: marquee
+      points: 5

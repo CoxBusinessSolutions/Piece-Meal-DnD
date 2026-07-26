@@ -1,11 +1,10 @@
-# Piece-Meal-DnD — Druid (Circle of the Land)
+# Piece-Meal-DnD — Druid (BASE chassis; subclasses in data/subclasses/druid/)
 #
 # Full caster (spells from level 1, new tier every odd level to 9th). Wild Shape
 # growth is an upgrade-chain; Circle of the Land's always-prepared Circle Spells
 # are a chained proficiency piece unlocked at 3/5/7/9.
 
 class: Druid
-subclass: Circle of the Land
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d8
 caster: full
@@ -96,14 +95,6 @@ levels:
         name: "Wild Shape"
         tag: marquee
         points: 5
-      - id: bonus-cantrip
-        name: "Circle of the Land: Bonus Cantrip"
-        tag: proficiency
-        points: 2
-      - id: natural-recovery
-        name: "Circle of the Land: Natural Recovery"
-        tag: utility
-        points: 3
       - id: hp-2
         name: "Hit Points (d8)"
         tag: hp
@@ -115,10 +106,6 @@ levels:
         tag: spellcasting
         points: 5
         upgrades: spellcasting
-      - id: circle-spells-3
-        name: "Circle of the Land: Circle Spells (1st)"
-        tag: proficiency
-        points: 2
       - id: hp-3
         name: "Hit Points (d8)"
         tag: hp
@@ -150,11 +137,6 @@ levels:
         tag: spellcasting
         points: 5
         upgrades: spell-tier-2nd
-      - id: circle-spells-5
-        name: "Circle of the Land: Circle Spells (2nd)"
-        tag: proficiency
-        points: 2
-        upgrades: circle-spells-3
       - id: proficiency-bonus-5
         name: "Proficiency Bonus +1 (to +3)"
         tag: proficiency
@@ -165,10 +147,6 @@ levels:
         points: 2
   6:
     pieces:
-      - id: lands-stride
-        name: "Circle of the Land: Land's Stride"
-        tag: utility
-        points: 3
       - id: hp-6
         name: "Hit Points (d8)"
         tag: hp
@@ -180,11 +158,6 @@ levels:
         tag: spellcasting
         points: 5
         upgrades: spell-tier-3rd
-      - id: circle-spells-7
-        name: "Circle of the Land: Circle Spells (3rd)"
-        tag: proficiency
-        points: 2
-        upgrades: circle-spells-5
       - id: hp-7
         name: "Hit Points (d8)"
         tag: hp
@@ -211,11 +184,6 @@ levels:
         tag: spellcasting
         points: 5
         upgrades: spell-tier-4th
-      - id: circle-spells-9
-        name: "Circle of the Land: Circle Spells (4th/5th)"
-        tag: proficiency
-        points: 2
-        upgrades: circle-spells-7
       - id: proficiency-bonus-9
         name: "Proficiency Bonus +1 (to +4)"
         tag: proficiency
@@ -226,10 +194,6 @@ levels:
         points: 2
   10:
     pieces:
-      - id: natures-ward
-        name: "Circle of the Land: Nature's Ward"
-        tag: marquee
-        points: 5
       - id: cantrips-known-4
         name: "Cantrips Known (4)"
         tag: proficiency
@@ -277,10 +241,6 @@ levels:
         points: 2
   14:
     pieces:
-      - id: natures-sanctuary
-        name: "Circle of the Land: Nature's Sanctuary"
-        tag: marquee
-        points: 5
       - id: hp-14
         name: "Hit Points (d8)"
         tag: hp

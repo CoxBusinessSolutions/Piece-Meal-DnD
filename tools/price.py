@@ -60,12 +60,54 @@ def largest_remainder(total, weights):
     return floors
 
 
+def merge_subclass(doc, frag):
+    """Splice a subclass fragment onto a base-class doc, in place.
+
+    A fragment (data/subclasses/<class>/<name>.yaml) carries only its
+    arcane-tradition / archetype pieces keyed by the level they are gained.
+    Those pieces are inserted after any leading run of COMMODITY pieces and
+    before the level's other pieces. For levels 2-20 there are no commodities,
+    so this is a plain front-insert (subclass feature, then HP), matching the
+    original woven files. For level 1 it keeps the commodities first and slots
+    the subclass features in among the unique features, where they belong. The
+    base class's XP thresholds are untouched, so every level still reconciles.
+    """
+    doc["subclass"] = frag.get("subclass", doc.get("subclass", ""))
+    fsrc = frag.get("source")
+    if fsrc and fsrc != doc.get("source"):
+        base = doc.get("source", "")
+        doc["source"] = f"{base}; subclass — {fsrc}" if base else fsrc
+    for lvl, pieces in (frag.get("pieces") or {}).items():
+        lvl = int(lvl)
+        doc["levels"].setdefault(lvl, {"pieces": []})
+        existing = doc["levels"][lvl]["pieces"]
+        i = 0
+        while i < len(existing) and "commodity" in existing[i]:
+            i += 1
+        doc["levels"][lvl]["pieces"] = existing[:i] + list(pieces) + existing[i:]
+    # Optional `overrides`: patch an existing base piece in place (matched by id
+    # across any level). Used when a subclass changes a shared commodity it can't
+    # express additively -- e.g. War Domain upgrading base `weapons-1` from simple
+    # to simple_and_martial. Additive grants (heavy armor, bonus skills) are just
+    # extra commodity pieces in `pieces` instead.
+    for ov in frag.get("overrides") or []:
+        matched = False
+        for lvl in doc["levels"].values():
+            for p in lvl["pieces"]:
+                if p.get("id") == ov["id"]:
+                    p.update(ov.get("set", {}))
+                    matched = True
+        if not matched:
+            raise SystemExit(f"override targets unknown piece id '{ov['id']}'")
+    return doc
+
+
 def load_catalog(class_path):
     """Load the shared level-1 commodity catalog next to the class file."""
     cat_path = os.path.join(os.path.dirname(class_path), "level1_catalog.yaml")
     if not os.path.exists(cat_path):
         return None
-    with open(cat_path) as f:
+    with open(cat_path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -227,13 +269,19 @@ def render_markdown(doc, rows):
 def main():
     ap = argparse.ArgumentParser(description="Price and validate a class YAML.")
     ap.add_argument("path")
+    ap.add_argument("--subclass", metavar="FRAGMENT",
+                    help="merge a subclass fragment "
+                         "(data/subclasses/<class>/<name>.yaml) onto the base")
     ap.add_argument("--markdown", action="store_true", help="emit Markdown tables")
     ap.add_argument("--check", action="store_true",
                     help="only validate; print nothing on success")
     args = ap.parse_args()
 
-    with open(args.path) as f:
+    with open(args.path, encoding="utf-8") as f:
         doc = yaml.safe_load(f)
+    if args.subclass:
+        with open(args.subclass, encoding="utf-8") as f:
+            merge_subclass(doc, yaml.safe_load(f))
     doc["_catalog"] = load_catalog(args.path)
 
     rows, problems = price_class(doc)

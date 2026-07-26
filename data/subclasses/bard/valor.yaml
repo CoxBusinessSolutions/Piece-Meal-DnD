@@ -1,0 +1,31 @@
+# Piece-Meal-DnD — Bard subclass fragment: College of Valor
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced. `points` are ORIGINAL, tunable PLACEHOLDERS.
+#   python3 tools/price.py data/bard.yaml \
+#       --subclass data/subclasses/bard/valor.yaml --check
+
+attaches_to: bard
+subclass: College of Valor
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: valor-bonus-proficiencies
+      name: "College of Valor: Bonus Proficiencies"
+      tag: proficiency
+      points: 2        # PLACEHOLDER
+    - id: combat-inspiration
+      name: "College of Valor: Combat Inspiration"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: valor-extra-attack
+      name: "College of Valor: Extra Attack"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  14:
+    - id: battle-magic
+      name: "College of Valor: Battle Magic"
+      tag: utility
+      points: 3        # PLACEHOLDER

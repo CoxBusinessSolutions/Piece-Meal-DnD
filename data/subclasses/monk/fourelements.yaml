@@ -1,0 +1,40 @@
+# Piece-Meal-DnD — Monk subclass fragment: Way of the Four Elements
+#
+# Mechanical feature/level facts referenced from the Player's Handbook. NO
+# descriptive text is reproduced, and the individual elemental disciplines are
+# modelled as a COUNT, not enumerated. `points` are ORIGINAL, tunable
+# PLACEHOLDERS.
+#   python3 tools/price.py data/monk.yaml \
+#       --subclass data/subclasses/monk/fourelements.yaml --check
+#
+# Disciplines known: Elemental Attunement + 1 at level 3, then +1 at 6/11/17
+# (modelled as the base piece plus a scaling upgrade-chain).
+
+attaches_to: monk
+subclass: Way of the Four Elements
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: disciple-of-the-elements
+      name: "Way of the Four Elements: Disciple of the Elements (Elemental Attunement + 1 discipline)"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  6:
+    - id: elemental-discipline-6
+      name: "Way of the Four Elements: +1 Elemental Discipline"
+      tag: scaling
+      points: 3        # PLACEHOLDER
+      upgrades: disciple-of-the-elements
+  11:
+    - id: elemental-discipline-11
+      name: "Way of the Four Elements: +1 Elemental Discipline"
+      tag: scaling
+      points: 3        # PLACEHOLDER
+      upgrades: elemental-discipline-6
+  17:
+    - id: elemental-discipline-17
+      name: "Way of the Four Elements: +1 Elemental Discipline"
+      tag: scaling
+      points: 3        # PLACEHOLDER
+      upgrades: elemental-discipline-11

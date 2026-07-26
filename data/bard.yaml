@@ -1,4 +1,4 @@
-# Piece-Meal-DnD — Bard (College of Lore)
+# Piece-Meal-DnD — Bard (BASE chassis; subclasses in data/subclasses/bard/)
 #
 # Full caster (spells from level 1, new tier every odd level to 9th). Rich in
 # scaling dials modeled as upgrade-chains: Bardic Inspiration die (d6->d12),
@@ -6,7 +6,6 @@
 # and the extra Magical Secrets picks.
 
 class: Bard
-subclass: College of Lore
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d8
 caster: full
@@ -112,18 +111,10 @@ levels:
         tag: spellcasting
         points: 5
         upgrades: spellcasting
-      - id: cutting-words
-        name: "College of Lore: Cutting Words"
-        tag: marquee
-        points: 5
       - id: expertise-1
         name: "Expertise (first pair)"
         tag: marquee
         points: 5
-      - id: lore-bonus-proficiencies
-        name: "College of Lore: Bonus Proficiencies"
-        tag: proficiency
-        points: 2
       - id: hp-3
         name: "Hit Points (d8)"
         tag: hp
@@ -173,10 +164,6 @@ levels:
         name: "Countercharm"
         tag: utility
         points: 3
-      - id: additional-magical-secrets
-        name: "College of Lore: Additional Magical Secrets"
-        tag: marquee
-        points: 5
       - id: hp-6
         name: "Hit Points (d8)"
         tag: hp
@@ -294,10 +281,6 @@ levels:
         name: "Magical Secrets"
         tag: marquee
         points: 5
-      - id: peerless-skill
-        name: "College of Lore: Peerless Skill"
-        tag: utility
-        points: 3
       - id: hp-14
         name: "Hit Points (d8)"
         tag: hp

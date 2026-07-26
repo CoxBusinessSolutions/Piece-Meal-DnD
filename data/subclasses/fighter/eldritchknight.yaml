@@ -1,0 +1,75 @@
+# Piece-Meal-DnD — Fighter subclass fragment: Eldritch Knight
+#
+# Mechanical feature/level facts (what unlocks, and when) referenced from the
+# Player's Handbook. NO descriptive text is reproduced. The `points` weights are
+# ORIGINAL, tunable PLACEHOLDERS — adjust to taste, then re-price. Merge with:
+#   python3 tools/price.py data/fighter.yaml \
+#       --subclass data/subclasses/fighter/eldritchknight.yaml --check
+#
+# Eldritch Knight bolts a THIRD-CASTER onto the martial base (base fighter is
+# caster: none). Spell-tier unlocks follow the third-caster table: 1st-level
+# spells at fighter L3, 2nd at L7, 3rd at L13, 4th at L19; cantrips 2 -> 3 at
+# L3/L10. Pure slot-increment levels get no piece (same simplification the full
+# casters use). The base `caster` field is left "none"; the Phase-2 web picker
+# can override the role per subclass.
+
+attaches_to: fighter
+subclass: Eldritch Knight
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: ek-spellcasting
+      name: "Eldritch Knight: Spellcasting (1st-level spells)"
+      tag: spellcasting
+      points: 5        # PLACEHOLDER
+    - id: ek-cantrips-known-2
+      name: "Eldritch Knight: Cantrips Known (2)"
+      tag: proficiency
+      points: 2        # PLACEHOLDER
+    - id: weapon-bond
+      name: "Eldritch Knight: Weapon Bond"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+  7:
+    - id: ek-spell-tier-2nd
+      name: "Eldritch Knight: 2nd-level spells"
+      tag: spellcasting
+      points: 5        # PLACEHOLDER
+      upgrades: ek-spellcasting
+    - id: war-magic
+      name: "Eldritch Knight: War Magic"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  10:
+    - id: eldritch-strike
+      name: "Eldritch Knight: Eldritch Strike"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+    - id: ek-cantrips-known-3
+      name: "Eldritch Knight: Cantrips Known (3)"
+      tag: proficiency
+      points: 2        # PLACEHOLDER
+      upgrades: ek-cantrips-known-2
+  13:
+    - id: ek-spell-tier-3rd
+      name: "Eldritch Knight: 3rd-level spells"
+      tag: spellcasting
+      points: 5        # PLACEHOLDER
+      upgrades: ek-spell-tier-2nd
+  15:
+    - id: arcane-charge
+      name: "Eldritch Knight: Arcane Charge"
+      tag: utility
+      points: 3        # PLACEHOLDER
+  18:
+    - id: improved-war-magic
+      name: "Eldritch Knight: Improved War Magic"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+  19:
+    - id: ek-spell-tier-4th
+      name: "Eldritch Knight: 4th-level spells"
+      tag: spellcasting
+      points: 5        # PLACEHOLDER
+      upgrades: ek-spell-tier-3rd

@@ -1,11 +1,10 @@
-# Piece-Meal-DnD — Barbarian (Path of the Berserker)
+# Piece-Meal-DnD — Barbarian (BASE chassis; subclasses in data/subclasses/barbarian/)
 #
 # Pure martial, no spellcasting ever. The d12 body makes it the most expensive
 # hit die in the game, and Rage scaling (damage bonus, Brutal Critical dice) is
 # modeled as upgrade-chains.
 
 class: Barbarian
-subclass: Path of the Berserker
 source: "SRD 5.1 (CC-BY-4.0)"
 hit_die: d12
 caster: none
@@ -96,10 +95,6 @@ levels:
         points: 2
   3:
     pieces:
-      - id: frenzy
-        name: "Path of the Berserker: Frenzy"
-        tag: marquee
-        points: 5
       - id: hp-3
         name: "Hit Points (d12)"
         tag: hp
@@ -134,10 +129,6 @@ levels:
         points: 2
   6:
     pieces:
-      - id: mindless-rage
-        name: "Path of the Berserker: Mindless Rage"
-        tag: utility
-        points: 3
       - id: hp-6
         name: "Hit Points (d12)"
         tag: hp
@@ -183,10 +174,6 @@ levels:
         points: 2
   10:
     pieces:
-      - id: intimidating-presence
-        name: "Path of the Berserker: Intimidating Presence"
-        tag: utility
-        points: 3
       - id: hp-10
         name: "Hit Points (d12)"
         tag: hp
@@ -228,10 +215,6 @@ levels:
         points: 2
   14:
     pieces:
-      - id: retaliation
-        name: "Path of the Berserker: Retaliation"
-        tag: utility
-        points: 3
       - id: hp-14
         name: "Hit Points (d12)"
         tag: hp

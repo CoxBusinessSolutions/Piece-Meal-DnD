@@ -1,0 +1,59 @@
+# Piece-Meal-DnD — Fighter subclass fragment: Battle Master
+#
+# Mechanical feature/level facts (what unlocks, and when) referenced from the
+# Player's Handbook. NO descriptive text is reproduced, and individual maneuvers
+# are modelled as a COUNT, not enumerated. The `points` weights are ORIGINAL,
+# tunable PLACEHOLDERS — adjust to taste, then re-price. Merge with:
+#   python3 tools/price.py data/fighter.yaml \
+#       --subclass data/subclasses/fighter/battlemaster.yaml --check
+#
+# Scaling facts: maneuvers known 3 -> 5 -> 7 -> 9 (levels 3/7/10/15);
+# superiority dice 4 -> 5 -> 6 (levels 3/7/15); die size d8 -> d10 -> d12
+# (levels 3/10/18). These are folded into the base + boost/improved pieces below.
+
+attaches_to: fighter
+subclass: Battle Master
+source: "PHB (2014) feature/level facts; original weighting — not SRD/OGL"
+
+pieces:
+  3:
+    - id: combat-superiority
+      name: "Battle Master: Combat Superiority (3 maneuvers, 4d8)"
+      tag: marquee
+      points: 5        # PLACEHOLDER
+    - id: student-of-war
+      name: "Battle Master: Student of War"
+      tag: ribbon
+      points: 1        # PLACEHOLDER
+  7:
+    - id: know-your-enemy
+      name: "Battle Master: Know Your Enemy"
+      tag: utility
+      points: 3        # PLACEHOLDER
+    - id: superiority-boost-7
+      name: "Battle Master: +2 Maneuvers, +1 Die (5 maneuvers, 5d8)"
+      tag: scaling
+      points: 3        # PLACEHOLDER
+      upgrades: combat-superiority
+  10:
+    - id: improved-combat-superiority-10
+      name: "Battle Master: Improved Combat Superiority (dice d10, 7 maneuvers)"
+      tag: scaling
+      points: 3        # PLACEHOLDER
+      upgrades: superiority-boost-7
+  15:
+    - id: relentless
+      name: "Battle Master: Relentless"
+      tag: utility
+      points: 3        # PLACEHOLDER
+    - id: superiority-boost-15
+      name: "Battle Master: +2 Maneuvers, +1 Die (9 maneuvers, 6 dice)"
+      tag: scaling
+      points: 3        # PLACEHOLDER
+      upgrades: improved-combat-superiority-10
+  18:
+    - id: improved-combat-superiority-18
+      name: "Battle Master: Improved Combat Superiority (dice d12)"
+      tag: scaling
+      points: 3        # PLACEHOLDER
+      upgrades: superiority-boost-15

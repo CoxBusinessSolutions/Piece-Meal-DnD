@@ -1,0 +1,43 @@
+# Piece-Meal-DnD — Wizard subclass fragment: School of Evocation
+#
+# A SUBCLASS FRAGMENT: only the arcane-tradition features, keyed by the level
+# they are gained (2/6/10/14). Spliced onto data/wizard.yaml (the base chassis)
+# by tools/price.py (--subclass) and tools/build_web.py.
+#
+#   python3 tools/price.py data/wizard.yaml \
+#       --subclass data/subclasses/wizard/evocation.yaml --check
+#
+# `points` are power-point weights (tune freely; prices are derived from them).
+# This school is the SRD reference subclass, so it is the default merged into the
+# web build — leaving it identical to the pre-fragment output.
+
+attaches_to: wizard
+subclass: School of Evocation
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  2:
+    - id: sculpt-spells
+      name: "Evocation: Sculpt Spells"
+      tag: marquee
+      points: 5
+    - id: evocation-savant
+      name: "Evocation: Evocation Savant"
+      tag: ribbon
+      points: 1
+  6:
+    - id: potent-cantrip
+      name: "Evocation: Potent Cantrip"
+      tag: utility
+      points: 3
+  10:
+    - id: empowered-evocation
+      name: "Evocation: Empowered Evocation"
+      tag: marquee
+      points: 5
+  14:
+    - id: overchannel
+      name: "Evocation: Overchannel"
+      tag: marquee
+      points: 5

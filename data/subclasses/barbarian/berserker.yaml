@@ -1,0 +1,33 @@
+# Piece-Meal-DnD — Barbarian subclass fragment: Path of the Berserker
+#
+# SRD reference primal path (the default merged into the web build). Only the
+# path features, keyed by level; spliced onto data/barbarian.yaml.
+#   python3 tools/price.py data/barbarian.yaml \
+#       --subclass data/subclasses/barbarian/berserker.yaml --check
+
+attaches_to: barbarian
+subclass: Path of the Berserker
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  3:
+    - id: frenzy
+      name: "Path of the Berserker: Frenzy"
+      tag: marquee
+      points: 5
+  6:
+    - id: mindless-rage
+      name: "Path of the Berserker: Mindless Rage"
+      tag: utility
+      points: 3
+  10:
+    - id: intimidating-presence
+      name: "Path of the Berserker: Intimidating Presence"
+      tag: utility
+      points: 3
+  14:
+    - id: retaliation
+      name: "Path of the Berserker: Retaliation"
+      tag: utility
+      points: 3

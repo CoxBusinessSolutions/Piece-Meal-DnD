@@ -1,0 +1,33 @@
+# Piece-Meal-DnD — Monk subclass fragment: Way of the Open Hand
+#
+# SRD reference monastic tradition (the default merged into the web build). Only
+# the tradition features, keyed by level; spliced onto data/monk.yaml.
+#   python3 tools/price.py data/monk.yaml \
+#       --subclass data/subclasses/monk/openhand.yaml --check
+
+attaches_to: monk
+subclass: Way of the Open Hand
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  3:
+    - id: open-hand-technique
+      name: "Way of the Open Hand: Open Hand Technique"
+      tag: marquee
+      points: 5
+  6:
+    - id: wholeness-of-body
+      name: "Way of the Open Hand: Wholeness of Body"
+      tag: utility
+      points: 3
+  11:
+    - id: tranquility
+      name: "Way of the Open Hand: Tranquility"
+      tag: marquee
+      points: 5
+  17:
+    - id: quivering-palm
+      name: "Way of the Open Hand: Quivering Palm"
+      tag: marquee
+      points: 5

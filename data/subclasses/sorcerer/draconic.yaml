@@ -1,0 +1,38 @@
+# Piece-Meal-DnD — Sorcerer subclass fragment: Draconic Bloodline
+#
+# SRD reference sorcerous origin (the default merged into the web build). Only
+# the origin features, keyed by level; spliced onto data/sorcerer.yaml. Origin
+# features begin at level 1, so two of these split the creation budget.
+#   python3 tools/price.py data/sorcerer.yaml \
+#       --subclass data/subclasses/sorcerer/draconic.yaml --check
+
+attaches_to: sorcerer
+subclass: Draconic Bloodline
+source: "SRD 5.1 (CC-BY-4.0)"
+default: true
+
+pieces:
+  1:
+    - id: draconic-resilience
+      name: "Draconic Bloodline: Draconic Resilience"
+      tag: utility
+      points: 3
+    - id: dragon-ancestor
+      name: "Draconic Bloodline: Dragon Ancestor"
+      tag: ribbon
+      points: 1
+  6:
+    - id: elemental-affinity
+      name: "Draconic Bloodline: Elemental Affinity"
+      tag: marquee
+      points: 5
+  14:
+    - id: dragon-wings
+      name: "Draconic Bloodline: Dragon Wings"
+      tag: marquee
+      points: 5
+  18:
+    - id: draconic-presence
+      name: "Draconic Bloodline: Draconic Presence"
+      tag: marquee
+      points: 5
