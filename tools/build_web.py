@@ -126,7 +126,9 @@ def build_class(path, catalog, subclass=None):
     l1 = doc["levels"][1]["pieces"]
     def _find(kind):
         return [q for q in l1 if q.get("commodity") == kind]
-    tiers = _find("armor")[0].get("tiers", []) if _find("armor") else []
+    # Union tiers across all armor pieces (a domain can grant heavy as a second,
+    # additive armor piece on top of the base light/medium/shields).
+    tiers = [t for pc in _find("armor") for t in pc.get("tiers", [])]
     armor_tier = ("heavy" if "heavy" in tiers else "medium" if "medium" in tiers
                   else "light" if "light" in tiers else "none")
     weapons = _find("weapon")
@@ -287,12 +289,14 @@ def wrap(body, title):
 def main():
     catalog = yaml.safe_load(open(os.path.join(DATA_DIR, "level1_catalog.yaml"), encoding="utf-8"))
     classes, order = {}, []
-    classless_input = {}  # key -> the DEFAULT subclass's payload (classless is unchanged)
+    # Every subclass variant, keyed "<class>:<stem>", so the classless builder's
+    # à-la-carte menu and quick-start presets cover all subclasses, not just the
+    # defaults. Ordered class-major so the preset dropdown groups by class.
+    all_variants = {}
     for path in sorted(glob.glob(os.path.join(DATA_DIR, "*.yaml"))):
         if os.path.basename(path) == "level1_catalog.yaml":
             continue
         # Build EVERY subclass variant so the per-class page can offer a picker.
-        # The classless builder still consumes only the default variant.
         file_key = os.path.splitext(os.path.basename(path))[0]
         frags = load_subclasses(file_key)
         if not frags:
@@ -303,12 +307,11 @@ def main():
             subs[stem] = {k: payload[k]
                           for k in ("subclass", "caster", "role", "level1", "levels")}
             sub_order.append(stem)
+            all_variants[f"{key}:{stem}"] = payload
             if frag.get("default"):
                 default_stem = stem
-                classless_input[key] = payload
         if default_stem is None:
             default_stem = sub_order[0]
-            classless_input.setdefault(key, payload)  # last built = alphabetical first? use default
         classes[key] = {
             "name": payload["name"], "hitDie": payload["hitDie"],
             "budget": payload["budget"], "defaultSub": default_stem,
@@ -323,8 +326,8 @@ def main():
     open(os.path.join(WEB_DIR, "index.html"), "w", encoding="utf-8").write(
         wrap(body, "Piece-Meal D&amp;D — Character Builder"))
 
-    # Classless builder (unchanged: sees only each class's default subclass).
-    classless = json.dumps(build_classless(catalog, classless_input),
+    # Classless builder: menu + presets span every subclass variant.
+    classless = json.dumps(build_classless(catalog, all_variants),
                            separators=(",", ":"))
     cbody = inject(os.path.join(WEB_DIR, "classless-app.html"), classless)
     open(os.path.join(WEB_DIR, "classless.html"), "w", encoding="utf-8").write(
