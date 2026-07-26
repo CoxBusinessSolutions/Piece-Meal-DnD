@@ -84,12 +84,15 @@ ROLE = {"none": "Martial", "half": "Half-caster",
 
 
 def load_subclasses(class_key):
-    """Fragments for a base class, from data/subclasses/<key>/*.yaml (sorted)."""
+    """(stem, fragment) pairs for a base class, from data/subclasses/<key>/*.yaml."""
     d = os.path.join(DATA_DIR, "subclasses", class_key)
     if not os.path.isdir(d):
         return []
-    return [yaml.safe_load(open(p, encoding="utf-8"))
-            for p in sorted(glob.glob(os.path.join(d, "*.yaml")))]
+    out = []
+    for p in sorted(glob.glob(os.path.join(d, "*.yaml"))):
+        stem = os.path.splitext(os.path.basename(p))[0]
+        out.append((stem, yaml.safe_load(open(p, encoding="utf-8"))))
+    return out
 
 
 def build_class(path, catalog, subclass=None):
@@ -123,7 +126,9 @@ def build_class(path, catalog, subclass=None):
     l1 = doc["levels"][1]["pieces"]
     def _find(kind):
         return [q for q in l1 if q.get("commodity") == kind]
-    tiers = _find("armor")[0].get("tiers", []) if _find("armor") else []
+    # Union tiers across all armor pieces (a domain can grant heavy as a second,
+    # additive armor piece on top of the base light/medium/shields).
+    tiers = [t for pc in _find("armor") for t in pc.get("tiers", [])]
     armor_tier = ("heavy" if "heavy" in tiers else "medium" if "medium" in tiers
                   else "light" if "light" in tiers else "none")
     weapons = _find("weapon")
@@ -284,18 +289,34 @@ def wrap(body, title):
 def main():
     catalog = yaml.safe_load(open(os.path.join(DATA_DIR, "level1_catalog.yaml"), encoding="utf-8"))
     classes, order = {}, []
+    # Every subclass variant, keyed "<class>:<stem>", so the classless builder's
+    # à-la-carte menu and quick-start presets cover all subclasses, not just the
+    # defaults. Ordered class-major so the preset dropdown groups by class.
+    all_variants = {}
     for path in sorted(glob.glob(os.path.join(DATA_DIR, "*.yaml"))):
         if os.path.basename(path) == "level1_catalog.yaml":
             continue
-        # A base class merges its default subclass (or the first, alphabetically)
-        # so the per-class page still shows a full build. The full per-subclass
-        # picker is layered on top of this in a later pass.
+        # Build EVERY subclass variant so the per-class page can offer a picker.
         file_key = os.path.splitext(os.path.basename(path))[0]
         frags = load_subclasses(file_key)
-        default = next((f for f in frags if f.get("default")),
-                       frags[0] if frags else None)
-        key, payload = build_class(path, catalog, subclass=default)
-        classes[key] = payload
+        if not frags:
+            frags = [(file_key, {})]  # bare class with no subclass dir (fallback)
+        subs, sub_order, default_stem = {}, [], None
+        for stem, frag in frags:
+            key, payload = build_class(path, catalog, subclass=(frag or None))
+            subs[stem] = {k: payload[k]
+                          for k in ("subclass", "caster", "role", "level1", "levels")}
+            sub_order.append(stem)
+            all_variants[f"{key}:{stem}"] = payload
+            if frag.get("default"):
+                default_stem = stem
+        if default_stem is None:
+            default_stem = sub_order[0]
+        classes[key] = {
+            "name": payload["name"], "hitDie": payload["hitDie"],
+            "budget": payload["budget"], "defaultSub": default_stem,
+            "subOrder": sub_order, "subs": subs,
+        }
         order.append(key)
 
     # Per-class builder.
@@ -305,8 +326,8 @@ def main():
     open(os.path.join(WEB_DIR, "index.html"), "w", encoding="utf-8").write(
         wrap(body, "Piece-Meal D&amp;D — Character Builder"))
 
-    # Classless builder.
-    classless = json.dumps(build_classless(catalog, classes),
+    # Classless builder: menu + presets span every subclass variant.
+    classless = json.dumps(build_classless(catalog, all_variants),
                            separators=(",", ":"))
     cbody = inject(os.path.join(WEB_DIR, "classless-app.html"), classless)
     open(os.path.join(WEB_DIR, "classless.html"), "w", encoding="utf-8").write(

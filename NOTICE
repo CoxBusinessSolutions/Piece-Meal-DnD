@@ -1,0 +1,28 @@
+Piece-Meal-DnD — NOTICE
+=======================
+
+CODE
+  The source code in this repository (tools/, web/*-app.html, build scripts) is
+  licensed under the GNU General Public License v2 — see the LICENSE file.
+
+SRD CONTENT
+  This project includes material from the System Reference Document 5.1
+  ("SRD 5.1") by Wizards of the Coast LLC, available at
+  https://dnd.wizards.com/resources/systems-reference-document
+  The SRD 5.1 is licensed under the Creative Commons Attribution 4.0
+  International License (CC-BY-4.0):
+  https://creativecommons.org/licenses/by/4.0/legalcode
+  The 12 base classes and their one SRD reference subclass come from the SRD 5.1.
+
+NON-SRD SUBCLASSES
+  The additional Player's Handbook subclasses are NOT covered by the SRD or
+  CC-BY. Their data files (data/subclasses/**) record only mechanical facts —
+  each feature's name and the level it is gained — plus original,
+  project-authored power-point weights. No descriptive or rules prose from any
+  non-SRD source is reproduced. Each such file's `source:` line marks it as
+  "PHB (2014) feature/level facts; original weighting — not SRD/OGL".
+
+TRADEMARKS / AFFILIATION
+  Dungeons & Dragons, D&D, Player's Handbook, and related marks are trademarks
+  of Wizards of the Coast LLC. This is an unofficial, fan-made tool and is NOT
+  affiliated with, sponsored, endorsed, or approved by Wizards of the Coast.
