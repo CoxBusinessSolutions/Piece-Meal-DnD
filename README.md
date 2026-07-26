@@ -319,8 +319,10 @@ the low-level view clean; the menu grows as you level up.
   (The Fiend, The Archfey, The Great Old One); Paladin (Oath of Devotion, Oath of
   the Ancients, Oath of Vengeance); Cleric (Life, Knowledge, Light, Nature,
   Tempest, Trickery, War). **All 12 classes now have every PHB subclass.**
-  **Phase 2:** a subclass picker in the web builders (today `build_web.py`
-  merges only each class's default fragment).
+  The per-class web builder (`web/index.html`) has a **subclass picker** — pick a
+  class, then any of its subclasses from a dropdown, and the level-1 breakdown and
+  the 2–20 progression re-render for that subclass. `build_web.py` emits every
+  variant per class; the classless builder still consumes only the default.
   - **Level-1 subclasses.** Sorcerer origins and Warlock patrons grant features
     at level 1, so `merge_subclass` inserts fragment pieces *after* the level-1
     commodities (keeping saves/armor/etc. first) and among the unique features.
