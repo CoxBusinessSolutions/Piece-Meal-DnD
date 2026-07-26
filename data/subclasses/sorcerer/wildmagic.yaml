@@ -30,8 +30,8 @@ pieces:
   14:
     - id: controlled-chaos
       name: "Wild Magic: Controlled Chaos"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   18:
     - id: spell-bombardment
       name: "Wild Magic: Spell Bombardment"

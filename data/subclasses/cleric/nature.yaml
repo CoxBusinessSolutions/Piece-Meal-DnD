@@ -19,8 +19,8 @@ pieces:
       tiers: [heavy]
     - id: acolyte-of-nature
       name: "Nature Domain: Acolyte of Nature (druid cantrip + skill)"
-      tag: proficiency
-      points: 2        # PLACEHOLDER
+      tag: utility
+      points: 3
   2:
     - id: charm-animals-and-plants
       name: "Nature Domain: Channel Divinity - Charm Animals and Plants"
@@ -39,5 +39,5 @@ pieces:
   17:
     - id: master-of-nature
       name: "Nature Domain: Master of Nature"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

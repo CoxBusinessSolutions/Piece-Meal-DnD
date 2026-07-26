@@ -28,8 +28,8 @@ pieces:
   10:
     - id: improved-abjuration
       name: "Abjuration: Improved Abjuration"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   14:
     - id: spell-resistance
       name: "Abjuration: Spell Resistance"

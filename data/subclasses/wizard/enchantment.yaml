@@ -18,8 +18,8 @@ pieces:
       points: 1        # PLACEHOLDER
     - id: hypnotic-gaze
       name: "Enchantment: Hypnotic Gaze"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   6:
     - id: instinctive-charm
       name: "Enchantment: Instinctive Charm"
@@ -33,5 +33,5 @@ pieces:
   14:
     - id: alter-memories
       name: "Enchantment: Alter Memories"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

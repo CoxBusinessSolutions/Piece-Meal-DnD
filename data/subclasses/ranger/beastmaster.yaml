@@ -28,5 +28,5 @@ pieces:
   15:
     - id: share-spells
       name: "Beast Master: Share Spells"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

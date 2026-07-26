@@ -28,8 +28,8 @@ pieces:
   10:
     - id: the-third-eye
       name: "Divination: The Third Eye"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   14:
     - id: greater-portent
       name: "Divination: Greater Portent"

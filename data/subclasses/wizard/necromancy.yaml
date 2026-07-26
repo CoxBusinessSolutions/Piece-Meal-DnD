@@ -23,13 +23,13 @@ pieces:
   6:
     - id: undead-thralls
       name: "Necromancy: Undead Thralls"
-      tag: marquee
-      points: 5        # PLACEHOLDER
+      tag: utility
+      points: 3
   10:
     - id: inured-to-undeath
       name: "Necromancy: Inured to Undeath"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   14:
     - id: command-undead
       name: "Necromancy: Command Undead"

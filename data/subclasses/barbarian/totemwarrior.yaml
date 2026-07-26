@@ -32,5 +32,5 @@ pieces:
   14:
     - id: totemic-attunement
       name: "Totem Warrior: Totemic Attunement"
-      tag: marquee
-      points: 5        # PLACEHOLDER
+      tag: utility
+      points: 3

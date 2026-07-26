@@ -30,8 +30,8 @@ pieces:
   2:
     - id: destructive-wrath
       name: "Tempest Domain: Channel Divinity - Destructive Wrath"
-      tag: marquee
-      points: 5        # PLACEHOLDER
+      tag: utility
+      points: 3
   6:
     - id: thunderbolt-strike
       name: "Tempest Domain: Thunderbolt Strike"
@@ -45,5 +45,5 @@ pieces:
   17:
     - id: stormborn
       name: "Tempest Domain: Stormborn"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

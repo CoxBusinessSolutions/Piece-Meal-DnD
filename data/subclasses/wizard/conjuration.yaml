@@ -18,8 +18,8 @@ pieces:
       points: 1        # PLACEHOLDER
     - id: minor-conjuration
       name: "Conjuration: Minor Conjuration"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   6:
     - id: benign-transposition
       name: "Conjuration: Benign Transposition"
@@ -28,10 +28,10 @@ pieces:
   10:
     - id: focused-conjuration
       name: "Conjuration: Focused Conjuration"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   14:
     - id: durable-summons
       name: "Conjuration: Durable Summons"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

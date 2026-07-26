@@ -18,8 +18,8 @@ pieces:
       points: 1        # PLACEHOLDER
     - id: improved-minor-illusion
       name: "Illusion: Improved Minor Illusion"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   6:
     - id: malleable-illusions
       name: "Illusion: Malleable Illusions"

@@ -23,10 +23,10 @@ pieces:
   11:
     - id: cloak-of-shadows
       name: "Way of Shadow: Cloak of Shadows"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   17:
     - id: opportunist
       name: "Way of Shadow: Opportunist"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

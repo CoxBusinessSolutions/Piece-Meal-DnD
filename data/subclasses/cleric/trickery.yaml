@@ -18,8 +18,8 @@ pieces:
   2:
     - id: invoke-duplicity
       name: "Trickery Domain: Channel Divinity - Invoke Duplicity"
-      tag: marquee
-      points: 5        # PLACEHOLDER
+      tag: utility
+      points: 3
   6:
     - id: cloak-of-shadows
       name: "Trickery Domain: Channel Divinity - Cloak of Shadows"
@@ -33,5 +33,5 @@ pieces:
   17:
     - id: improved-duplicity
       name: "Trickery Domain: Improved Duplicity"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

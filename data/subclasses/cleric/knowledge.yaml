@@ -35,5 +35,5 @@ pieces:
   17:
     - id: visions-of-the-past
       name: "Knowledge Domain: Visions of the Past"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

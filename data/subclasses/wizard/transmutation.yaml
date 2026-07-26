@@ -18,18 +18,18 @@ pieces:
       points: 1        # PLACEHOLDER
     - id: minor-alchemy
       name: "Transmutation: Minor Alchemy"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   6:
     - id: transmuters-stone
       name: "Transmutation: Transmuter's Stone"
-      tag: marquee
-      points: 5        # PLACEHOLDER
+      tag: utility
+      points: 3
   10:
     - id: shapechanger
       name: "Transmutation: Shapechanger"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   14:
     - id: master-transmuter
       name: "Transmutation: Master Transmuter"

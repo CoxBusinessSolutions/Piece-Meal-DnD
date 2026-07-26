@@ -30,8 +30,8 @@ pieces:
   2:
     - id: guided-strike
       name: "War Domain: Channel Divinity - Guided Strike"
-      tag: marquee
-      points: 5        # PLACEHOLDER
+      tag: utility
+      points: 3
   6:
     - id: war-gods-blessing
       name: "War Domain: Channel Divinity - War God's Blessing"
@@ -45,5 +45,5 @@ pieces:
   17:
     - id: avatar-of-battle
       name: "War Domain: Avatar of Battle"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5

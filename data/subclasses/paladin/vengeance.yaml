@@ -24,8 +24,8 @@ pieces:
   7:
     - id: relentless-avenger
       name: "Oath of Vengeance: Relentless Avenger"
-      tag: utility
-      points: 3        # PLACEHOLDER
+      tag: marquee
+      points: 5
   15:
     - id: soul-of-vengeance
       name: "Oath of Vengeance: Soul of Vengeance"

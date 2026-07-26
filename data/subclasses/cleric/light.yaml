@@ -22,8 +22,8 @@ pieces:
   2:
     - id: radiance-of-the-dawn
       name: "Light Domain: Channel Divinity - Radiance of the Dawn"
-      tag: marquee
-      points: 5        # PLACEHOLDER
+      tag: utility
+      points: 3
   6:
     - id: improved-flare
       name: "Light Domain: Improved Flare"
