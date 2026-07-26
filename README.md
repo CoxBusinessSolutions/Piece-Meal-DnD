@@ -9,8 +9,10 @@ building into an à-la-carte shop:
   level-1 character piece by piece.
 - **In play**, spend earned XP to buy pieces from higher levels.
 
-Everything is built on the **open** SRD 5.1 content (CC-BY-4.0): 12 base
-classes, each with one subclass.
+The 12 base classes and their one **SRD reference subclass** are built on the
+**open** SRD 5.1 content (CC-BY-4.0). The additional Player's Handbook subclasses
+are **not** SRD — their data records only mechanical feature/level facts plus
+original weights, with no rules prose (see [License & attribution](#license--attribution)).
 
 ## Two ledgers
 
@@ -352,3 +354,29 @@ the low-level view clean; the menu grows as you level up.
   (mind the SRD 5.1 licensing boundary for anything beyond it).
 - **Builder niceties.** Save/share a specific build (permalink), export to a
   printable character sheet, or a side-by-side class comparison view.
+
+## License & attribution
+
+**Code** — the tooling and page sources in this repo (`tools/`, `web/*-app.html`)
+are licensed under the **GNU General Public License v2** (see `LICENSE`).
+
+**SRD content** — this project includes material from the **System Reference
+Document 5.1 ("SRD 5.1")** by Wizards of the Coast LLC, available at
+<https://dnd.wizards.com/resources/systems-reference-document>, licensed under
+the **Creative Commons Attribution 4.0 International License**
+(<https://creativecommons.org/licenses/by/4.0/legalcode>). The 12 base classes
+and their one SRD reference subclass come from the SRD 5.1.
+
+**Non-SRD subclasses** — the additional Player's Handbook subclasses are **not**
+covered by the SRD or CC-BY. Their data files record only **mechanical facts**
+(each feature's name and the level it is gained) plus **original, project-authored
+power-point weights**. No descriptive or rules prose from any non-SRD source is
+reproduced; each such file's `source:` line marks it accordingly. If you reuse
+this repo, do not relabel that data as SRD/CC-BY.
+
+**Trademarks / affiliation** — Dungeons & Dragons, D&D, Player's Handbook, and
+related marks are trademarks of Wizards of the Coast LLC. This is an
+**unofficial, fan-made tool** and is **not affiliated with, sponsored, endorsed,
+or approved by Wizards of the Coast**.
+
+See `NOTICE` for the same summary in one place.

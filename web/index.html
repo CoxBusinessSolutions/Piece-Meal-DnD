@@ -204,6 +204,7 @@
 
   .foot{margin-top:26px; color:var(--ink-soft); font-size:12.5px; line-height:1.6}
   .foot code{font-family:var(--mono); background:var(--panel-2); padding:1px 5px; border-radius:4px; font-size:12px}
+  .foot__legal{display:block; margin-top:8px; font-size:11.5px; opacity:.7}
 
   @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
@@ -471,10 +472,12 @@
     return wrap;
   }
 
-  foot.innerHTML = 'Prices derived by <code>tools/price.py</code>; commodity prices live in '+
-    '<code>data/level1_catalog.yaml</code>. Pick a class, then any subclass. SRD 5.1 subclasses '+
-    'are CC-BY-4.0; other subclasses record mechanical feature/level facts only. Prefer to mix '+
-    'freely? Try the <a href="./classless.html">classless builder</a>.';
+  foot.innerHTML = 'Prices derived by <code>tools/price.py</code>. Pick a class, then any subclass. '+
+    'Prefer to mix freely? Try the <a href="./classless.html">classless builder</a>.'+
+    '<br><span class="foot__legal">Includes material from the SRD 5.1, © Wizards of the Coast, '+
+    'licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>; '+
+    'non-SRD subclasses record mechanical feature/level facts only. Unofficial fan tool — not '+
+    'affiliated with or endorsed by Wizards of the Coast. D&amp;D is a trademark of Wizards of the Coast LLC.</span>';
 
   buildRail();
   selectClass(DATA.order[0]);
