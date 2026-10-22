@@ -73,6 +73,26 @@ BUDGET_LEVELS = [1, 2, 3, 5, 8, 11, 14, 17, 20]
 HL_TAGS = {"marquee", "spellcasting", "scaling", "slots", "utility", "asi"}
 REPEATABLE_TAGS = {"asi", "slots"}
 
+# Classless spell-slot POOLS. The shared full-caster Spellcasting chain is split
+# into one chain per pool, so arcane and divine casting advance separately. A
+# character picks a spell list the first time they buy a pool's Spellcasting;
+# a later list of the SAME type joins that pool (sharing its slots) without
+# raising its slot level — only buying the pool's next tier does that. Pact
+# Magic and the subclass half-caster chains keep their own pieces.
+SPELL_POOLS = {
+    "arcane": {"label": "Arcane", "lists": ["Bard", "Sorcerer", "Wizard"]},
+    "divine": {"label": "Divine", "lists": ["Cleric", "Druid", "Paladin", "Ranger"]},
+}
+# The shared chain: base piece (tier 1), the 2nd-9th tier unlocks, then the
+# repeatable extra-slot piece (tier 10).
+SPELL_CHAIN = {"spellcasting": 1, "spellcasting-additional-slots": 10}
+SPELL_CHAIN.update({f"spellcasting-{n}{'nd' if n == 2 else 'rd' if n == 3 else 'th'}-level-spells": n
+                    for n in range(2, 10)})
+# Half-caster subclass chains (arcane half-casters) — tagged with their pool for
+# display only; they keep their own pieces.
+HALF_CASTER_POOL = {"eldritch-knight": "arcane", "arcane-trickster": "arcane"}
+HIT_DIE_SIZES = ["d6", "d8", "d10", "d12"]
+
 # Load the pricer as a module so we reuse its exact pricing logic.
 _spec = importlib.util.spec_from_file_location(
     "price", os.path.join(ROOT, "tools", "price.py"))
@@ -256,6 +276,8 @@ def build_classless(catalog, classes):
         presets[key] = {"name": cls["name"], "subclass": cls.get("subclass", ""),
                         "commodities": cls["commodityCfg"], "grants": grants}
 
+    features, spell_pools = split_spell_pools(features, presets)
+
     return {
         "budget": catalog["creation_budget"], "budgets": budgets,
         "rate": CLASSLESS_RATE, "order": list(classes.keys()), "presets": presets,
@@ -263,9 +285,86 @@ def build_classless(catalog, classes):
             "save": c["save"], "skill": c["skill"], "tool": c["tool"],
             "starting_kit": c["starting_kit"], "shield": armor["shield"],
             "hitDie": hitdie_opts, "armor": armor_opts, "weapon": weapon_opts,
+            "hitDieByLevel": hit_die_prices(classes),
         },
         "features": features,
+        "spellPools": spell_pools,
     }
+
+
+def hit_die_prices(classes):
+    """Price of buying one hit die of each size at each level 2-20.
+
+    Every class gains a "Hit Points (dX)" piece at every level 2-20, priced in
+    its in-play XP ledger. Each level gets one base price: the mean of those
+    pieces across all class/subclass variants, normalised to a d8. A die then
+    costs that base scaled by its size (d6 = 6/8, d12 = 12/8) — the same "price
+    follows die size" rule the level-1 catalog uses — so bigger dice always
+    cost more.
+    """
+    per_level = {}
+    for cls in classes.values():
+        for r in cls["levels"]:
+            m = re.match(r"Hit Points \(d(\d+)\)$", r["name"])
+            if m:
+                per_level.setdefault(r["lvl"], []).append(r["xp"] * 8 / int(m.group(1)))
+    out = {}
+    for lvl in range(2, 21):
+        xs = per_level.get(lvl)
+        if not xs:
+            raise SystemExit(f"no Hit Points piece at level {lvl} to price from")
+        base = sum(xs) / len(xs)
+        out[str(lvl)] = [{"id": d, "label": d, "xp": round(base * int(d[1:]) / 8)}
+                         for d in HIT_DIE_SIZES]
+    return out
+
+
+def split_spell_pools(features, presets):
+    """Split the shared Spellcasting chain into one chain per spell-slot pool.
+
+    Each chain piece is cloned per pool (ids prefixed "arcane-"/"divine-"), keeps
+    its price, is limited to that pool's source classes, and is tagged with
+    `pool` and `tier`. Presets are remapped to their class's pool and given the
+    class's own list as their starting spell list.
+    """
+    class_pool = {c: pool for pool, p in SPELL_POOLS.items() for c in p["lists"]}
+    out = []
+    for f in features:
+        tier = SPELL_CHAIN.get(f["id"])
+        if tier is None:
+            for prefix, pool in HALF_CASTER_POOL.items():
+                if f["id"].startswith(prefix) and f["tag"] == "spellcasting":
+                    f = dict(f, pool=pool)
+            out.append(f)
+            continue
+        for pool, p in SPELL_POOLS.items():
+            sources = [s for s in f["sources"] if s in p["lists"]]
+            if not sources:
+                continue
+            clone = dict(f, id=f"{pool}-{f['id']}", sources=sources,
+                         name=f"{p['label']} {f['name']}", pool=pool, tier=tier)
+            if f["req"]:
+                clone["req"] = f"{pool}-{f['req']}"
+            out.append(clone)
+    ids = {f["id"] for f in out}
+    for f in out:
+        if f.get("req") and f["req"] not in ids:
+            raise SystemExit(f"{f['id']}: prerequisite {f['req']} missing after pool split")
+
+    for pr in presets.values():
+        pool = class_pool.get(pr["name"])
+        for g in pr["grants"]:
+            if g["id"] in SPELL_CHAIN:
+                if not pool:
+                    raise SystemExit(f"{pr['name']}: spellcasting grant with no spell pool")
+                g["id"] = f"{pool}-{g['id']}"
+        if pool and any(g["id"].startswith(pool + "-") for g in pr["grants"]):
+            pr["spellLists"] = {pool: [pr["name"]]}
+
+    pools = {pool: {"label": p["label"], "lists": p["lists"],
+                    "base": f"{pool}-spellcasting"}
+             for pool, p in SPELL_POOLS.items()}
+    return out, pools
 
 
 def inject(src_path, payload):
