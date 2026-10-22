@@ -272,6 +272,34 @@ The trade-off: with premiums, rebuilding a *standard* class runs a little over
 100 (a full caster is ~110), so even a "pure" build trims a ribbon or two —
 on-theme for "you can't have it all." Deviating is the play.
 
+### Hit dice at every level
+
+The level-1 hit die is a commodity as before. Above level 1 the classless
+builder buys **one hit die per level** ("Hit dice, levels 2–N" in Commodities),
+each defaulting to the level-1 size and changeable per level. A level's price
+comes from what the stock classes already pay for their "Hit Points (dX)" piece
+at that level (mean across every class/subclass variant, normalised to a d8),
+then scaled by die size — the same "price follows die size" rule as level 1, so
+a d12 always costs more than a d6. Tunable in `hit_die_prices()` in
+`tools/build_web.py`.
+
+### Spell lists and slot pools
+
+The shared Spellcasting chain is split into an **arcane** chain (Bard, Sorcerer,
+Wizard) and a **divine** chain (Cleric, Druid, Paladin, Ranger), so each pool
+advances separately:
+
+- Buying a pool's first Spellcasting piece comes with **one spell list** — pick
+  which in the pool panel at the top of Features.
+- You can **add another list of the same type**. It shares that pool's slots and
+  costs the same as the pool's next advance, but it does **not** raise the
+  pool's slot level — only buying the next tier does.
+- Arcane and divine are **separate pools**, each advanced on its own.
+- **Pact Magic** stays its own short-rest pool, and the Eldritch Knight / Arcane
+  Trickster chains keep their own pieces (shown as arcane half-casters).
+
+Pools and their lists are defined in `SPELL_POOLS` in `tools/build_web.py`.
+
 ### Levels beyond 1 — the "build as level" dial
 
 The classless builder isn't just level 1. A **level dial** sets the budget along
