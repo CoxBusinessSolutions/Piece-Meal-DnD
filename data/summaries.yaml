@@ -41,10 +41,12 @@ classless:
   shield: "Proficiency with shields: wield one to add its bonus to your AC."
   starting_kit: "This class's standard starting equipment, including the weapons listed."
 
-# One description for a classless piece several classes grant, when the
-# classes' own summaries differ (tools/build_web.py fails the build otherwise).
+# One description for a classless piece several classes grant, when their own
+# versions differ: in summary (tools/build_web.py fails the build without an
+# entry here) or in what the piece's single name leaves out.
 merged:
   unarmored-defense: "Without armor, your AC is 10 + Dexterity modifier + either Constitution modifier, with a shield still adding its bonus (Barbarian), or Wisdom modifier, with no shield (Monk)."
   timeless-body: "You age ten times more slowly than normal (Druid), or stop aging altogether and no longer need food or water, and magic can't age you (Monk)."
   fighting-style: "Adopt one fighting style, such as Archery (+2 ranged attacks), Defense (+1 AC in armor), Dueling (+2 one-handed damage), Protection or Two-Weapon Fighting."
   expertise-1: "Double your proficiency bonus for two skills you're proficient in (or one skill and thieves' tools)."
+  weapon-simple: "Proficiency with simple weapons: add your proficiency bonus to attack rolls with them. The Druid's version is a set list of simple weapons, and the Monk's also covers shortswords."
