@@ -38,7 +38,7 @@ pieces:
       upgrades: circle-spells-3
   6:
     - id: lands-stride
-      name: "Circle of the Land: Land's Stride"
+      name: "Land's Stride"
       summary: "Nonmagical difficult terrain doesn't slow you, plants don't hinder you, and you have advantage against magical plants."
       tag: utility
       points: 3

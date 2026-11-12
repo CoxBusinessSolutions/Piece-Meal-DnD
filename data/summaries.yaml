@@ -32,3 +32,11 @@ ancestry:
     language: "You can speak, read and write this language."
     darkvision: "See in dim light within this range as if it were bright, and in darkness as if it were dim (in shades of gray)."
     skill: "Proficiency in the named skill(s)."
+
+# Generic pieces of the classless menu (tools/build_web.py), where the class
+# wording above would not fit.
+classless:
+  skill: "Proficiency in one skill of your choice; add your proficiency bonus to checks with it."
+  tool: "Proficiency with one tool or musical instrument of your choice; add your proficiency bonus to checks with it."
+  shield: "Proficiency with shields: wield one to add its bonus to your AC."
+  starting_kit: "This class's standard starting equipment, including the weapons listed."
