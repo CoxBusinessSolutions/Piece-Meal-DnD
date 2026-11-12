@@ -14,20 +14,24 @@ pieces:
   3:
     - id: hunters-prey
       name: "Hunter: Hunter's Prey"
+      summary: "Choose Colossus Slayer (+1d8 to wounded foes), Giant Killer (reaction attack on large attackers) or Horde Breaker (an extra attack on an adjacent foe)."
       tag: marquee
       points: 5
   7:
     - id: defensive-tactics
       name: "Hunter: Defensive Tactics"
+      summary: "Choose Escape the Horde, Multiattack Defense or Steel Will (advantage against being frightened)."
       tag: utility
       points: 3
   11:
     - id: multiattack
       name: "Hunter: Multiattack"
+      summary: "Choose Volley (ranged attack on everyone in an area) or Whirlwind Attack (melee attack on everyone within 5 feet)."
       tag: marquee
       points: 5
   15:
     - id: superior-hunters-defense
       name: "Hunter: Superior Hunter's Defense"
+      summary: "Choose Evasion, Stand Against the Tide (redirect a miss) or Uncanny Dodge (halve one attack's damage)."
       tag: marquee
       points: 5

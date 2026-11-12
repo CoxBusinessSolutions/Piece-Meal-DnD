@@ -52,9 +52,11 @@ levels:
       - id: save-con
         name: "Saving Throw Proficiency: Constitution"
         commodity: save
+        ability: con
       - id: save-cha
         name: "Saving Throw Proficiency: Charisma"
         commodity: save
+        ability: cha
       - id: skills-1
         name: "Skill Proficiencies (choose 2)"
         commodity: skill
@@ -77,6 +79,7 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: spellcasting
         name: "Spellcasting (1st-level spells)"
+        summary: "Cast known sorcerer spells using Charisma, with spell slots that recover on a long rest. An arcane focus."
         tag: spellcasting
         points: 5
       - id: cantrips-known-4
@@ -87,6 +90,7 @@ levels:
     pieces:
       - id: font-of-magic
         name: "Font of Magic (Sorcery Points)"
+        summary: "Gain sorcery points equal to your sorcerer level, refilled on a long rest; trade them for spell slots and back."
         tag: marquee
         points: 5
       - id: hp-2
@@ -97,6 +101,7 @@ levels:
     pieces:
       - id: metamagic
         name: "Metamagic (2 options)"
+        summary: "Learn two Metamagic options (such as Quickened, Twinned or Subtle Spell) to reshape spells with sorcery points."
         tag: marquee
         points: 5
       - id: spell-tier-2nd
@@ -184,6 +189,7 @@ levels:
     pieces:
       - id: metamagic-10
         name: "Metamagic (3rd option)"
+        summary: "Learn a third Metamagic option."
         tag: scaling
         points: 3
         upgrades: metamagic
@@ -268,6 +274,7 @@ levels:
         upgrades: spell-tier-8th
       - id: metamagic-17
         name: "Metamagic (4th option)"
+        summary: "Learn a fourth Metamagic option."
         tag: scaling
         points: 3
         upgrades: metamagic-10
@@ -309,6 +316,7 @@ levels:
     pieces:
       - id: sorcerous-restoration
         name: "Sorcerous Restoration"
+        summary: "Regain 4 sorcery points on a short rest."
         tag: utility
         points: 3
       - id: spell-slots-20

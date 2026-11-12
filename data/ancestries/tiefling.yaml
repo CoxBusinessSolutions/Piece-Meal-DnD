@@ -9,6 +9,6 @@ pieces:
   - {id: int-1, name: "Tiefling: +1 Intelligence", commodity: ability, ability: int, amount: 1}
   - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
   - {id: language, name: "Language: Infernal", commodity: language, shared: language-infernal}
-  - {id: hellish-resistance, name: "Hellish Resistance (fire)", commodity: resistance, damage: fire, shared: resistance-fire}
-  - {id: thaumaturgy, name: "Infernal Legacy: Thaumaturgy", commodity: cantrip}
-  - {id: infernal-legacy, name: "Infernal Legacy (spells)", tag: utility, points: 3, upgrades: thaumaturgy}
+  - {id: hellish-resistance, name: "Hellish Resistance (fire)", commodity: resistance, damage: fire, shared: resistance-fire, summary: "Resistance to fire damage."}
+  - {id: thaumaturgy, name: "Infernal Legacy: Thaumaturgy", commodity: cantrip, summary: "You know the thaumaturgy cantrip, cast with Charisma."}
+  - {id: infernal-legacy, name: "Infernal Legacy (spells)", tag: utility, points: 3, upgrades: thaumaturgy, summary: "Cast hellish rebuke (as a 2nd-level spell) and later darkness, each once per long rest, using Charisma."}

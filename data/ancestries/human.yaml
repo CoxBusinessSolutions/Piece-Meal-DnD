@@ -12,4 +12,4 @@ pieces:
   - {id: int-1, name: "Human: +1 Intelligence", commodity: ability, ability: int, amount: 1}
   - {id: wis-1, name: "Human: +1 Wisdom", commodity: ability, ability: wis, amount: 1}
   - {id: cha-1, name: "Human: +1 Charisma", commodity: ability, ability: cha, amount: 1}
-  - {id: extra-language, name: "Extra Language", commodity: language, shared: language-extra}
+  - {id: extra-language, name: "Extra Language", commodity: language, shared: language-extra, summary: "You learn one extra language of your choice."}

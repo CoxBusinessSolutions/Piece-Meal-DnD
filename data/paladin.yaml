@@ -54,9 +54,11 @@ levels:
       - id: save-wis
         name: "Saving Throw Proficiency: Wisdom"
         commodity: save
+        ability: wis
       - id: save-cha
         name: "Saving Throw Proficiency: Charisma"
         commodity: save
+        ability: cha
       - id: skills-1
         name: "Skill Proficiencies (choose 2)"
         commodity: skill
@@ -79,24 +81,29 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: lay-on-hands
         name: "Lay on Hands"
+        summary: "A pool of healing equal to five times your paladin level, refilled on a long rest. Touch to restore HP, or spend 5 to cure a disease or poison."
         tag: marquee
         points: 5
       - id: divine-sense
         name: "Divine Sense"
+        summary: "Action: sense celestials, fiends and undead within 60 feet until your next turn ends. Uses equal 1 + Charisma modifier per long rest."
         tag: utility
         points: 3
   2:
     pieces:
       - id: divine-smite
         name: "Divine Smite"
+        summary: "When you hit with a melee weapon, spend a spell slot for extra radiant damage: 2d8, +1d8 per slot level above 1st, +1d8 vs undead or fiends."
         tag: marquee
         points: 5
       - id: fighting-style
         name: "Fighting Style"
+        summary: "Adopt one fighting style, such as Defense (+1 AC in armor), Dueling (+2 one-handed damage) or Protection."
         tag: marquee
         points: 5
       - id: spellcasting
         name: "Spellcasting (1st-level spells)"
+        summary: "Prepare paladin spells each day using Charisma, with spell slots that recover on a long rest. A holy symbol focus."
         tag: spellcasting
         points: 5
       - id: hp-2
@@ -107,6 +114,7 @@ levels:
     pieces:
       - id: divine-health
         name: "Divine Health"
+        summary: "You're immune to disease."
         tag: ribbon
         points: 1
       - id: hp-3
@@ -127,6 +135,7 @@ levels:
     pieces:
       - id: extra-attack-5
         name: "Extra Attack (two attacks)"
+        summary: "Attack twice, instead of once, whenever you take the Attack action."
         tag: marquee
         points: 5
       - id: spell-tier-2nd
@@ -146,6 +155,7 @@ levels:
     pieces:
       - id: aura-of-protection
         name: "Aura of Protection"
+        summary: "You and friendly creatures within 10 feet add your Charisma modifier to saving throws while you're conscious."
         tag: marquee
         points: 5
       - id: hp-6
@@ -187,6 +197,7 @@ levels:
     pieces:
       - id: aura-of-courage
         name: "Aura of Courage"
+        summary: "You and friendly creatures within 10 feet can't be frightened while you're conscious."
         tag: marquee
         points: 5
       - id: hp-10
@@ -197,6 +208,7 @@ levels:
     pieces:
       - id: improved-divine-smite
         name: "Improved Divine Smite"
+        summary: "Every melee weapon hit deals an extra 1d8 radiant damage."
         tag: scaling
         points: 3
         upgrades: divine-smite
@@ -233,6 +245,7 @@ levels:
     pieces:
       - id: cleansing-touch
         name: "Cleansing Touch"
+        summary: "Action: end one spell on yourself or a willing creature. Uses equal your Charisma modifier per long rest."
         tag: utility
         points: 3
       - id: hp-14
@@ -274,6 +287,7 @@ levels:
     pieces:
       - id: aura-range-18
         name: "Auras increase to 30 feet"
+        summary: "Your auras reach 30 feet instead of 10."
         tag: scaling
         points: 3
         upgrades: aura-of-protection

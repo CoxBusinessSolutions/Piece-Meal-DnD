@@ -14,20 +14,24 @@ pieces:
   3:
     - id: frenzy
       name: "Path of the Berserker: Frenzy"
+      summary: "While raging you can go into a frenzy: make one melee attack as a bonus action each turn, but gain a level of exhaustion when the rage ends."
       tag: marquee
       points: 5
   6:
     - id: mindless-rage
       name: "Path of the Berserker: Mindless Rage"
+      summary: "You can't be charmed or frightened while raging; such effects are suspended for the rage."
       tag: utility
       points: 3
   10:
     - id: intimidating-presence
       name: "Path of the Berserker: Intimidating Presence"
+      summary: "Action: frighten one creature within 30 feet that fails a Wisdom save; you can extend the effect on later turns."
       tag: utility
       points: 3
   14:
     - id: retaliation
       name: "Path of the Berserker: Retaliation"
+      summary: "When a creature within 5 feet damages you, use your reaction to make one melee attack against it."
       tag: utility
       points: 3

@@ -2,8 +2,10 @@
 #
 # PACT MAGIC — a third caster shape. Instead of a full spell-slot table, the
 # Warlock has a handful of short-rest slots that all rise to the same level:
-# 1st@1, 2nd@3, 3rd@5, 4th@7, 5th@9, then the slot LEVEL stops and only the
-# COUNT grows (a 4th slot at 18, modeled as a `slots` piece). High-level spells
+# 1st@1, 2nd@3, 3rd@5, 4th@7, 5th@9 (the slot-LEVEL chain, `spellcasting`
+# pieces). The slot COUNT grows separately, as in the SRD table: 1 slot at 1, a
+# 2nd at 2, a 3rd at 11 and a 4th at 17 (the slot-COUNT chain, `slots` pieces,
+# each upgrading the last). High-level spells
 # come from Mystic Arcanum (a free 6th/7th/8th/9th spell at 11/13/15/17), each
 # a spellcasting piece chained to the last. Eldritch Invocations are their own
 # buyable system: the first pick unlocks the feature, later picks are scaling
@@ -57,9 +59,11 @@ levels:
       - id: save-wis
         name: "Saving Throw Proficiency: Wisdom"
         commodity: save
+        ability: wis
       - id: save-cha
         name: "Saving Throw Proficiency: Charisma"
         commodity: save
+        ability: cha
       - id: skills-1
         name: "Skill Proficiencies (choose 2)"
         commodity: skill
@@ -82,6 +86,7 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: pact-magic
         name: "Pact Magic (1st-level spell slots)"
+        summary: "Cast known warlock spells using Charisma. A few spell slots, all at the same level, recover on a short or long rest."
         tag: spellcasting
         points: 5
       - id: cantrips-known-2
@@ -90,8 +95,15 @@ levels:
         points: 2
   2:
     pieces:
+      - id: pact-slots-2
+        name: "Pact Magic: second slot (2 total)"
+        summary: "Gain a second pact magic slot."
+        tag: slots
+        points: 3
+        upgrades: pact-magic
       - id: eldritch-invocations
         name: "Eldritch Invocations (2 known)"
+        summary: "Learn two eldritch invocations: lasting magical boons such as Agonizing Blast or Devil's Sight."
         tag: marquee
         points: 5
       - id: hp-2
@@ -102,10 +114,12 @@ levels:
     pieces:
       - id: pact-boon
         name: "Pact Boon (Chain / Blade / Tome)"
+        summary: "Choose your patron's gift: Pact of the Chain (familiar), Blade (summoned pact weapon) or Tome (Book of Shadows with three extra cantrips)."
         tag: marquee
         points: 5
       - id: pact-slot-2nd
         name: "Pact Magic: 2nd-level slots"
+        summary: "Your pact magic slots become 2nd level."
         tag: spellcasting
         points: 5
         upgrades: pact-magic
@@ -132,11 +146,13 @@ levels:
     pieces:
       - id: pact-slot-3rd
         name: "Pact Magic: 3rd-level slots"
+        summary: "Your pact magic slots become 3rd level."
         tag: spellcasting
         points: 5
         upgrades: pact-slot-2nd
       - id: invocations-known-3
         name: "Eldritch Invocation (3rd known)"
+        summary: "Learn a third eldritch invocation."
         tag: scaling
         points: 3
         upgrades: eldritch-invocations
@@ -158,11 +174,13 @@ levels:
     pieces:
       - id: pact-slot-4th
         name: "Pact Magic: 4th-level slots"
+        summary: "Your pact magic slots become 4th level."
         tag: spellcasting
         points: 5
         upgrades: pact-slot-3rd
       - id: invocations-known-4
         name: "Eldritch Invocation (4th known)"
+        summary: "Learn a fourth eldritch invocation."
         tag: scaling
         points: 3
         upgrades: invocations-known-3
@@ -184,11 +202,13 @@ levels:
     pieces:
       - id: pact-slot-5th
         name: "Pact Magic: 5th-level slots"
+        summary: "Your pact magic slots become 5th level."
         tag: spellcasting
         points: 5
         upgrades: pact-slot-4th
       - id: invocations-known-5
         name: "Eldritch Invocation (5th known)"
+        summary: "Learn a fifth eldritch invocation."
         tag: scaling
         points: 3
         upgrades: invocations-known-4
@@ -213,8 +233,15 @@ levels:
         points: 2
   11:
     pieces:
+      - id: pact-slots-11
+        name: "Pact Magic: third slot (3 total)"
+        summary: "Gain a third pact magic slot."
+        tag: slots
+        points: 3
+        upgrades: pact-slots-2
       - id: mystic-arcanum-6
         name: "Mystic Arcanum (6th level)"
+        summary: "Choose one 6th-level warlock spell to cast once per long rest without a slot."
         tag: spellcasting
         points: 5
       - id: hp-11
@@ -229,6 +256,7 @@ levels:
         points: 4
       - id: invocations-known-6
         name: "Eldritch Invocation (6th known)"
+        summary: "Learn a sixth eldritch invocation."
         tag: scaling
         points: 3
         upgrades: invocations-known-5
@@ -240,6 +268,7 @@ levels:
     pieces:
       - id: mystic-arcanum-7
         name: "Mystic Arcanum (7th level)"
+        summary: "Choose one 7th-level warlock spell to cast once per long rest without a slot."
         tag: spellcasting
         points: 5
         upgrades: mystic-arcanum-6
@@ -261,11 +290,13 @@ levels:
     pieces:
       - id: mystic-arcanum-8
         name: "Mystic Arcanum (8th level)"
+        summary: "Choose one 8th-level warlock spell to cast once per long rest without a slot."
         tag: spellcasting
         points: 5
         upgrades: mystic-arcanum-7
       - id: invocations-known-7
         name: "Eldritch Invocation (7th known)"
+        summary: "Learn a seventh eldritch invocation."
         tag: scaling
         points: 3
         upgrades: invocations-known-6
@@ -285,8 +316,15 @@ levels:
         points: 2
   17:
     pieces:
+      - id: pact-slots-17
+        name: "Pact Magic: fourth slot (4 total)"
+        summary: "Gain a fourth pact magic slot."
+        tag: slots
+        points: 3
+        upgrades: pact-slots-11
       - id: mystic-arcanum-9
         name: "Mystic Arcanum (9th level)"
+        summary: "Choose one 9th-level warlock spell to cast once per long rest without a slot."
         tag: spellcasting
         points: 5
         upgrades: mystic-arcanum-8
@@ -300,13 +338,9 @@ levels:
         points: 2
   18:
     pieces:
-      - id: pact-slots-18
-        name: "Pact Magic: additional slot (4 total)"
-        tag: slots
-        points: 3
-        upgrades: pact-slot-5th
       - id: invocations-known-8
         name: "Eldritch Invocation (8th known)"
+        summary: "Learn an eighth eldritch invocation."
         tag: scaling
         points: 3
         upgrades: invocations-known-7
@@ -328,6 +362,7 @@ levels:
     pieces:
       - id: eldritch-master
         name: "Eldritch Master"
+        summary: "Spend 1 minute pleading with your patron to regain all pact magic slots. Once per long rest."
         tag: marquee
         points: 5
       - id: hp-20

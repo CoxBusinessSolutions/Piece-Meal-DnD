@@ -11,9 +11,9 @@ pieces:
   - {id: wis-1, name: "Hill Dwarf: +1 Wisdom", commodity: ability, ability: wis, amount: 1, subrace: hill_dwarf}
   - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
   - {id: language, name: "Language: Dwarvish", commodity: language, shared: language-dwarvish}
-  - {id: tool, name: "Tool Proficiency (artisan's tools)", commodity: tool}
-  - {id: combat-training, name: "Dwarven Combat Training", commodity: weapon_training}
-  - {id: poison-resistance, name: "Poison Resistance", commodity: resistance, damage: poison, shared: resistance-poison}
-  - {id: resilience, name: "Dwarven Resilience (poison saves)", tag: utility, points: 3}
-  - {id: stonecunning, name: "Stonecunning", tag: ribbon, points: 1}
-  - {id: toughness, name: "Dwarven Toughness", tag: hp, points: 2, hp: 1, subrace: hill_dwarf}
+  - {id: tool, name: "Tool Proficiency (artisan's tools)", commodity: tool, summary: "Proficiency with smith's, brewer's or mason's tools (your choice)."}
+  - {id: combat-training, name: "Dwarven Combat Training", commodity: weapon_training, summary: "Proficiency with battleaxes, handaxes, light hammers and warhammers."}
+  - {id: poison-resistance, name: "Poison Resistance", commodity: resistance, damage: poison, shared: resistance-poison, summary: "Resistance to poison damage."}
+  - {id: resilience, name: "Dwarven Resilience (poison saves)", tag: utility, points: 3, summary: "Advantage on saving throws against poison."}
+  - {id: stonecunning, name: "Stonecunning", tag: ribbon, points: 1, summary: "On History checks about stonework, add double your proficiency bonus."}
+  - {id: toughness, name: "Dwarven Toughness", tag: hp, points: 2, hp: 1, subrace: hill_dwarf, summary: "Your hit point maximum increases by 1 (it grows by 1 per level in standard 5e)."}

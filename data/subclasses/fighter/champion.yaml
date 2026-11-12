@@ -19,27 +19,32 @@ pieces:
   3:
     - id: improved-critical-3
       name: "Champion: Improved Critical"
+      summary: "Your weapon attacks score a critical hit on a roll of 19 or 20."
       tag: marquee
       points: 5
   7:
     - id: remarkable-athlete-7
       name: "Champion: Remarkable Athlete"
+      summary: "Add half your proficiency bonus to Strength, Dexterity and Constitution checks that lack it; running long jumps go farther."
       tag: utility
       points: 3
   10:
     - id: additional-fighting-style-10
       name: "Champion: Additional Fighting Style"
+      summary: "Choose a second fighting style."
       tag: scaling
       points: 3
       upgrades: fighting-style
   15:
     - id: superior-critical-15
       name: "Champion: Superior Critical"
+      summary: "Your weapon attacks score a critical hit on a roll of 18 to 20."
       tag: scaling
       points: 3
       upgrades: improved-critical-3
   18:
     - id: survivor-18
       name: "Champion: Survivor"
+      summary: "At the start of each turn, if you're at or below half HP (but above 0), regain 5 + your Constitution modifier HP."
       tag: marquee
       points: 5

@@ -15,24 +15,29 @@ pieces:
   1:
     - id: dark-ones-blessing
       name: "The Fiend: Dark One's Blessing"
+      summary: "When you reduce a hostile creature to 0 HP, gain temporary HP equal to your Charisma modifier + warlock level."
       tag: utility
       points: 3
     - id: expanded-spell-list
       name: "The Fiend: Expanded Spell List"
+      summary: "The Fiend adds fire-themed spells such as burning hands and fireball to your warlock spell list."
       tag: ribbon
       points: 1
   6:
     - id: dark-ones-own-luck
       name: "The Fiend: Dark One's Own Luck"
+      summary: "Add a d10 to an ability check or save. Once per short or long rest."
       tag: marquee
       points: 5
   10:
     - id: fiendish-resilience
       name: "The Fiend: Fiendish Resilience"
+      summary: "After a rest, choose a damage type to resist until you choose another (not magical or silvered weapons)."
       tag: marquee
       points: 5
   14:
     - id: hurl-through-hell
       name: "The Fiend: Hurl Through Hell"
+      summary: "When you hit a creature, send it through the lower planes until your next turn; non-fiends take 10d10 psychic. Once per long rest."
       tag: marquee
       points: 5

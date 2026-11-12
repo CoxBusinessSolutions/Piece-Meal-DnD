@@ -6,9 +6,9 @@ size: Medium
 speed: 30
 pieces:
   - {id: cha-2, name: "Half-Elf: +2 Charisma", commodity: ability, ability: cha, amount: 2}
-  - {id: flexible, name: "Half-Elf: +1 to two other abilities", commodity: ability, ability: choice, amount: 1, count: 2, from: [str, dex, con, int, wis]}
+  - {id: flexible, name: "Half-Elf: +1 to two other abilities", commodity: ability, ability: choice, amount: 1, count: 2, from: [str, dex, con, int, wis], summary: "Raise two different abilities other than Charisma by 1 each (your choice). Ancestry pieces can raise any one ability by at most +2."}
   - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
   - {id: language, name: "Language: Elvish", commodity: language, shared: language-elvish}
-  - {id: extra-language, name: "Extra Language", commodity: language, shared: language-extra}
+  - {id: extra-language, name: "Extra Language", commodity: language, shared: language-extra, summary: "You learn one extra language of your choice."}
   - {id: skill-versatility, name: "Skill Versatility (two skills)", commodity: skill, qty: 2}
-  - {id: fey-ancestry, name: "Fey Ancestry", tag: utility, points: 3, feature: fey-ancestry}
+  - {id: fey-ancestry, name: "Fey Ancestry", tag: utility, points: 3, feature: fey-ancestry, summary: "Advantage on saves against being charmed, and magic can't put you to sleep."}

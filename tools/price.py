@@ -102,6 +102,58 @@ def merge_subclass(doc, frag):
     return doc
 
 
+# --- Summaries ---------------------------------------------------------------
+
+def load_summaries(data_dir):
+    """The shared summaries for repeated piece kinds (data/summaries.yaml)."""
+    path = os.path.join(data_dir, "summaries.yaml")
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
+
+
+def summary_for(piece, shared, kind="class"):
+    """A piece's summary: its own `summary:`, else the shared summary for its
+    kind (`kind` is "class" or "ancestry"), matched by commodity, then tag,
+    then id prefix. None when nothing applies."""
+    if piece.get("summary"):
+        return piece["summary"]
+    table = (shared or {}).get(kind) or {}
+    c = piece.get("commodity")
+    if c and c in (table.get("commodity") or {}):
+        return table["commodity"][c]
+    t = piece.get("tag")
+    if t and t in (table.get("tag") or {}):
+        return table["tag"][t]
+    for prefix, text in (table.get("id_prefix") or {}).items():
+        if str(piece.get("id", "")).startswith(prefix):
+            return text
+    return None
+
+
+def is_srd(source):
+    """True when a `source:` line marks open SRD content (5.1 or 5.2)."""
+    return "SRD" in str(source or "") and "not SRD" not in str(source or "")
+
+
+def check_summaries(doc, shared, kind, problems, warnings):
+    """SRD-scope pieces should all be described; non-SRD content must stay
+    prose-free (no `summary:` at all)."""
+    pieces = []
+    if kind == "ancestry":
+        pieces = doc.get("pieces") or []
+    else:
+        for lvl in doc.get("levels", {}).values():
+            pieces += lvl.get("pieces", [])
+    srd = is_srd(doc.get("source"))
+    for p in pieces:
+        if not srd and p.get("summary"):
+            problems.append(f"{p.get('id', '?')}: non-SRD content must not carry a summary")
+        elif srd and not summary_for(p, shared, kind):
+            warnings.append(f"{p.get('id', '?')}: no summary")
+
+
 def load_catalog(class_path):
     """Load the shared level-1 commodity catalog next to the data file.
 
@@ -136,10 +188,19 @@ def commodity_xp(piece, catalog, problems):
         return 0
 
 
+ABILITIES = {"str", "dex", "con", "int", "wis", "cha"}
+
+
 def price_level_1(doc, catalog, ids_seen, problems):
     """Price the creation budget: fixed commodities + unique features fill up."""
     rows = []
     pieces = doc["levels"][1]["pieces"]
+    # A saving-throw piece must say which save it grants (consumers such as
+    # CharacterManager turn it into a real save proficiency).
+    for p in pieces:
+        if p.get("commodity") == "save" and p.get("ability") not in ABILITIES:
+            problems.append(f"{p.get('id', '?')}: save piece needs `ability:` "
+                            f"(one of {sorted(ABILITIES)})")
     budget = doc["levels"][1].get("budget", catalog["creation_budget"])
 
     commodities = [p for p in pieces if "commodity" in p]
@@ -398,11 +459,30 @@ def main():
             merge_subclass(doc, yaml.safe_load(f))
     doc["_catalog"] = load_catalog(args.path)
 
+    # Summaries: the base file must be fully described when it is SRD; a merged
+    # non-SRD fragment must carry none.
+    here = os.path.dirname(os.path.abspath(args.path))
+    data_dir = here if os.path.exists(os.path.join(here, "level1_catalog.yaml")) \
+        else os.path.dirname(here)
+    shared = load_summaries(data_dir)
+    summary_problems, summary_warnings = [], []
+    kind = "ancestry" if "ancestry" in doc else "class"
+    if args.subclass:
+        frag = yaml.safe_load(open(args.subclass, encoding="utf-8"))
+        frag_doc = {"source": frag.get("source"),
+                    "levels": {k: {"pieces": v} for k, v in (frag.get("pieces") or {}).items()}}
+        check_summaries(frag_doc, shared, "class", summary_problems, summary_warnings)
+    else:
+        check_summaries(doc, shared, kind, summary_problems, summary_warnings)
+
     if "ancestry" in doc:
         rows, problems = price_ancestry(doc, doc["_catalog"])
     else:
         rows, problems = price_class(doc)
 
+    problems = problems + summary_problems
+    for w in summary_warnings:
+        print("warning: " + w, file=sys.stderr)
     if problems:
         print("RECONCILIATION FAILED:", file=sys.stderr)
         for p in problems:

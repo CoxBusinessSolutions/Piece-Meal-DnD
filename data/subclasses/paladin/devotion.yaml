@@ -14,24 +14,29 @@ pieces:
   3:
     - id: channel-divinity
       name: "Oath of Devotion: Channel Divinity (Sacred Weapon, Turn the Unholy)"
+      summary: "Channel Divinity once per rest: Sacred Weapon (add Charisma to attacks, weapon sheds light) or Turn the Unholy (fiends and undead flee)."
       tag: marquee
       points: 5
     - id: oath-spells
       name: "Oath of Devotion: Oath Spells"
+      summary: "Your oath grants always-prepared spells such as protection from evil and good and sanctuary, gaining more as you advance."
       tag: ribbon
       points: 1
   7:
     - id: aura-of-devotion
       name: "Oath of Devotion: Aura of Devotion"
+      summary: "You and friendly creatures within 10 feet can't be charmed while you're conscious."
       tag: marquee
       points: 5
   15:
     - id: purity-of-spirit
       name: "Oath of Devotion: Purity of Spirit"
+      summary: "You're always under the effect of protection from evil and good."
       tag: utility
       points: 3
   20:
     - id: holy-nimbus
       name: "Oath of Devotion: Holy Nimbus"
+      summary: "Action: emanate sunlight for 1 minute; enemies starting nearby take 10 radiant damage, and you have advantage on saves against fiends and undead. Once per long rest."
       tag: marquee
       points: 5

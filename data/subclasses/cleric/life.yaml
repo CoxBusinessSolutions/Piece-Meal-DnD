@@ -22,25 +22,30 @@ pieces:
   1:
     - id: disciple-of-life
       name: "Life Domain: Disciple of Life"
+      summary: "Healing spells of 1st level or higher restore extra HP equal to 2 + the spell's level. Also grants the Life domain's always-prepared spells."
       tag: utility
       points: 3
   2:
     - id: preserve-life
       name: "Life Domain: Channel Divinity - Preserve Life"
+      summary: "Channel Divinity: split healing equal to five times your cleric level among creatures within 30 feet, up to half each one's max HP."
       tag: utility
       points: 3
   6:
     - id: blessed-healer
       name: "Life Domain: Blessed Healer"
+      summary: "When you heal another creature with a spell, you also regain 2 + the spell's level in HP."
       tag: utility
       points: 3
   8:
     - id: divine-strike
       name: "Life Domain: Divine Strike"
+      summary: "Once per turn, a weapon hit deals an extra 1d8 radiant damage (2d8 from level 14)."
       tag: marquee
       points: 5
   17:
     - id: supreme-healing
       name: "Life Domain: Supreme Healing"
+      summary: "Your healing spells use the maximum on every die instead of rolling."
       tag: marquee
       points: 5

@@ -10,5 +10,5 @@ pieces:
   - {id: str-2, name: "Orc: +2 Strength (house rule)", commodity: ability, ability: str, amount: 2}
   - {id: con-1, name: "Orc: +1 Constitution (house rule)", commodity: ability, ability: con, amount: 1}
   - {id: darkvision, name: "Darkvision (120 ft)", commodity: darkvision, range: "120", shared: darkvision-120}
-  - {id: adrenaline-rush, name: "Adrenaline Rush", tag: utility, points: 3}
-  - {id: relentless-endurance, name: "Relentless Endurance", tag: marquee, points: 5, feature: relentless-endurance}
+  - {id: adrenaline-rush, name: "Adrenaline Rush", tag: utility, points: 3, summary: "Bonus action: Dash, and gain temporary HP equal to your proficiency bonus. Uses equal your proficiency bonus per short or long rest."}
+  - {id: relentless-endurance, name: "Relentless Endurance", tag: marquee, points: 5, feature: relentless-endurance, summary: "When you drop to 0 HP but aren't killed outright, drop to 1 HP instead. Once per long rest."}

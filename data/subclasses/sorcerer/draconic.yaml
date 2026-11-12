@@ -15,24 +15,29 @@ pieces:
   1:
     - id: draconic-resilience
       name: "Draconic Bloodline: Draconic Resilience"
+      summary: "Your HP maximum rises by 1 per sorcerer level, and without armor your AC is 13 + Dexterity modifier."
       tag: utility
       points: 3
     - id: dragon-ancestor
       name: "Draconic Bloodline: Dragon Ancestor"
+      summary: "Choose a dragon type for its damage type; you speak Draconic and double proficiency on Charisma checks with dragons."
       tag: ribbon
       points: 1
   6:
     - id: elemental-affinity
       name: "Draconic Bloodline: Elemental Affinity"
+      summary: "Add your Charisma modifier to one damage roll of spells matching your ancestry's type, and spend 1 sorcery point for 1 hour of resistance to it."
       tag: marquee
       points: 5
   14:
     - id: dragon-wings
       name: "Draconic Bloodline: Dragon Wings"
+      summary: "Bonus action: sprout dragon wings and gain a flying speed equal to your speed."
       tag: marquee
       points: 5
   18:
     - id: draconic-presence
       name: "Draconic Bloodline: Draconic Presence"
+      summary: "Spend 5 sorcery points for a 60-foot aura of awe or fear for 1 minute (Wisdom save)."
       tag: marquee
       points: 5

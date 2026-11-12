@@ -63,9 +63,11 @@ levels:
       - id: save-int
         name: "Saving Throw Proficiency: Intelligence"
         commodity: save
+        ability: int
       - id: save-wis
         name: "Saving Throw Proficiency: Wisdom"
         commodity: save
+        ability: wis
       - id: skills-1
         name: "Skill Proficiencies (choose 2)"
         commodity: skill
@@ -88,10 +90,12 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: spellcasting
         name: "Spellcasting (1st-level spells)"
+        summary: "Prepare spells from your spellbook each day using Intelligence, with spell slots that recover on a long rest. Ritual casting from the book."
         tag: spellcasting
         points: 5
       - id: arcane-recovery
         name: "Arcane Recovery"
+        summary: "Once per day on a short rest, recover spell slots with combined levels up to half your wizard level (no 6th level or higher)."
         tag: utility
         points: 3
       - id: cantrips-known-3
@@ -100,6 +104,7 @@ levels:
         points: 2
       - id: spellbook
         name: "Spellbook"
+        summary: "A spellbook of six 1st-level spells; you add two spells each level and can copy spells you find."
         tag: ribbon
         points: 1
   2:
@@ -288,6 +293,7 @@ levels:
     pieces:
       - id: spell-mastery
         name: "Spell Mastery"
+        summary: "Choose a 1st- and a 2nd-level spell you can cast at their lowest level without spending a slot."
         tag: marquee
         points: 5
       - id: spell-slots-18
@@ -318,6 +324,7 @@ levels:
     pieces:
       - id: signature-spells
         name: "Signature Spells"
+        summary: "Choose two 3rd-level spells; they're always prepared and each can be cast once per short rest without a slot."
         tag: marquee
         points: 5
       - id: spell-slots-20
