@@ -1419,6 +1419,54 @@
    ]
   },
   {
+   "id": "skill-5",
+   "name": "Skill Proficiency (5)",
+   "level": 1,
+   "xp": 3,
+   "tag": "skill",
+   "sources": [],
+   "srd": true,
+   "commodity": "skill",
+   "summary": "Proficiency in one skill of your choice; add your proficiency bonus to checks with it.",
+   "replaces": []
+  },
+  {
+   "id": "skill-6",
+   "name": "Skill Proficiency (6)",
+   "level": 1,
+   "xp": 3,
+   "tag": "skill",
+   "sources": [],
+   "srd": true,
+   "commodity": "skill",
+   "summary": "Proficiency in one skill of your choice; add your proficiency bonus to checks with it.",
+   "replaces": []
+  },
+  {
+   "id": "skill-7",
+   "name": "Skill Proficiency (7)",
+   "level": 1,
+   "xp": 3,
+   "tag": "skill",
+   "sources": [],
+   "srd": true,
+   "commodity": "skill",
+   "summary": "Proficiency in one skill of your choice; add your proficiency bonus to checks with it.",
+   "replaces": []
+  },
+  {
+   "id": "skill-8",
+   "name": "Skill Proficiency (8)",
+   "level": 1,
+   "xp": 3,
+   "tag": "skill",
+   "sources": [],
+   "srd": true,
+   "commodity": "skill",
+   "summary": "Proficiency in one skill of your choice; add your proficiency bonus to checks with it.",
+   "replaces": []
+  },
+  {
    "id": "tool-1",
    "name": "Tool Proficiency (1)",
    "level": 1,
@@ -1471,6 +1519,18 @@
    "replaces": [
     "bard:tools-1"
    ]
+  },
+  {
+   "id": "tool-4",
+   "name": "Tool Proficiency (4)",
+   "level": 1,
+   "xp": 3,
+   "tag": "tool",
+   "sources": [],
+   "srd": true,
+   "commodity": "tool",
+   "summary": "Proficiency with one tool or musical instrument of your choice; add your proficiency bonus to checks with it.",
+   "replaces": []
   },
   {
    "id": "shield",
@@ -1907,23 +1967,22 @@
    ]
   },
   {
-   "id": "hp-d6-2",
-   "name": "Hit Points (d6)",
+   "id": "hp-d12-2",
+   "name": "Hit Points (d12)",
    "level": 2,
-   "xp": 77,
+   "xp": 82,
    "tag": "hp",
    "sources": [
-    "Sorcerer",
-    "Wizard"
+    "Barbarian"
    ],
    "srd": true,
    "feature": "hp-2",
-   "hp": 4,
+   "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "sorcerer:hp-2",
-    "wizard:hp-2"
+    "barbarian:hp-2"
    ]
   },
   {
@@ -1939,6 +1998,29 @@
    "summary": "Once per day during a short rest, recover spent spell slots with combined levels up to half your druid level (no 6th level or higher).",
    "replaces": [
     "druid:natural-recovery"
+   ]
+  },
+  {
+   "id": "hp-d10-2",
+   "name": "Hit Points (d10)",
+   "level": 2,
+   "xp": 71,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-2",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-2",
+    "paladin:hp-2",
+    "ranger:hp-2"
    ]
   },
   {
@@ -2050,34 +2132,6 @@
    "replaces": []
   },
   {
-   "id": "hp-d8-2",
-   "name": "Hit Points (d8)",
-   "level": 2,
-   "xp": 64,
-   "tag": "hp",
-   "sources": [
-    "Bard",
-    "Cleric",
-    "Druid",
-    "Monk",
-    "Rogue",
-    "Warlock"
-   ],
-   "srd": true,
-   "feature": "hp-2",
-   "hp": 5,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "bard:hp-2",
-    "cleric:hp-2",
-    "druid:hp-2",
-    "monk:hp-2",
-    "rogue:hp-2",
-    "warlock:hp-2"
-   ]
-  },
-  {
    "id": "circle-forms",
    "name": "Circle of the Moon: Circle Forms",
    "level": 2,
@@ -2091,43 +2145,32 @@
    "replaces": []
   },
   {
-   "id": "hp-d12-2",
-   "name": "Hit Points (d12)",
+   "id": "hp-d8-2",
+   "name": "Hit Points (d8)",
    "level": 2,
-   "xp": 60,
+   "xp": 59,
    "tag": "hp",
    "sources": [
-    "Barbarian"
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Monk",
+    "Rogue",
+    "Warlock"
    ],
    "srd": true,
    "feature": "hp-2",
-   "hp": 7,
+   "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "barbarian:hp-2"
-   ]
-  },
-  {
-   "id": "hp-d10-2",
-   "name": "Hit Points (d10)",
-   "level": 2,
-   "xp": 58,
-   "tag": "hp",
-   "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
-   ],
-   "srd": true,
-   "feature": "hp-2",
-   "hp": 6,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "fighter:hp-2",
-    "paladin:hp-2",
-    "ranger:hp-2"
+    "bard:hp-2",
+    "cleric:hp-2",
+    "druid:hp-2",
+    "monk:hp-2",
+    "rogue:hp-2",
+    "warlock:hp-2"
    ]
   },
   {
@@ -2143,6 +2186,27 @@
    "summary": "Learn one extra druid cantrip.",
    "replaces": [
     "druid:bonus-cantrip"
+   ]
+  },
+  {
+   "id": "hp-d6-2",
+   "name": "Hit Points (d6)",
+   "level": 2,
+   "xp": 47,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-2",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-2",
+    "wizard:hp-2"
    ]
   },
   {
@@ -2559,6 +2623,25 @@
    ]
   },
   {
+   "id": "hp-d12-3",
+   "name": "Hit Points (d12)",
+   "level": 3,
+   "xp": 185,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-3",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-3"
+   ]
+  },
+  {
    "id": "deflect-missiles",
    "name": "Deflect Missiles",
    "level": 3,
@@ -2630,24 +2713,6 @@
    "replaces": []
   },
   {
-   "id": "hp-d12-3",
-   "name": "Hit Points (d12)",
-   "level": 3,
-   "xp": 160,
-   "tag": "hp",
-   "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-3",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-3"
-   ]
-  },
-  {
    "id": "bard-spell-tier-2nd",
    "name": "Bard: Spellcasting: 2nd-level spells",
    "level": 3,
@@ -2693,23 +2758,26 @@
    "replaces": []
   },
   {
-   "id": "hp-d6-3",
-   "name": "Hit Points (d6)",
+   "id": "hp-d10-3",
+   "name": "Hit Points (d10)",
    "level": 3,
-   "xp": 157,
+   "xp": 158,
    "tag": "hp",
    "sources": [
-    "Sorcerer",
-    "Wizard"
+    "Fighter",
+    "Paladin",
+    "Ranger"
    ],
    "srd": true,
    "feature": "hp-3",
-   "hp": 4,
+   "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "sorcerer:hp-3",
-    "wizard:hp-3"
+    "fighter:hp-3",
+    "paladin:hp-3",
+    "ranger:hp-3"
    ]
   },
   {
@@ -2726,28 +2794,6 @@
    "summary": "Sneak Attack deals 2d6 extra damage.",
    "replaces": [
     "rogue:sneak-attack-2d6"
-   ]
-  },
-  {
-   "id": "hp-d10-3",
-   "name": "Hit Points (d10)",
-   "level": 3,
-   "xp": 135,
-   "tag": "hp",
-   "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
-   ],
-   "srd": true,
-   "feature": "hp-3",
-   "hp": 6,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "fighter:hp-3",
-    "paladin:hp-3",
-    "ranger:hp-3"
    ]
   },
   {
@@ -2769,7 +2815,7 @@
    "id": "hp-d8-3",
    "name": "Hit Points (d8)",
    "level": 3,
-   "xp": 129,
+   "xp": 132,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -2783,6 +2829,7 @@
    "feature": "hp-3",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-3",
@@ -2819,6 +2866,27 @@
    "summary": "Climbing costs no extra movement, and running jumps go farther by your Dexterity modifier in feet.",
    "replaces": [
     "rogue:archetype-second-story-work"
+   ]
+  },
+  {
+   "id": "hp-d6-3",
+   "name": "Hit Points (d6)",
+   "level": 3,
+   "xp": 106,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-3",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-3",
+    "wizard:hp-3"
    ]
   },
   {
@@ -3008,32 +3076,10 @@
    ]
   },
   {
-   "id": "hp-d10-4",
-   "name": "Hit Points (d10)",
-   "level": 4,
-   "xp": 600,
-   "tag": "hp",
-   "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
-   ],
-   "srd": true,
-   "feature": "hp-4",
-   "hp": 6,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "fighter:hp-4",
-    "paladin:hp-4",
-    "ranger:hp-4"
-   ]
-  },
-  {
    "id": "hp-d12-4",
    "name": "Hit Points (d12)",
    "level": 4,
-   "xp": 600,
+   "xp": 669,
    "tag": "hp",
    "sources": [
     "Barbarian"
@@ -3042,6 +3088,7 @@
    "feature": "hp-4",
    "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "barbarian:hp-4"
@@ -3060,6 +3107,29 @@
    "summary": "Reaction: reduce falling damage by five times your monk level.",
    "replaces": [
     "monk:slow-fall"
+   ]
+  },
+  {
+   "id": "hp-d10-4",
+   "name": "Hit Points (d10)",
+   "level": 4,
+   "xp": 574,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-4",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-4",
+    "paladin:hp-4",
+    "ranger:hp-4"
    ]
   },
   {
@@ -3082,7 +3152,7 @@
    "id": "hp-d8-4",
    "name": "Hit Points (d8)",
    "level": 4,
-   "xp": 453,
+   "xp": 478,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -3096,6 +3166,7 @@
    "feature": "hp-4",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-4",
@@ -3138,26 +3209,6 @@
    "summary": "The number of cantrips you know from your class's list rises to the count shown.",
    "replaces": [
     "cleric:cantrip-4"
-   ]
-  },
-  {
-   "id": "hp-d6-4",
-   "name": "Hit Points (d6)",
-   "level": 4,
-   "xp": 450,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-4",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-4",
-    "wizard:hp-4"
    ]
   },
   {
@@ -3209,6 +3260,27 @@
    "summary": "The number of cantrips you know from your class's list rises to the count shown.",
    "replaces": [
     "wizard:cantrips-known-4"
+   ]
+  },
+  {
+   "id": "hp-d6-4",
+   "name": "Hit Points (d6)",
+   "level": 4,
+   "xp": 382,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-4",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-4",
+    "wizard:hp-4"
    ]
   },
   {
@@ -3481,23 +3553,22 @@
    ]
   },
   {
-   "id": "hp-d6-5",
-   "name": "Hit Points (d6)",
+   "id": "hp-d12-5",
+   "name": "Hit Points (d12)",
    "level": 5,
-   "xp": 844,
+   "xp": 872,
    "tag": "hp",
    "sources": [
-    "Sorcerer",
-    "Wizard"
+    "Barbarian"
    ],
    "srd": true,
    "feature": "hp-5",
-   "hp": 4,
+   "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "sorcerer:hp-5",
-    "wizard:hp-5"
+    "barbarian:hp-5"
    ]
   },
   {
@@ -3529,6 +3600,29 @@
    "summary": "Bardic Inspiration uses recover on a short rest as well as a long rest.",
    "replaces": [
     "bard:font-of-inspiration"
+   ]
+  },
+  {
+   "id": "hp-d10-5",
+   "name": "Hit Points (d10)",
+   "level": 5,
+   "xp": 747,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-5",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-5",
+    "paladin:hp-5",
+    "ranger:hp-5"
    ]
   },
   {
@@ -3601,50 +3695,10 @@
    ]
   },
   {
-   "id": "hp-d10-5",
-   "name": "Hit Points (d10)",
-   "level": 5,
-   "xp": 656,
-   "tag": "hp",
-   "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
-   ],
-   "srd": true,
-   "feature": "hp-5",
-   "hp": 6,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "fighter:hp-5",
-    "paladin:hp-5",
-    "ranger:hp-5"
-   ]
-  },
-  {
-   "id": "hp-d12-5",
-   "name": "Hit Points (d12)",
-   "level": 5,
-   "xp": 633,
-   "tag": "hp",
-   "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-5",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-5"
-   ]
-  },
-  {
    "id": "hp-d8-5",
    "name": "Hit Points (d8)",
    "level": 5,
-   "xp": 606,
+   "xp": 622,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -3658,6 +3712,7 @@
    "feature": "hp-5",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-5",
@@ -3666,6 +3721,27 @@
     "monk:hp-5",
     "rogue:hp-5",
     "warlock:hp-5"
+   ]
+  },
+  {
+   "id": "hp-d6-5",
+   "name": "Hit Points (d6)",
+   "level": 5,
+   "xp": 498,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-5",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-5",
+    "wizard:hp-5"
    ]
   },
   {
@@ -3799,21 +3875,6 @@
    "replaces": []
   },
   {
-   "id": "druid-lands-stride",
-   "name": "Circle of the Land: Land's Stride",
-   "level": 6,
-   "xp": 4500,
-   "tag": "utility",
-   "sources": [
-    "Druid"
-   ],
-   "srd": true,
-   "summary": "Nonmagical difficult terrain doesn't slow you, plants don't hinder you, and you have advantage against magical plants.",
-   "replaces": [
-    "druid:lands-stride"
-   ]
-  },
-  {
    "id": "primal-strike",
    "name": "Circle of the Moon: Primal Strike",
    "level": 6,
@@ -3892,6 +3953,23 @@
    "srd": false,
    "summary": "",
    "replaces": []
+  },
+  {
+   "id": "lands-stride",
+   "name": "Land's Stride",
+   "level": 6,
+   "xp": 4500,
+   "tag": "utility",
+   "sources": [
+    "Druid",
+    "Ranger"
+   ],
+   "srd": true,
+   "summary": "Nonmagical difficult terrain doesn't slow you, plants don't hinder you, and you have advantage against magical plants.",
+   "replaces": [
+    "druid:lands-stride",
+    "ranger:lands-stride"
+   ]
   },
   {
    "id": "undead-thralls",
@@ -3979,7 +4057,7 @@
    "id": "hp-d12-6",
    "name": "Hit Points (d12)",
    "level": 6,
-   "xp": 3000,
+   "xp": 3204,
    "tag": "hp",
    "sources": [
     "Barbarian"
@@ -3988,29 +4066,10 @@
    "feature": "hp-6",
    "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "barbarian:hp-6"
-   ]
-  },
-  {
-   "id": "hp-d6-6",
-   "name": "Hit Points (d6)",
-   "level": 6,
-   "xp": 2829,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-6",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-6",
-    "wizard:hp-6"
    ]
   },
   {
@@ -4212,6 +4271,58 @@
    ]
   },
   {
+   "id": "hp-d10-6",
+   "name": "Hit Points (d10)",
+   "level": 6,
+   "xp": 2746,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-6",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-6",
+    "paladin:hp-6",
+    "ranger:hp-6"
+   ]
+  },
+  {
+   "id": "hp-d8-6",
+   "name": "Hit Points (d8)",
+   "level": 6,
+   "xp": 2288,
+   "tag": "hp",
+   "sources": [
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Monk",
+    "Rogue",
+    "Warlock"
+   ],
+   "srd": true,
+   "feature": "hp-6",
+   "hp": 5,
+   "con": 1,
+   "hitDieSize": 8,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "bard:hp-6",
+    "cleric:hp-6",
+    "druid:hp-6",
+    "monk:hp-6",
+    "rogue:hp-6",
+    "warlock:hp-6"
+   ]
+  },
+  {
    "id": "countercharm",
    "name": "Countercharm",
    "level": 6,
@@ -4227,53 +4338,24 @@
    ]
   },
   {
-   "id": "hp-d10-6",
-   "name": "Hit Points (d10)",
+   "id": "hp-d6-6",
+   "name": "Hit Points (d6)",
    "level": 6,
-   "xp": 2210,
+   "xp": 1831,
    "tag": "hp",
    "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
+    "Sorcerer",
+    "Wizard"
    ],
    "srd": true,
    "feature": "hp-6",
-   "hp": 6,
+   "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "fighter:hp-6",
-    "paladin:hp-6",
-    "ranger:hp-6"
-   ]
-  },
-  {
-   "id": "hp-d8-6",
-   "name": "Hit Points (d8)",
-   "level": 6,
-   "xp": 2030,
-   "tag": "hp",
-   "sources": [
-    "Bard",
-    "Cleric",
-    "Druid",
-    "Monk",
-    "Rogue",
-    "Warlock"
-   ],
-   "srd": true,
-   "feature": "hp-6",
-   "hp": 5,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "bard:hp-6",
-    "cleric:hp-6",
-    "druid:hp-6",
-    "monk:hp-6",
-    "rogue:hp-6",
-    "warlock:hp-6"
+    "sorcerer:hp-6",
+    "wizard:hp-6"
    ]
   },
   {
@@ -4512,7 +4594,7 @@
    "id": "hp-d12-7",
    "name": "Hit Points (d12)",
    "level": 7,
-   "xp": 3600,
+   "xp": 3550,
    "tag": "hp",
    "sources": [
     "Barbarian"
@@ -4521,6 +4603,7 @@
    "feature": "hp-7",
    "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "barbarian:hp-7"
@@ -4554,6 +4637,29 @@
    "replaces": []
   },
   {
+   "id": "hp-d10-7",
+   "name": "Hit Points (d10)",
+   "level": 7,
+   "xp": 3043,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-7",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-7",
+    "paladin:hp-7",
+    "ranger:hp-7"
+   ]
+  },
+  {
    "id": "at-spell-tier-2nd",
    "name": "Arcane Trickster: 2nd-level spells",
    "level": 7,
@@ -4566,28 +4672,6 @@
    "upgrades": "at-spellcasting",
    "summary": "",
    "replaces": []
-  },
-  {
-   "id": "hp-d10-7",
-   "name": "Hit Points (d10)",
-   "level": 7,
-   "xp": 2820,
-   "tag": "hp",
-   "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
-   ],
-   "srd": true,
-   "feature": "hp-7",
-   "hp": 6,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "fighter:hp-7",
-    "paladin:hp-7",
-    "ranger:hp-7"
-   ]
   },
   {
    "id": "invocations-known-4",
@@ -4634,23 +4718,32 @@
    ]
   },
   {
-   "id": "hp-d6-7",
-   "name": "Hit Points (d6)",
+   "id": "hp-d8-7",
+   "name": "Hit Points (d8)",
    "level": 7,
-   "xp": 2571,
+   "xp": 2536,
    "tag": "hp",
    "sources": [
-    "Sorcerer",
-    "Wizard"
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Monk",
+    "Rogue",
+    "Warlock"
    ],
    "srd": true,
    "feature": "hp-7",
-   "hp": 4,
+   "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "sorcerer:hp-7",
-    "wizard:hp-7"
+    "bard:hp-7",
+    "cleric:hp-7",
+    "druid:hp-7",
+    "monk:hp-7",
+    "rogue:hp-7",
+    "warlock:hp-7"
    ]
   },
   {
@@ -4670,31 +4763,24 @@
    ]
   },
   {
-   "id": "hp-d8-7",
-   "name": "Hit Points (d8)",
+   "id": "hp-d6-7",
+   "name": "Hit Points (d6)",
    "level": 7,
-   "xp": 2166,
+   "xp": 2029,
    "tag": "hp",
    "sources": [
-    "Bard",
-    "Cleric",
-    "Druid",
-    "Monk",
-    "Rogue",
-    "Warlock"
+    "Sorcerer",
+    "Wizard"
    ],
    "srd": true,
    "feature": "hp-7",
-   "hp": 5,
+   "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "bard:hp-7",
-    "cleric:hp-7",
-    "druid:hp-7",
-    "monk:hp-7",
-    "rogue:hp-7",
-    "warlock:hp-7"
+    "sorcerer:hp-7",
+    "wizard:hp-7"
    ]
   },
   {
@@ -4748,6 +4834,25 @@
     "sorcerer:asi-8",
     "warlock:asi-8",
     "wizard:asi-8"
+   ]
+  },
+  {
+   "id": "hp-d12-8",
+   "name": "Hit Points (d12)",
+   "level": 8,
+   "xp": 4297,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-8",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-8"
    ]
   },
   {
@@ -4844,56 +4949,26 @@
    "replaces": []
   },
   {
-   "id": "hp-d12-8",
-   "name": "Hit Points (d12)",
+   "id": "hp-d10-8",
+   "name": "Hit Points (d10)",
    "level": 8,
-   "xp": 3667,
+   "xp": 3683,
    "tag": "hp",
    "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-8",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-8"
-   ]
-  },
-  {
-   "id": "hp-d6-8",
-   "name": "Hit Points (d6)",
-   "level": 8,
-   "xp": 3667,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-8",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-8",
-    "wizard:hp-8"
-   ]
-  },
-  {
-   "id": "lands-stride",
-   "name": "Land's Stride",
-   "level": 8,
-   "xp": 3667,
-   "tag": "utility",
-   "sources": [
+    "Fighter",
+    "Paladin",
     "Ranger"
    ],
    "srd": true,
-   "summary": "Nonmagical difficult terrain doesn't slow you, plants don't hinder you, and you have advantage against magical plants.",
+   "feature": "hp-8",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "ranger:lands-stride"
+    "fighter:hp-8",
+    "paladin:hp-8",
+    "ranger:hp-8"
    ]
   },
   {
@@ -4913,32 +4988,10 @@
    ]
   },
   {
-   "id": "hp-d10-8",
-   "name": "Hit Points (d10)",
-   "level": 8,
-   "xp": 3361,
-   "tag": "hp",
-   "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
-   ],
-   "srd": true,
-   "feature": "hp-8",
-   "hp": 6,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "fighter:hp-8",
-    "paladin:hp-8",
-    "ranger:hp-8"
-   ]
-  },
-  {
    "id": "hp-d8-8",
    "name": "Hit Points (d8)",
    "level": 8,
-   "xp": 2811,
+   "xp": 3070,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -4952,6 +5005,7 @@
    "feature": "hp-8",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-8",
@@ -4960,6 +5014,27 @@
     "monk:hp-8",
     "rogue:hp-8",
     "warlock:hp-8"
+   ]
+  },
+  {
+   "id": "hp-d6-8",
+   "name": "Hit Points (d6)",
+   "level": 8,
+   "xp": 2456,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-8",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-8",
+    "wizard:hp-8"
    ]
   },
   {
@@ -5234,6 +5309,25 @@
    ]
   },
   {
+   "id": "hp-d12-9",
+   "name": "Hit Points (d12)",
+   "level": 9,
+   "xp": 3916,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-9",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-9"
+   ]
+  },
+  {
    "id": "invocations-known-5",
    "name": "Eldritch Invocation (5th known)",
    "level": 9,
@@ -5269,7 +5363,7 @@
    "id": "hp-d10-9",
    "name": "Hit Points (d10)",
    "level": 9,
-   "xp": 3444,
+   "xp": 3356,
    "tag": "hp",
    "sources": [
     "Fighter",
@@ -5280,31 +5374,12 @@
    "feature": "hp-9",
    "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "fighter:hp-9",
     "paladin:hp-9",
     "ranger:hp-9"
-   ]
-  },
-  {
-   "id": "hp-d6-9",
-   "name": "Hit Points (d6)",
-   "level": 9,
-   "xp": 3111,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-9",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-9",
-    "wizard:hp-9"
    ]
   },
   {
@@ -5328,6 +5403,7 @@
     "Wizard"
    ],
    "srd": true,
+   "upgrades": "proficiency-bonus-5",
    "summary": "Your proficiency bonus goes up by 1, improving every proficient attack, save, skill and spell DC.",
    "replaces": [
     "barbarian:proficiency-bonus-9",
@@ -5348,7 +5424,7 @@
    "id": "hp-d8-9",
    "name": "Hit Points (d8)",
    "level": 9,
-   "xp": 2952,
+   "xp": 2797,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -5362,6 +5438,7 @@
    "feature": "hp-9",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-9",
@@ -5370,24 +5447,6 @@
     "monk:hp-9",
     "rogue:hp-9",
     "warlock:hp-9"
-   ]
-  },
-  {
-   "id": "hp-d12-9",
-   "name": "Hit Points (d12)",
-   "level": 9,
-   "xp": 2800,
-   "tag": "hp",
-   "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-9",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-9"
    ]
   },
   {
@@ -5404,6 +5463,27 @@
    "summary": "Your land grants the last always-prepared circle spells (5th-level set).",
    "replaces": [
     "druid:circle-spells-9"
+   ]
+  },
+  {
+   "id": "hp-d6-9",
+   "name": "Hit Points (d6)",
+   "level": 9,
+   "xp": 2238,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-9",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-9",
+    "wizard:hp-9"
    ]
   },
   {
@@ -5732,7 +5812,7 @@
    "id": "hp-d12-10",
    "name": "Hit Points (d12)",
    "level": 10,
-   "xp": 6400,
+   "xp": 6023,
    "tag": "hp",
    "sources": [
     "Barbarian"
@@ -5741,6 +5821,7 @@
    "feature": "hp-10",
    "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "barbarian:hp-10"
@@ -5781,7 +5862,7 @@
    "id": "hp-d10-10",
    "name": "Hit Points (d10)",
    "level": 10,
-   "xp": 4758,
+   "xp": 5163,
    "tag": "hp",
    "sources": [
     "Fighter",
@@ -5792,6 +5873,7 @@
    "feature": "hp-10",
    "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "fighter:hp-10",
@@ -5835,7 +5917,7 @@
    "id": "hp-d8-10",
    "name": "Hit Points (d8)",
    "level": 10,
-   "xp": 4014,
+   "xp": 4302,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -5849,6 +5931,7 @@
    "feature": "hp-10",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-10",
@@ -5872,26 +5955,6 @@
    "upgrades": "at-cantrips-known-3",
    "summary": "",
    "replaces": []
-  },
-  {
-   "id": "hp-d6-10",
-   "name": "Hit Points (d6)",
-   "level": 10,
-   "xp": 3758,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-10",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-10",
-    "wizard:hp-10"
-   ]
   },
   {
    "id": "cleric-cantrip-10",
@@ -5973,6 +6036,27 @@
    "summary": "The number of cantrips you know from your class's list rises to the count shown.",
    "replaces": [
     "wizard:cantrips-known-5"
+   ]
+  },
+  {
+   "id": "hp-d6-10",
+   "name": "Hit Points (d6)",
+   "level": 10,
+   "xp": 3442,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-10",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-10",
+    "wizard:hp-10"
    ]
   },
   {
@@ -6241,25 +6325,22 @@
    "replaces": []
   },
   {
-   "id": "hp-d10-11",
-   "name": "Hit Points (d10)",
+   "id": "hp-d12-11",
+   "name": "Hit Points (d12)",
    "level": 11,
-   "xp": 7800,
+   "xp": 7767,
    "tag": "hp",
    "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
+    "Barbarian"
    ],
    "srd": true,
    "feature": "hp-11",
-   "hp": 6,
+   "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "fighter:hp-11",
-    "paladin:hp-11",
-    "ranger:hp-11"
+    "barbarian:hp-11"
    ]
   },
   {
@@ -6276,6 +6357,29 @@
    "summary": "Your martial arts die becomes a d8.",
    "replaces": [
     "monk:martial-arts-die-11"
+   ]
+  },
+  {
+   "id": "hp-d10-11",
+   "name": "Hit Points (d10)",
+   "level": 11,
+   "xp": 6658,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-11",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-11",
+    "paladin:hp-11",
+    "ranger:hp-11"
    ]
   },
   {
@@ -6328,48 +6432,10 @@
    ]
   },
   {
-   "id": "hp-d12-11",
-   "name": "Hit Points (d12)",
-   "level": 11,
-   "xp": 6000,
-   "tag": "hp",
-   "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-11",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-11"
-   ]
-  },
-  {
-   "id": "hp-d6-11",
-   "name": "Hit Points (d6)",
-   "level": 11,
-   "xp": 6000,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-11",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-11",
-    "wizard:hp-11"
-   ]
-  },
-  {
    "id": "hp-d8-11",
    "name": "Hit Points (d8)",
    "level": 11,
-   "xp": 4612,
+   "xp": 5548,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -6383,6 +6449,7 @@
    "feature": "hp-11",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-11",
@@ -6391,6 +6458,27 @@
     "monk:hp-11",
     "rogue:hp-11",
     "warlock:hp-11"
+   ]
+  },
+  {
+   "id": "hp-d6-11",
+   "name": "Hit Points (d6)",
+   "level": 11,
+   "xp": 4439,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-11",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-11",
+    "wizard:hp-11"
    ]
   },
   {
@@ -6431,6 +6519,48 @@
    ]
   },
   {
+   "id": "hp-d12-12",
+   "name": "Hit Points (d12)",
+   "level": 12,
+   "xp": 6284,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-12",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-12"
+   ]
+  },
+  {
+   "id": "hp-d10-12",
+   "name": "Hit Points (d10)",
+   "level": 12,
+   "xp": 5386,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-12",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-12",
+    "paladin:hp-12",
+    "ranger:hp-12"
+   ]
+  },
+  {
    "id": "invocations-known-6",
    "name": "Eldritch Invocation (6th known)",
    "level": 12,
@@ -6447,70 +6577,10 @@
    ]
   },
   {
-   "id": "hp-d10-12",
-   "name": "Hit Points (d10)",
-   "level": 12,
-   "xp": 5000,
-   "tag": "hp",
-   "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
-   ],
-   "srd": true,
-   "feature": "hp-12",
-   "hp": 6,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "fighter:hp-12",
-    "paladin:hp-12",
-    "ranger:hp-12"
-   ]
-  },
-  {
-   "id": "hp-d12-12",
-   "name": "Hit Points (d12)",
-   "level": 12,
-   "xp": 5000,
-   "tag": "hp",
-   "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-12",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-12"
-   ]
-  },
-  {
-   "id": "hp-d6-12",
-   "name": "Hit Points (d6)",
-   "level": 12,
-   "xp": 5000,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-12",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-12",
-    "wizard:hp-12"
-   ]
-  },
-  {
    "id": "hp-d8-12",
    "name": "Hit Points (d8)",
    "level": 12,
-   "xp": 4750,
+   "xp": 4489,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -6524,6 +6594,7 @@
    "feature": "hp-12",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-12",
@@ -6532,6 +6603,27 @@
     "monk:hp-12",
     "rogue:hp-12",
     "warlock:hp-12"
+   ]
+  },
+  {
+   "id": "hp-d6-12",
+   "name": "Hit Points (d6)",
+   "level": 12,
+   "xp": 3591,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-12",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-12",
+    "wizard:hp-12"
    ]
   },
   {
@@ -6730,6 +6822,25 @@
    "replaces": []
   },
   {
+   "id": "hp-d12-13",
+   "name": "Hit Points (d12)",
+   "level": 13,
+   "xp": 6209,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-13",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-13"
+   ]
+  },
+  {
    "id": "impostor",
    "name": "Assassin: Impostor",
    "level": 13,
@@ -6758,24 +6869,6 @@
    ]
   },
   {
-   "id": "hp-d12-13",
-   "name": "Hit Points (d12)",
-   "level": 13,
-   "xp": 5714,
-   "tag": "hp",
-   "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-13",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-13"
-   ]
-  },
-  {
    "id": "sneak-attack-7d6",
    "name": "Sneak Attack (7d6)",
    "level": 13,
@@ -6792,6 +6885,29 @@
    ]
   },
   {
+   "id": "hp-d10-13",
+   "name": "Hit Points (d10)",
+   "level": 13,
+   "xp": 5322,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-13",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-13",
+    "paladin:hp-13",
+    "ranger:hp-13"
+   ]
+  },
+  {
    "id": "song-of-rest-d10",
    "name": "Song of Rest die (d10)",
    "level": 13,
@@ -6805,34 +6921,6 @@
    "summary": "Song of Rest's extra healing becomes 1d10.",
    "replaces": [
     "bard:song-of-rest-d10"
-   ]
-  },
-  {
-   "id": "hp-d8-13",
-   "name": "Hit Points (d8)",
-   "level": 13,
-   "xp": 4733,
-   "tag": "hp",
-   "sources": [
-    "Bard",
-    "Cleric",
-    "Druid",
-    "Monk",
-    "Rogue",
-    "Warlock"
-   ],
-   "srd": true,
-   "feature": "hp-13",
-   "hp": 5,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "bard:hp-13",
-    "cleric:hp-13",
-    "druid:hp-13",
-    "monk:hp-13",
-    "rogue:hp-13",
-    "warlock:hp-13"
    ]
   },
   {
@@ -6856,6 +6944,7 @@
     "Wizard"
    ],
    "srd": true,
+   "upgrades": "proficiency-bonus-9",
    "summary": "Your proficiency bonus goes up by 1, improving every proficient attack, save, skill and spell DC.",
    "replaces": [
     "barbarian:proficiency-bonus-13",
@@ -6873,45 +6962,32 @@
    ]
   },
   {
-   "id": "hp-d10-13",
-   "name": "Hit Points (d10)",
+   "id": "hp-d8-13",
+   "name": "Hit Points (d8)",
    "level": 13,
-   "xp": 4623,
+   "xp": 4435,
    "tag": "hp",
    "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Monk",
+    "Rogue",
+    "Warlock"
    ],
    "srd": true,
    "feature": "hp-13",
-   "hp": 6,
+   "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "fighter:hp-13",
-    "paladin:hp-13",
-    "ranger:hp-13"
-   ]
-  },
-  {
-   "id": "hp-d6-13",
-   "name": "Hit Points (d6)",
-   "level": 13,
-   "xp": 4444,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-13",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-13",
-    "wizard:hp-13"
+    "bard:hp-13",
+    "cleric:hp-13",
+    "druid:hp-13",
+    "monk:hp-13",
+    "rogue:hp-13",
+    "warlock:hp-13"
    ]
   },
   {
@@ -6940,6 +7016,27 @@
    "summary": "You understand all spoken languages, and any creature that knows a language understands you.",
    "replaces": [
     "monk:tongue-of-sun-and-moon"
+   ]
+  },
+  {
+   "id": "hp-d6-13",
+   "name": "Hit Points (d6)",
+   "level": 13,
+   "xp": 3548,
+   "tag": "hp",
+   "sources": [
+    "Sorcerer",
+    "Wizard"
+   ],
+   "srd": true,
+   "feature": "hp-13",
+   "hp": 4,
+   "con": 1,
+   "hitDieSize": 6,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "sorcerer:hp-13",
+    "wizard:hp-13"
    ]
   },
   {
@@ -7268,7 +7365,7 @@
    "id": "hp-d12-14",
    "name": "Hit Points (d12)",
    "level": 14,
-   "xp": 8000,
+   "xp": 8770,
    "tag": "hp",
    "sources": [
     "Barbarian"
@@ -7277,9 +7374,33 @@
    "feature": "hp-14",
    "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "barbarian:hp-14"
+   ]
+  },
+  {
+   "id": "hp-d10-14",
+   "name": "Hit Points (d10)",
+   "level": 14,
+   "xp": 7517,
+   "tag": "hp",
+   "sources": [
+    "Fighter",
+    "Paladin",
+    "Ranger"
+   ],
+   "srd": true,
+   "feature": "hp-14",
+   "hp": 6,
+   "con": 1,
+   "hitDieSize": 10,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "fighter:hp-14",
+    "paladin:hp-14",
+    "ranger:hp-14"
    ]
   },
   {
@@ -7317,7 +7438,7 @@
    "id": "hp-d8-14",
    "name": "Hit Points (d8)",
    "level": 14,
-   "xp": 7100,
+   "xp": 6265,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -7331,6 +7452,7 @@
    "feature": "hp-14",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-14",
@@ -7339,28 +7461,6 @@
     "monk:hp-14",
     "rogue:hp-14",
     "warlock:hp-14"
-   ]
-  },
-  {
-   "id": "hp-d10-14",
-   "name": "Hit Points (d10)",
-   "level": 14,
-   "xp": 6750,
-   "tag": "hp",
-   "sources": [
-    "Fighter",
-    "Paladin",
-    "Ranger"
-   ],
-   "srd": true,
-   "feature": "hp-14",
-   "hp": 6,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "fighter:hp-14",
-    "paladin:hp-14",
-    "ranger:hp-14"
    ]
   },
   {
@@ -7395,7 +7495,7 @@
    "id": "hp-d6-14",
    "name": "Hit Points (d6)",
    "level": 14,
-   "xp": 5714,
+   "xp": 5012,
    "tag": "hp",
    "sources": [
     "Sorcerer",
@@ -7405,6 +7505,7 @@
    "feature": "hp-14",
    "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "sorcerer:hp-14",
@@ -7641,6 +7742,25 @@
    ]
   },
   {
+   "id": "hp-d12-15",
+   "name": "Hit Points (d12)",
+   "level": 15,
+   "xp": 9805,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-15",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-15"
+   ]
+  },
+  {
    "id": "superiority-boost-15",
    "name": "Battle Master: +2 Maneuvers, +1 Die (9 maneuvers, 6 dice)",
    "level": 15,
@@ -7671,7 +7791,7 @@
    "id": "hp-d10-15",
    "name": "Hit Points (d10)",
    "level": 15,
-   "xp": 8817,
+   "xp": 8405,
    "tag": "hp",
    "sources": [
     "Fighter",
@@ -7682,6 +7802,7 @@
    "feature": "hp-15",
    "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "fighter:hp-15",
@@ -7704,34 +7825,6 @@
    "replaces": [
     "druid:timeless-body",
     "monk:timeless-body"
-   ]
-  },
-  {
-   "id": "hp-d8-15",
-   "name": "Hit Points (d8)",
-   "level": 15,
-   "xp": 7714,
-   "tag": "hp",
-   "sources": [
-    "Bard",
-    "Cleric",
-    "Druid",
-    "Monk",
-    "Rogue",
-    "Warlock"
-   ],
-   "srd": true,
-   "feature": "hp-15",
-   "hp": 5,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "bard:hp-15",
-    "cleric:hp-15",
-    "druid:hp-15",
-    "monk:hp-15",
-    "rogue:hp-15",
-    "warlock:hp-15"
    ]
   },
   {
@@ -7783,28 +7876,39 @@
    ]
   },
   {
-   "id": "hp-d12-15",
-   "name": "Hit Points (d12)",
+   "id": "hp-d8-15",
+   "name": "Hit Points (d8)",
    "level": 15,
-   "xp": 7143,
+   "xp": 7004,
    "tag": "hp",
    "sources": [
-    "Barbarian"
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Monk",
+    "Rogue",
+    "Warlock"
    ],
    "srd": true,
    "feature": "hp-15",
-   "hp": 7,
+   "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "barbarian:hp-15"
+    "bard:hp-15",
+    "cleric:hp-15",
+    "druid:hp-15",
+    "monk:hp-15",
+    "rogue:hp-15",
+    "warlock:hp-15"
    ]
   },
   {
    "id": "hp-d6-15",
    "name": "Hit Points (d6)",
    "level": 15,
-   "xp": 7143,
+   "xp": 5603,
    "tag": "hp",
    "sources": [
     "Sorcerer",
@@ -7814,6 +7918,7 @@
    "feature": "hp-15",
    "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "sorcerer:hp-15",
@@ -7858,6 +7963,25 @@
    ]
   },
   {
+   "id": "hp-d12-16",
+   "name": "Hit Points (d12)",
+   "level": 16,
+   "xp": 11667,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-16",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-16"
+   ]
+  },
+  {
    "id": "hp-d10-16",
    "name": "Hit Points (d10)",
    "level": 16,
@@ -7872,59 +7996,12 @@
    "feature": "hp-16",
    "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "fighter:hp-16",
     "paladin:hp-16",
     "ranger:hp-16"
-   ]
-  },
-  {
-   "id": "hp-d6-16",
-   "name": "Hit Points (d6)",
-   "level": 16,
-   "xp": 10000,
-   "tag": "hp",
-   "sources": [
-    "Sorcerer",
-    "Wizard"
-   ],
-   "srd": true,
-   "feature": "hp-16",
-   "hp": 4,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "sorcerer:hp-16",
-    "wizard:hp-16"
-   ]
-  },
-  {
-   "id": "hp-d8-16",
-   "name": "Hit Points (d8)",
-   "level": 16,
-   "xp": 10000,
-   "tag": "hp",
-   "sources": [
-    "Bard",
-    "Cleric",
-    "Druid",
-    "Monk",
-    "Rogue",
-    "Warlock"
-   ],
-   "srd": true,
-   "feature": "hp-16",
-   "hp": 5,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "bard:hp-16",
-    "cleric:hp-16",
-    "druid:hp-16",
-    "monk:hp-16",
-    "rogue:hp-16",
-    "warlock:hp-16"
    ]
   },
   {
@@ -7944,21 +8021,53 @@
    ]
   },
   {
-   "id": "hp-d12-16",
-   "name": "Hit Points (d12)",
+   "id": "hp-d8-16",
+   "name": "Hit Points (d8)",
+   "level": 16,
+   "xp": 8333,
+   "tag": "hp",
+   "sources": [
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Monk",
+    "Rogue",
+    "Warlock"
+   ],
+   "srd": true,
+   "feature": "hp-16",
+   "hp": 5,
+   "con": 1,
+   "hitDieSize": 8,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "bard:hp-16",
+    "cleric:hp-16",
+    "druid:hp-16",
+    "monk:hp-16",
+    "rogue:hp-16",
+    "warlock:hp-16"
+   ]
+  },
+  {
+   "id": "hp-d6-16",
+   "name": "Hit Points (d6)",
    "level": 16,
    "xp": 6667,
    "tag": "hp",
    "sources": [
-    "Barbarian"
+    "Sorcerer",
+    "Wizard"
    ],
    "srd": true,
    "feature": "hp-16",
-   "hp": 7,
+   "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "barbarian:hp-16"
+    "sorcerer:hp-16",
+    "wizard:hp-16"
    ]
   },
   {
@@ -8324,7 +8433,7 @@
    "id": "hp-d12-17",
    "name": "Hit Points (d12)",
    "level": 17,
-   "xp": 8571,
+   "xp": 8280,
    "tag": "hp",
    "sources": [
     "Barbarian"
@@ -8333,6 +8442,7 @@
    "feature": "hp-17",
    "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "barbarian:hp-17"
@@ -8423,7 +8533,7 @@
    "id": "hp-d10-17",
    "name": "Hit Points (d10)",
    "level": 17,
-   "xp": 6416,
+   "xp": 7097,
    "tag": "hp",
    "sources": [
     "Fighter",
@@ -8434,6 +8544,7 @@
    "feature": "hp-17",
    "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "fighter:hp-17",
@@ -8442,23 +8553,32 @@
    ]
   },
   {
-   "id": "hp-d6-17",
-   "name": "Hit Points (d6)",
+   "id": "hp-d8-17",
+   "name": "Hit Points (d8)",
    "level": 17,
-   "xp": 6333,
+   "xp": 5914,
    "tag": "hp",
    "sources": [
-    "Sorcerer",
-    "Wizard"
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Monk",
+    "Rogue",
+    "Warlock"
    ],
    "srd": true,
    "feature": "hp-17",
-   "hp": 4,
+   "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "sorcerer:hp-17",
-    "wizard:hp-17"
+    "bard:hp-17",
+    "cleric:hp-17",
+    "druid:hp-17",
+    "monk:hp-17",
+    "rogue:hp-17",
+    "warlock:hp-17"
    ]
   },
   {
@@ -8482,6 +8602,7 @@
     "Wizard"
    ],
    "srd": true,
+   "upgrades": "proficiency-bonus-13",
    "summary": "Your proficiency bonus goes up by 1, improving every proficient attack, save, skill and spell DC.",
    "replaces": [
     "barbarian:proficiency-bonus-17",
@@ -8515,31 +8636,24 @@
    ]
   },
   {
-   "id": "hp-d8-17",
-   "name": "Hit Points (d8)",
+   "id": "hp-d6-17",
+   "name": "Hit Points (d6)",
    "level": 17,
-   "xp": 4702,
+   "xp": 4731,
    "tag": "hp",
    "sources": [
-    "Bard",
-    "Cleric",
-    "Druid",
-    "Monk",
-    "Rogue",
-    "Warlock"
+    "Sorcerer",
+    "Wizard"
    ],
    "srd": true,
    "feature": "hp-17",
-   "hp": 5,
+   "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
-    "bard:hp-17",
-    "cleric:hp-17",
-    "druid:hp-17",
-    "monk:hp-17",
-    "rogue:hp-17",
-    "warlock:hp-17"
+    "sorcerer:hp-17",
+    "wizard:hp-17"
    ]
   },
   {
@@ -8753,7 +8867,7 @@
    "id": "hp-d12-18",
    "name": "Hit Points (d12)",
    "level": 18,
-   "xp": 16000,
+   "xp": 15818,
    "tag": "hp",
    "sources": [
     "Barbarian"
@@ -8762,6 +8876,7 @@
    "feature": "hp-18",
    "hp": 7,
    "con": 1,
+   "hitDieSize": 12,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "barbarian:hp-18"
@@ -8804,7 +8919,7 @@
    "id": "hp-d10-18",
    "name": "Hit Points (d10)",
    "level": 18,
-   "xp": 14857,
+   "xp": 13558,
    "tag": "hp",
    "sources": [
     "Fighter",
@@ -8815,6 +8930,7 @@
    "feature": "hp-18",
    "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "fighter:hp-18",
@@ -8874,6 +8990,35 @@
    ]
   },
   {
+   "id": "hp-d8-18",
+   "name": "Hit Points (d8)",
+   "level": 18,
+   "xp": 11298,
+   "tag": "hp",
+   "sources": [
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Monk",
+    "Rogue",
+    "Warlock"
+   ],
+   "srd": true,
+   "feature": "hp-18",
+   "hp": 5,
+   "con": 1,
+   "hitDieSize": 8,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "bard:hp-18",
+    "cleric:hp-18",
+    "druid:hp-18",
+    "monk:hp-18",
+    "rogue:hp-18",
+    "warlock:hp-18"
+   ]
+  },
+  {
    "id": "druid-spell-slots-18",
    "name": "Druid: Spellcasting: additional slots",
    "level": 18,
@@ -8891,38 +9036,10 @@
    ]
   },
   {
-   "id": "hp-d8-18",
-   "name": "Hit Points (d8)",
-   "level": 18,
-   "xp": 10856,
-   "tag": "hp",
-   "sources": [
-    "Bard",
-    "Cleric",
-    "Druid",
-    "Monk",
-    "Rogue",
-    "Warlock"
-   ],
-   "srd": true,
-   "feature": "hp-18",
-   "hp": 5,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "bard:hp-18",
-    "cleric:hp-18",
-    "druid:hp-18",
-    "monk:hp-18",
-    "rogue:hp-18",
-    "warlock:hp-18"
-   ]
-  },
-  {
    "id": "hp-d6-18",
    "name": "Hit Points (d6)",
    "level": 18,
-   "xp": 8000,
+   "xp": 9039,
    "tag": "hp",
    "sources": [
     "Sorcerer",
@@ -8932,6 +9049,7 @@
    "feature": "hp-18",
    "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "sorcerer:hp-18",
@@ -9004,6 +9122,25 @@
    "replaces": []
   },
   {
+   "id": "hp-d12-19",
+   "name": "Hit Points (d12)",
+   "level": 19,
+   "xp": 14274,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-19",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-19"
+   ]
+  },
+  {
    "id": "bard-spell-slots-19",
    "name": "Bard: Spellcasting: additional slots",
    "level": 19,
@@ -9055,24 +9192,6 @@
    ]
   },
   {
-   "id": "hp-d12-19",
-   "name": "Hit Points (d12)",
-   "level": 19,
-   "xp": 13333,
-   "tag": "hp",
-   "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-19",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-19"
-   ]
-  },
-  {
    "id": "sorcerer-spell-slots-19",
    "name": "Sorcerer: Spellcasting: additional slots",
    "level": 19,
@@ -9110,7 +9229,7 @@
    "id": "hp-d10-19",
    "name": "Hit Points (d10)",
    "level": 19,
-   "xp": 12576,
+   "xp": 12235,
    "tag": "hp",
    "sources": [
     "Fighter",
@@ -9121,6 +9240,7 @@
    "feature": "hp-19",
    "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "fighter:hp-19",
@@ -9148,7 +9268,7 @@
    "id": "hp-d8-19",
    "name": "Hit Points (d8)",
    "level": 19,
-   "xp": 10063,
+   "xp": 10196,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -9162,6 +9282,7 @@
    "feature": "hp-19",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-19",
@@ -9176,7 +9297,7 @@
    "id": "hp-d6-19",
    "name": "Hit Points (d6)",
    "level": 19,
-   "xp": 8889,
+   "xp": 8157,
    "tag": "hp",
    "sources": [
     "Sorcerer",
@@ -9186,6 +9307,7 @@
    "feature": "hp-19",
    "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "sorcerer:hp-19",
@@ -9452,6 +9574,25 @@
    ]
   },
   {
+   "id": "hp-d12-20",
+   "name": "Hit Points (d12)",
+   "level": 20,
+   "xp": 16858,
+   "tag": "hp",
+   "sources": [
+    "Barbarian"
+   ],
+   "srd": true,
+   "feature": "hp-20",
+   "hp": 7,
+   "con": 1,
+   "hitDieSize": 12,
+   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
+   "replaces": [
+    "barbarian:hp-20"
+   ]
+  },
+  {
    "id": "druid-spell-slots-20",
    "name": "Druid: Spellcasting: additional slots",
    "level": 20,
@@ -9489,7 +9630,7 @@
    "id": "hp-d10-20",
    "name": "Hit Points (d10)",
    "level": 20,
-   "xp": 14286,
+   "xp": 14450,
    "tag": "hp",
    "sources": [
     "Fighter",
@@ -9500,6 +9641,7 @@
    "feature": "hp-20",
    "hp": 6,
    "con": 1,
+   "hitDieSize": 10,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "fighter:hp-20",
@@ -9508,28 +9650,10 @@
    ]
   },
   {
-   "id": "hp-d12-20",
-   "name": "Hit Points (d12)",
-   "level": 20,
-   "xp": 14286,
-   "tag": "hp",
-   "sources": [
-    "Barbarian"
-   ],
-   "srd": true,
-   "feature": "hp-20",
-   "hp": 7,
-   "con": 1,
-   "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
-   "replaces": [
-    "barbarian:hp-20"
-   ]
-  },
-  {
    "id": "hp-d8-20",
    "name": "Hit Points (d8)",
    "level": 20,
-   "xp": 13911,
+   "xp": 12042,
    "tag": "hp",
    "sources": [
     "Bard",
@@ -9543,6 +9667,7 @@
    "feature": "hp-20",
    "hp": 5,
    "con": 1,
+   "hitDieSize": 8,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "bard:hp-20",
@@ -9557,7 +9682,7 @@
    "id": "hp-d6-20",
    "name": "Hit Points (d6)",
    "level": 20,
-   "xp": 10500,
+   "xp": 9633,
    "tag": "hp",
    "sources": [
     "Sorcerer",
@@ -9567,6 +9692,7 @@
    "feature": "hp-20",
    "hp": 4,
    "con": 1,
+   "hitDieSize": 6,
    "summary": "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier.",
    "replaces": [
     "sorcerer:hp-20",
@@ -12774,7 +12900,7 @@
      "level": 5
     },
     {
-     "id": "druid-lands-stride",
+     "id": "lands-stride",
      "level": 6
     },
     {

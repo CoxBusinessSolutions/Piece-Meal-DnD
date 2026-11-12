@@ -337,13 +337,15 @@ and the classless builder, its presets and the exported menu all use it.
     as a separate piece on top of any tier;
   - one **weapon tier**;
   - each **saving throw** (`save-str` ... `save-cha`), **skill** and **tool**
-    slot is its own piece;
+    slot is its own piece, up to 8 skills (`skill-1` ... `skill-8`) and 4 tools
+    (`tool-1` ... `tool-4`);
   - one **Starting Equipment Package** per class (`starting-kit-barbarian`, ...),
     each listing that class's 5e starting weapons — buying the Barbarian kit
     gives a greataxe, handaxes and javelins.
 - **Hit Points are per die, per level.** Each level 2–20 has a Hit Points piece
-  for each die size (`hp-d10-5`), priced from what the classes with that die pay
-  for it, so a cheap starting die doesn't make later HP cheap.
+  for each die size (`hp-d10-5`), priced by the HP it gives: the level's mean
+  class price, scaled by that die's HP over the mean of the four dice. A bigger
+  die always costs more, and a cheap starting die doesn't make later HP cheap.
 - **One-of groups.** You own at most one of each: hit die, Hit Points piece per
   level, starting kit, armor tier, weapon tier. Pieces carry the group in their
   `feature` key (`hit-die`, `hp-<level>`, `starting-kit`, `armor-tier`,

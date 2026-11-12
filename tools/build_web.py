@@ -16,13 +16,13 @@ any data/*.yaml:
 
     python3 tools/build_web.py
 
-Classless pricing: the per-class model normalizes each feature's price WITHIN
-its class, so the same feature has different prices in different classes. A
-single shared menu needs one canonical price per piece, so the classless builder
-prices every feature at `rubric points x CLASSLESS_RATE` (commodities keep their
-fixed catalog prices). That makes de-duplication automatic and the rubric the
-single source of truth, with premiums for standout features. Every class's
-standard SRD level-1 build must still fit the 100 budget.
+Classless pricing: the per-class model prices each feature WITHIN its class,
+so a shared menu needs one canonical price per piece. build_menu keys each
+canonical piece explicitly (per caster type, per level, or by name) and prices
+it: commodities at their catalog price, level-1 features at their premium in
+CLASSLESS_FEATURE_PRICE (else points x CLASSLESS_RATE), later features at the
+mean in-play XP across the variants that gain them, and Hit Points by the HP
+each die gives. Every class's standard SRD level-1 build must fit the 100 budget.
 """
 import collections
 import glob
@@ -148,6 +148,10 @@ def build_class(path, catalog, subclass=None):
     }
 
 
+# Skill and tool proficiency slots a classless build may buy.
+SKILL_SLOTS = 8
+TOOL_SLOTS = 4
+
 # Base-class pieces whose names start with these belong to that class's own
 # spellcasting (a caster type): they stay separate per class instead of merging
 # by name, so each type keeps its own spell list, tiers and cantrip chain.
@@ -193,7 +197,9 @@ def build_menu(catalog, classes):
     * Commodities become generic pieces at their catalog price: one per save,
       skill and tool slot, hit die, armor tier (+ shield) and weapon tier, plus
       one Starting Equipment Package per class carrying its starting weapons.
-    * Hit Points are one piece per die per level.
+    * Hit Points are one piece per die per level, priced by the HP it gives:
+      the level's mean class-row price, scaled by die HP / mean die HP.
+    * Skill and tool slots are padded to SKILL_SLOTS / TOOL_SLOTS pieces.
     * Base-class spellcasting, Pact Magic and Cantrips Known stay per class
       (`<class>-<id>`), chained within the class.
     * A name one class gains at several levels (Ability Score Improvement,
@@ -367,6 +373,7 @@ def build_menu(catalog, classes):
                     "id": pid, "name": r["name"], "level": lvl, "xp": None,
                     "tag": "hp", "feature": f"hp-{lvl}",
                     "hp": _die_size(die) // 2 + 1, "con": 1,
+                    "hitDieSize": _die_size(die),
                     "summary": r["summary"]}, variant, r))
                 hp_xp.setdefault(pid, []).append(r["xp"])
             else:
@@ -383,10 +390,32 @@ def build_menu(catalog, classes):
             for pid in out:
                 grants[variant].setdefault(pid, r["level"])
 
+    # Skill/tool slots: as many as a classless build may buy, not just the most
+    # any one variant gains.
+    for kind, cap in (("skill", SKILL_SLOTS), ("tool", TOOL_SLOTS)):
+        for n in range(1, cap + 1):
+            pid = f"{kind}-{n}"
+            if pid not in pieces:
+                pieces[pid] = commodity(
+                    pid, f"{kind.title()} Proficiency ({n})", kind, c[kind],
+                    commodity=kind, summary=classless_summary.get(kind, ""),
+                    sources=[], srd=True, replaces=[])
+                occ[pid] = []
+
+    # Hit Points: price by HP given, so a bigger die always costs more. Each
+    # level's base is the mean of its dice's class-row prices.
+    hp_levels = {}
+    for pid in hp_xp:
+        hp_levels.setdefault(pieces[pid]["level"], []).append(pieces[pid])
+    for lvl_pieces in hp_levels.values():
+        base = sum(_mean(hp_xp[p["id"]]) for p in lvl_pieces) / len(lvl_pieces)
+        mean_hp = sum(p["hp"] for p in lvl_pieces) / len(lvl_pieces)
+        for p in lvl_pieces:
+            p["xp"] = round(base * p["hp"] / mean_hp)
+
     for pid, rows in occ.items():
         p = pieces[pid]
         if p["tag"] == "hp":
-            p["xp"] = _mean(hp_xp[pid])
             continue
         if "commodity" in p:
             continue
@@ -446,8 +475,12 @@ def check_menu(menu, grants, classes):
     if len(groups.get("hit-die", [])) != 4:
         problems.append("hit-die group must hold the four hit dice")
     for lvl in range(2, 21):
-        if len(groups.get(f"hp-{lvl}", [])) != 4:
+        hp = sorted(groups.get(f"hp-{lvl}", []), key=lambda p: p["hitDieSize"])
+        if len(hp) != 4:
             problems.append(f"hp-{lvl} must hold one Hit Points piece per die")
+        if any(a["xp"] >= b["xp"] for a, b in zip(hp, hp[1:])):
+            problems.append(f"hp-{lvl}: price must rise with die size "
+                            f"{[(p['id'], p['xp']) for p in hp]}")
     kits = [p for p in menu if p.get("commodity") == "starting_kit"]
     if len(kits) != len({c["name"] for c in classes.values()}):
         problems.append("one Starting Equipment Package per class")
@@ -466,6 +499,24 @@ def check_menu(menu, grants, classes):
     for (name, lvl), ps in names_per_level.items():
         if len(ps) > 1 and not name.startswith("Hit Points"):
             problems.append(f"{name} at level {lvl} appears {len(ps)} times: {ps}")
+
+    # One SRD ability, one piece: a subclass-prefixed name ("Circle of the
+    # Land: Land's Stride") must not duplicate another piece's plain name.
+    subclasses = {cls["subclass"] for cls in classes.values() if cls["subclass"]}
+    plain = {}
+    for p in menu:
+        if p["srd"]:
+            pre, sep, rest = p["name"].partition(": ")
+            plain.setdefault(rest if sep and pre in subclasses else p["name"],
+                             set()).add(p["name"])
+    for name, full in plain.items():
+        if len(full) > 1:
+            problems.append(f"{name} ships as several SRD pieces: {sorted(full)}")
+
+    for lvl in (9, 13, 17):
+        p = by_id.get(f"proficiency-bonus-{lvl}")
+        if not p or not p.get("upgrades"):
+            problems.append(f"proficiency-bonus-{lvl} must upgrade the previous bump")
 
     bases = [p for p in menu if p.get("casterType") and p["srd"]
              and not p.get("upgrades")

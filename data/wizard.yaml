@@ -194,6 +194,7 @@ levels:
         name: "Proficiency Bonus +1 (to +4)"
         tag: proficiency
         points: 2
+        upgrades: proficiency-bonus-5
       - id: hp-9
         name: "Hit Points (d6)"
         tag: hp
@@ -242,6 +243,7 @@ levels:
         name: "Proficiency Bonus +1 (to +5)"
         tag: proficiency
         points: 2
+        upgrades: proficiency-bonus-9
       - id: hp-13
         name: "Hit Points (d6)"
         tag: hp
@@ -285,6 +287,7 @@ levels:
         name: "Proficiency Bonus +1 (to +6)"
         tag: proficiency
         points: 2
+        upgrades: proficiency-bonus-13
       - id: hp-17
         name: "Hit Points (d6)"
         tag: hp
