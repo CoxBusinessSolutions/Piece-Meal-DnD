@@ -138,7 +138,7 @@
     "Ranger"
    ],
    "srd": true,
-   "summary": "Adopt one fighting style, such as Archery (+2 ranged attacks), Defense (+1 AC in armor) or Dueling (+2 one-handed damage).",
+   "summary": "Adopt one fighting style, such as Archery (+2 ranged attacks), Defense (+1 AC in armor), Dueling (+2 one-handed damage), Protection or Two-Weapon Fighting.",
    "replaces": [
     "fighter:fighting-style",
     "paladin:fighting-style",
@@ -186,7 +186,7 @@
     "Rogue"
    ],
    "srd": true,
-   "summary": "Double your proficiency bonus for two skills you're proficient in.",
+   "summary": "Double your proficiency bonus for two skills you're proficient in (or one skill and thieves' tools).",
    "replaces": [
     "bard:expertise-1",
     "rogue:expertise-1"
@@ -417,7 +417,7 @@
     "Monk"
    ],
    "srd": true,
-   "summary": "Without armor, your AC is 10 + Dexterity modifier + Constitution modifier. A shield still adds its bonus.",
+   "summary": "Without armor, your AC is 10 + Dexterity modifier + either Constitution modifier, with a shield still adding its bonus (Barbarian), or Wisdom modifier, with no shield (Monk).",
    "replaces": [
     "barbarian:unarmored-defense",
     "monk:unarmored-defense"
@@ -7821,7 +7821,7 @@
     "Monk"
    ],
    "srd": true,
-   "summary": "You age ten times more slowly than normal.",
+   "summary": "You age ten times more slowly than normal (Druid), or stop aging altogether and no longer need food or water, and magic can't age you (Monk).",
    "replaces": [
     "druid:timeless-body",
     "monk:timeless-body"

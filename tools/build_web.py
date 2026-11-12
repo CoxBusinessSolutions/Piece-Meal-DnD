@@ -436,6 +436,18 @@ def build_menu(catalog, classes):
         if ups:
             p["upgrades"] = ups.pop()
 
+    # A piece several classes grant gets one description covering them all:
+    # when their own summaries differ, data/summaries.yaml `merged:` supplies
+    # it, and the build fails rather than keep whichever class came first.
+    merged = summaries.get("merged") or {}
+    for pid, rows in occ.items():
+        texts = {r["summary"] for _, r in rows if r.get("summary")}
+        if pid in merged:
+            pieces[pid]["summary"] = merged[pid]
+        elif len(texts) > 1 and pieces[pid].get("srd"):
+            sys.exit(f"menu: {pid} merges classes with different summaries; "
+                     f"add one covering them under `merged:` in summaries.yaml")
+
     order = ["id", "name", "level", "xp", "tag", "sources", "srd", "feature",
              "upgrades", "casterType", "commodity", "ability", "tiers", "tier",
              "hp", "con", "hitDieSize", "weapons", "summary", "replaces"]
