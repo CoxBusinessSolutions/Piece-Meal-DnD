@@ -135,7 +135,9 @@ bought with earned XP.
 
 Ancestries: the 9 SRD 5.1 races plus Goliath and Orc from SRD 5.2. Goliath's
 and Orc's +2 STR / +1 CON are a **house rule** (2024 species carry no ability
-increases); Goliath's Large Form is omitted because it needs character level 5.
+increases). Goliath's Large Form is a free **primary trait**, not a piece: a
+Goliath-primary character unlocks it at 6,500 earned XP (the SRD level-5
+threshold, Piece-Meal's stand-in for character level 5).
 
 ```bash
 python3 tools/price.py data/ancestries/dwarf.yaml            # breakdown
