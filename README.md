@@ -66,14 +66,19 @@ Because every commodity has a fixed price, the budget is a real constraint: a
 weapons (8) **and** Spellcasting (33) — that's 63 before any other feature. You
 have to sacrifice. That is the whole point.
 
-**Level gate.** A piece also *unlocks* only at its level: your **XP level** is
-the SRD level for your earned XP (6,500 XP = level 5), and a level-7 piece
-can't be bought until you reach level 7, however much XP you've banked. Without
-it, every level-2+ piece costs only a slice of its level's XP and could be
-bought many levels early. Consumers can loosen the gate: CharacterManager's
-`levelGate` setting supports `strict` (the default for Piece-Meal), `selective`
-(only pieces flagged `gated`), `warn` (allowed but marked) and `off`. The
-classless builder applies it to its "build as level" dial.
+**Level gate.** A piece also *unlocks* by level: your **XP level** is the SRD
+level for your earned XP (6,500 XP = level 5), and a piece opens **one level
+ahead** of it — at level 1 you can buy level-2 pieces, at level 6 level-7
+pieces — however much XP you've banked. So you buy a level's abilities while
+earning your way to it, and reaching a level means already owning them. Without
+the gate, every level-2+ piece costs only a slice of its level's XP and could be
+bought many levels early. At level 20 nothing is locked. Level-1 pieces stay
+buyable after creation: once the 100 is spent, more level-1 pieces (a second
+caster type, say) are paid from earned XP. Consumers can loosen the gate:
+CharacterManager's `levelGate` setting supports `strict` (the default for
+Piece-Meal), `selective` (only pieces flagged `gated`), `warn` (allowed but
+marked) and `off`, all with the same one-level allowance. The classless
+builder applies it to its "build as level" dial.
 
 **Descriptions.** Every SRD piece has a short own-words `summary:` (one or two
 sentences); repeated kinds (Hit Points, saves, spell tiers, +1 ability...) share
@@ -177,6 +182,7 @@ web/index.html             Per-class builder — open in any browser (generated)
 web/app.html               Per-class builder source (body-only)
 web/classless.html         Classless builder (classes + ancestries) — open in any browser (generated)
 web/classless-app.html     Classless builder source (body-only)
+web/classless-menu.json    Canonical classless menu export (generated)
 .github/workflows/pages.yml  Deploys web/ to GitHub Pages on push to main
 ```
 
@@ -221,8 +227,9 @@ server) and theme-aware:
   upgrade-chains marked.
 - **Classless** (`web/classless.html`) — forget classes: spend one 100-XP budget
   on any mix of pieces (a d12 body with a wizard's spellcasting, heavy armor with
-  sneak attack). Commodity pickers plus the deduplicated feature menu, priced
-  canonically (see below).
+  sneak attack). One-of pickers for hit die, armor tier, weapon tier, starting
+  kit and each level's Hit Points; individual saves, skills and tools; and the
+  canonical feature menu, where every shared ability appears once (see below).
 
 ```bash
 python3 tools/build_web.py     # regenerate both after any data change
@@ -307,64 +314,94 @@ weight) followed by re-running the pricer, so the whole economy re-balances.
 ## Classless pricing
 
 The per-class model normalizes each feature's price *within* its class, so the
-same feature has different prices in different classes (Spellcasting is 33 in
-Wizard, 28 in Cleric; Fighting Style appears in four classes). A single shared
-menu needs **one canonical price per piece**. Two knobs in `tools/build_web.py`:
+same feature has different prices in different classes (Fighting Style appears
+in four classes at four prices). A classless menu needs **one canonical price
+per piece**, or players would always buy the cheapest copy. `build_web.py`
+builds that **canonical menu** from every class *and every subclass variant*,
+and the classless builder, its presets and the exported menu all use it.
 
-- **Commodities** keep their fixed catalog prices.
-- **Features** default to `rubric points × CLASSLESS_RATE` (6), but **standout
-  pieces carry an explicit premium** in `CLASSLESS_FEATURE_PRICE` — Spellcasting
-  is 45, Pact Magic 38, Rage 30, Sneak Attack 28, down to ribbons at 6. The
-  premium is what makes taking a big piece a real sacrifice: with Spellcasting
-  at 45, a caster can't also afford a plate-and-martial kit, and the builder
-  greys out anything you can't afford.
-
-De-duplication falls out for free (all "Unarmored Defense" / "Spellcasting"
-entries collapse to one, tagged with the classes that grant them; the three
-"Cantrips Known (2/3/4)" rows collapse to one). The builder enforces the budget:
-it locks any feature you can't afford and shows an over-budget banner.
-
-The trade-off: with premiums, rebuilding a *standard* class runs a little over
-100 (a full caster is ~110), so even a "pure" build trims a ribbon or two —
-on-theme for "you can't have it all." Deviating is the play.
+- **Shared abilities appear once.** Every "Unarmored Defense", "Extra Attack" or
+  "Fighting Style" collapses to one piece, tagged with the classes that grant it
+  in 5e. Its upgrades chain from that one piece.
+- **Per-level repeats are separate pieces.** An ability a class gains more than
+  once — Ability Score Improvement, Magical Secrets — is one piece per level at
+  which it is gained (`asi-4`, `asi-8`, ...), each bought at most once.
+- **Spellcasting is bought per caster type.** Bard, Cleric, Druid, Sorcerer,
+  Wizard, Paladin, Ranger and Warlock's Pact Magic are each their own piece
+  (`wizard-spellcasting`, `warlock-pact-magic`), with their own spell-level tiers
+  and Cantrips Known chain, so each type keeps its own spell list. Buying Wizard
+  and then Sorcerer spellcasting is two purchases.
+- **Commodities** keep their fixed catalog prices, as individual pieces:
+  - one **hit die** (d6/d8/d10/d12);
+  - one **armor tier** (none, light, light + medium, all three), with **shield**
+    as a separate piece on top of any tier;
+  - one **weapon tier**;
+  - each **saving throw** (`save-str` ... `save-cha`), **skill** and **tool**
+    slot is its own piece;
+  - one **Starting Equipment Package** per class (`starting-kit-barbarian`, ...),
+    each listing that class's 5e starting weapons — buying the Barbarian kit
+    gives a greataxe, handaxes and javelins.
+- **Hit Points are per die, per level.** Each level 2–20 has a Hit Points piece
+  for each die size (`hp-d10-5`), priced from what the classes with that die pay
+  for it, so a cheap starting die doesn't make later HP cheap.
+- **One-of groups.** You own at most one of each: hit die, Hit Points piece per
+  level, starting kit, armor tier, weapon tier. Pieces carry the group in their
+  `feature` key (`hit-die`, `hp-<level>`, `starting-kit`, `armor-tier`,
+  `weapon-tier`); in the builder, picking another option in a group replaces the
+  one you had.
+- **Prices.** Level-1 features default to `rubric points × CLASSLESS_RATE` (6),
+  but **standout pieces carry an explicit premium** in `CLASSLESS_FEATURE_PRICE`
+  (each caster type's Spellcasting, Rage, Sneak Attack, Martial Arts...). The
+  premium is what makes taking a big piece a real sacrifice. Higher-level pieces
+  cost the **mean of their in-play XP at the earliest level** they appear,
+  across every subclass that grants them.
+- **Standard builds fit.** Premiums are tuned so every class's standard SRD
+  level-1 build costs at most 100 (most land on exactly 100). The build enforces
+  it: `tools/build_web.py` fails if any standard build goes over, if a shared
+  ability appears twice, or if a group is malformed.
 
 ### Levels beyond 1 — the "build as level" dial
 
 The classless builder isn't just level 1. A **level dial** sets the budget along
 the SRD curve — 100 (creation) plus that level's cumulative earned XP: Lv 5 ≈
-6,600, Lv 20 ≈ 355,100. **Higher-level pieces** (Extra Attack, higher spell
-tiers, subclass capstones) join the menu priced at their **real in-play XP**
-(the SRD threshold deltas), so at level 1 they're unaffordable — you literally
-have to raise your level to buy them. "Hide unaffordable" (on by default) keeps
-the low-level view clean; the menu grows as you level up.
+6,600, Lv 20 ≈ 355,100 — pooled into one budget. **Higher-level pieces** (Extra
+Attack, higher spell tiers, subclass capstones) are priced at their **real
+in-play XP** (the SRD threshold deltas) and open one level ahead of the dial
+(the level gate above), so a level-1 build can already pick level-2 pieces.
+"Hide unaffordable" (on by default) keeps the low-level view clean; the menu
+grows as you level up, and a Hit Points picker appears for each level up to the
+gate.
 
-- **Canonical price** for a shared higher-level piece is the **mean of its cost
-  at the earliest level** it appears (firmer than "cheapest wins").
 - **Prerequisites are enforced.** A piece needs the one it upgrades — "3rd-level
-  spells" needs "2nd-level spells" needs base "Spellcasting" — shown as a red
-  "needs X" chip until satisfied. Removing a piece cascades: its dependents drop
-  too.
-- **Repeatable picks.** Ability Score Improvements and extra spell slots use a
-  stepper so you can buy them more than once. HP and proficiency-bonus bumps are
-  still left out (commodity-ish).
-- **Load a standard class.** A "Quick start" dropdown reconstructs a stock class
-  at the current level — its commodity kit plus every feature it gains up to
-  that level — as a baseline you then tweak.
+  spells" needs "2nd-level spells" needs that type's base "Spellcasting" — shown
+  as a red "needs X" chip until satisfied. Removing a piece cascades: its
+  dependents drop too.
+- **Load a standard class.** A "Quick start" dropdown rebuilds a stock class and
+  subclass at the current level from canonical pieces — hit die, Hit Points,
+  saves, kit and every feature it gains up to that level — as a baseline you
+  then tweak.
+
+### Menu export
+
+The build also writes the canonical menu to `web/classless-menu.json`:
+`{budget, pieces, presets}`. Each piece carries its `id`, `name`, `level`, `xp`,
+`tag`, granting classes (`sources`), an `srd` flag, a `summary`, the per-class
+piece ids it `replaces` (`wizard:spellcasting`), and where relevant its group
+(`feature`), `upgrades`, `casterType`, commodity fields (`ability`, `tiers`,
+`tier`, `hp`/`con` on hit dice and Hit Points, `hitDieSize`, kit `weapons`).
+Each preset lists its `grants` and `level1Total`. Prices span every subclass;
+apps that ship only SRD content (CharacterManager's Piece-Meal 5e pack) take the
+`srd: true` pieces at the same prices.
 
 ## Roadmap / next steps
 
-- **Classless builder — done so far:** premium pricing for standout pieces, the
-  Cantrips-Known collapse, budget enforcement, the level dial with higher-level
-  pieces gated by their real in-play XP, **enforced prerequisite chains**,
-  **repeatable ASIs / extra slots**, and mean-at-earliest-level canonical prices
-  (see *Levels beyond 1*).
+- **Classless builder — done so far:** canonical per-piece prices across every
+  subclass, per-caster-type spellcasting, per-level repeats, per-die Hit Points,
+  one-of groups, the one-level-ahead gate, enforced prerequisite chains,
+  standard builds fitting 100, and the menu export (see *Classless pricing*).
 - **Load a standard class — done:** a "Quick start" dropdown fills the stock
-  class at the chosen level (its commodity kit + its features) as a starting
-  point to tweak. Because HP/proficiency bumps aren't in the menu, a loaded
-  class sits comfortably under budget, leaving room to deviate.
-- **Further polish.** Repeatable-pick cost could escalate (a 5th ASI costing
-  more than the 1st); repeatable slots could cap at their real per-class limits;
-  and the menu could group by level band for easier scanning.
+  class at the chosen level from canonical pieces as a starting point to tweak.
+- **Further polish.** The menu could group by level band for easier scanning.
 - **Tune the economy.** Revisit any of the Design-notes choices above; re-run
   `tools/price.py --check` after each change.
 - **Subclasses — in progress.** Base classes now carry no subclass features;
@@ -380,7 +417,7 @@ the low-level view clean; the menu grows as you level up.
   The per-class web builder (`web/index.html`) has a **subclass picker** — pick a
   class, then any of its subclasses from a dropdown, and the level-1 breakdown and
   the 2–20 progression re-render for that subclass. `build_web.py` emits every
-  variant per class; the classless builder still consumes only the default.
+  variant per class; the classless builder consumes all of them.
   - **Level-1 subclasses.** Sorcerer origins and Warlock patrons grant features
     at level 1, so `merge_subclass` inserts fragment pieces *after* the level-1
     commodities (keeping saves/armor/etc. first) and among the unique features.

@@ -138,26 +138,6 @@ def build_class(path, catalog, subclass=None):
                "upgrades": upgrades.get(r["id"]), "summary": _summary(r["id"])}
               for r in rows if r["ledger"] == "xp"]
 
-    # Commodity kit, so the classless "load a standard class" preset can set the
-    # hit die / armor / weapons / save-skill-tool counts to match this class.
-    l1 = doc["levels"][1]["pieces"]
-    def _find(kind):
-        return [q for q in l1 if q.get("commodity") == kind]
-    # Union tiers across all armor pieces (a domain can grant heavy as a second,
-    # additive armor piece on top of the base light/medium/shields).
-    tiers = [t for pc in _find("armor") for t in pc.get("tiers", [])]
-    armor_tier = ("heavy" if "heavy" in tiers else "medium" if "medium" in tiers
-                  else "light" if "light" in tiers else "none")
-    weapons = _find("weapon")
-    commodity_cfg = {
-        "hitDie": doc["hit_die"], "armor": armor_tier, "shield": "shield" in tiers,
-        "weapon": weapons[0].get("tier") if weapons else "none",
-        "saves": len(_find("save")),
-        "skills": sum(q.get("qty", 1) for q in _find("skill")),
-        "tools": sum(q.get("qty", 1) for q in _find("tool")),
-        "kit": bool(_find("starting_kit")),
-    }
-
     # Every priced piece with its YAML detail, for the classless menu.
     menu_rows = [dict(r, piece=piece_by_id[r["id"]], summary=_summary(r["id"]),
                       srd=frag_srd if r["id"] in frag_ids else base_srd,
@@ -170,7 +150,6 @@ def build_class(path, catalog, subclass=None):
         "hitDie": doc["hit_die"], "caster": caster,
         "role": ROLE.get(caster, "Martial"),
         "budget": catalog["creation_budget"],
-        "commodityCfg": commodity_cfg,
         "level1": level1, "levels": levels,
     }
 
@@ -508,52 +487,21 @@ def check_menu(menu, grants, classes):
 
 
 def build_classless(catalog, classes, menu, grants):
-    """The classless builder's data: the canonical menu's features plus the
-    generic commodity pickers and the "load a standard class" presets."""
-    c = catalog["commodities"]
-    armor = c["armor"]
-    armor_opts = [
-        {"id": "none", "label": "None", "xp": 0},
-        {"id": "light", "label": "Light", "xp": armor["light"]},
-        {"id": "medium", "label": "Light + Medium",
-         "xp": armor["light"] + armor["medium"]},
-        {"id": "heavy", "label": "Light + Medium + Heavy",
-         "xp": armor["light"] + armor["medium"] + armor["heavy"]},
-    ]
-    weapon_labels = {
-        "none": "None", "limited": "Limited list", "simple": "All simple",
-        "simple_plus_few_martial": "Simple + a few martial",
-        "simple_and_martial": "Simple + Martial",
-    }
-    weapon_opts = [{"id": k, "label": weapon_labels.get(k, k), "xp": v}
-                   for k, v in c["weapon"].items()]
-    hitdie_opts = [{"id": k, "label": k, "xp": v}
-                   for k, v in sorted(c["hit_die"].items(), key=lambda kv: kv[1])]
-
-    features = [{"id": p["id"], "name": p["name"], "tag": p["tag"], "xp": p["xp"],
-                 "level": p["level"], "sources": p["sources"], "repeatable": False,
-                 "req": p.get("upgrades"), "summary": p["summary"]}
-                for p in menu if "commodity" not in p and p["tag"] != "hp"]
-    feature_ids = {f["id"] for f in features}
+    """The classless builder's data: every canonical menu piece (commodities,
+    Hit Points and features alike), the "build as level" budgets and the
+    "load a standard class" presets, which grant canonical pieces."""
+    keep = ("id", "name", "level", "xp", "tag", "sources", "feature", "upgrades",
+            "casterType", "commodity", "ability", "tiers", "tier", "hitDieSize",
+            "weapons", "summary")
+    pieces = [{f: p[f] for f in keep if f in p} for p in menu]
     budgets = [{"level": L, "budget": catalog["creation_budget"] + SRD_THRESHOLDS[L]}
                for L in BUDGET_LEVELS]
     presets = {
         key: {"name": cls["name"], "subclass": cls.get("subclass", ""),
-              "commodities": cls["commodityCfg"],
-              "grants": [{"id": g, "level": lvl} for g, lvl in grants[key]
-                         if g in feature_ids]}
+              "grants": [{"id": g, "level": lvl} for g, lvl in grants[key]]}
         for key, cls in classes.items()}
-
-    return {
-        "budget": catalog["creation_budget"], "budgets": budgets,
-        "rate": CLASSLESS_RATE, "order": list(classes.keys()), "presets": presets,
-        "commodities": {
-            "save": c["save"], "skill": c["skill"], "tool": c["tool"],
-            "starting_kit": c["starting_kit"], "shield": armor["shield"],
-            "hitDie": hitdie_opts, "armor": armor_opts, "weapon": weapon_opts,
-        },
-        "features": features,
-    }
+    return {"budget": catalog["creation_budget"], "budgets": budgets,
+            "order": list(classes.keys()), "presets": presets, "pieces": pieces}
 
 
 ANCESTRY_ORDER = [
@@ -695,9 +643,8 @@ def main():
     open(os.path.join(WEB_DIR, "classless.html"), "w", encoding="utf-8").write(
         wrap(cbody, "Piece-Meal D&amp;D — Classless Builder"))
 
-    n_feat = len(json.loads(classless)["features"])
     print(f"Built {len(order)} classes -> web/index.html; "
-          f"classless menu with {n_feat} features -> web/classless.html; "
+          f"classless builder -> web/classless.html; "
           f"{len(menu)} pieces ({sum(p['srd'] for p in menu)} SRD) "
           f"-> web/classless-menu.json")
 
