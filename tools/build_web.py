@@ -7,9 +7,8 @@ Reuses tools/price.py to compute every piece's price, then produces two pages:
   * The classless builder: web/classless-app.html -> web/classless.html,
     including the ancestry ledger (data/ancestries/*.yaml, its own budget).
 
-It also writes the canonical classless menu to web/classless-menu.json (see
-build_menu), which CharacterManager's Piece-Meal pack is generated from, and
-fails if the menu breaks the classless rules (check_menu).
+It also exports the canonical classless menu to web/classless-menu.json for
+other tools (CharacterManager's Piece-Meal pack is generated from it).
 
 Both pages get their data injected between /*DATA_START*/.../*DATA_END*/ markers
 and are wrapped in a minimal HTML skeleton for standalone use. Run after editing
@@ -25,6 +24,7 @@ fixed catalog prices). That makes de-duplication automatic and the rubric the
 single source of truth, with premiums for standout features. Every class's
 standard SRD level-1 build must still fit the 100 budget.
 """
+import collections
 import glob
 import importlib.util
 import json
@@ -47,10 +47,7 @@ CLASSLESS_RATE = 6
 
 # Classless-only feature premiums (feature name -> XP). Standout pieces cost more
 # than a flat points x rate, so taking one forces real sacrifices. Anything not
-# listed falls back to points x CLASSLESS_RATE. Each caster type's spellcasting
-# is its own piece with its own premium. Tuned so every class's standard SRD
-# level-1 build still fits the creation budget (the build fails otherwise);
-# most land on exactly 100.
+# listed falls back to points x CLASSLESS_RATE.
 CLASSLESS_FEATURE_PRICE = {
     "Druid: Spellcasting (1st-level spells)": 39,
     "Wizard: Spellcasting (1st-level spells)": 36,
@@ -101,8 +98,6 @@ def load_subclasses(class_key):
 
 def build_class(path, catalog, subclass=None):
     doc = yaml.safe_load(open(path, encoding="utf-8"))
-    # Which pieces are open SRD content: a base piece follows the class file's
-    # source, a subclass piece its fragment's.
     base_srd = price.is_srd(doc.get("source"))
     frag_ids = {p["id"] for ps in ((subclass or {}).get("pieces") or {}).values()
                 for p in ps}
@@ -138,7 +133,6 @@ def build_class(path, catalog, subclass=None):
                "upgrades": upgrades.get(r["id"]), "summary": _summary(r["id"])}
               for r in rows if r["ledger"] == "xp"]
 
-    # Every priced piece with its YAML detail, for the classless menu.
     menu_rows = [dict(r, piece=piece_by_id[r["id"]], summary=_summary(r["id"]),
                       srd=frag_srd if r["id"] in frag_ids else base_srd,
                       fromSubclass=r["id"] in frag_ids)
@@ -167,13 +161,25 @@ WEAPON_NAMES = {
         "Weapons: simple + hand crossbows, longswords, rapiers, shortswords",
     "simple_and_martial": "Weapons: simple + martial",
 }
-ARMOR_TIERS = [("none", []), ("light", ["light"]), ("medium", ["light", "medium"]),
-               ("heavy", ["light", "medium", "heavy"])]
+ARMOR_TIERS = {"none": [], "light": ["light"], "medium": ["light", "medium"],
+               "heavy": ["light", "medium", "heavy"]}
 
 
 def _armor_tier(tiers):
     return ("heavy" if "heavy" in tiers else "medium" if "medium" in tiers
             else "light" if "light" in tiers else "none")
+
+
+def _die_size(die):
+    return int(die.lstrip("d"))
+
+
+def _is_feature_row(r):
+    return not ("commodity" in r["piece"] or r["tag"] == "hp")
+
+
+def _grant_list(grants):
+    return [{"id": g, "level": lvl} for g, lvl in grants.items()]
 
 
 def _mean(xs):
@@ -197,7 +203,7 @@ def build_menu(catalog, classes):
       mean price at their level across every subclass variant.
 
     Returns (menu, grants): grants map each variant key to the pieces that
-    rebuild it, [(piece id, level gained)] in the variant's own order.
+    rebuild it, {piece id: level gained} in the variant's own order.
     """
     c = catalog["commodities"]
     summaries = price.load_summaries(DATA_DIR)
@@ -207,7 +213,7 @@ def build_menu(catalog, classes):
         return price.summary_for(piece, summaries) or ""
 
     pieces = {}
-    occ = {}  # canonical id -> [(variant key, priced row)]
+    occ = {}
 
     def add(pid, piece, variant, row):
         if pid not in pieces:
@@ -228,13 +234,12 @@ def build_menu(catalog, classes):
                 p["replaces"].append(old)
         return pid
 
-    # --- Feature keys: decide each non-commodity piece's canonical identity.
     # A name that recurs within one variant is gained per level.
     per_level = set()
     for cls in classes.values():
         seen = set()
         for r in cls["menuRows"]:
-            if "commodity" in r["piece"] or r["tag"] == "hp":
+            if not _is_feature_row(r):
                 continue
             if r["name"] in seen:
                 per_level.add(r["name"])
@@ -250,10 +255,10 @@ def build_menu(catalog, classes):
             return ("level", name, r["level"]), r["id"], name
         return ("name", name), r["id"], name
 
-    keys = {}  # key -> {"id", "name", "subclassOnly", "classes"}
+    keys = {}
     for cls in classes.values():
         for r in cls["menuRows"]:
-            if "commodity" in r["piece"] or r["tag"] == "hp":
+            if not _is_feature_row(r):
                 continue
             key, pid, name = feature_key(cls, r)
             k = keys.setdefault(key, {"id": pid, "name": name,
@@ -273,20 +278,19 @@ def build_menu(catalog, classes):
                 if len(k["classes"]) != 1:
                     sys.exit(f"menu: cannot disambiguate id '{pid}'")
                 k["id"] = f"{next(iter(k['classes']))}-{pid}"
-    ids = [k["id"] for k in keys.values()]
-    dupes = {i for i in ids if ids.count(i) > 1}
+    counts = collections.Counter(k["id"] for k in keys.values())
+    dupes = {i for i, n in counts.items() if n > 1}
     if dupes:
         sys.exit(f"menu: duplicate piece ids {sorted(dupes)}")
 
-    # --- Commodity pieces.
     def commodity(pid, name, tag, xp, **extra):
         p = {"id": pid, "name": name, "level": 1, "xp": xp, "tag": tag}
         p.update(extra)
         return p
 
     hp_xp = {}
-    grants = {v: [] for v in classes}
-    row_ids = {}  # (variant, yaml id) -> canonical id(s)
+    grants = {v: {} for v in classes}
+    row_ids = {}
 
     for variant, cls in classes.items():
         k = cls["name"].lower()
@@ -318,7 +322,7 @@ def build_menu(catalog, classes):
                         variant, r))
             elif kind == "hit_die":
                 die = d["variant"]
-                size = int(die.lstrip("d"))
+                size = _die_size(die)
                 out.append(add(f"hit-die-{die}", commodity(
                     f"hit-die-{die}", f"Hit Die ({die})", "hit_die",
                     c["hit_die"][die], feature="hit-die", commodity="hit_die",
@@ -326,7 +330,7 @@ def build_menu(catalog, classes):
                     variant, r))
             elif kind == "armor":
                 tier = _armor_tier(armor_tiers)
-                tiers = dict(ARMOR_TIERS)[tier]
+                tiers = ARMOR_TIERS[tier]
                 label = ", ".join(tiers) or "none"
                 out.append(add(f"armor-{tier}", commodity(
                     f"armor-{tier}", f"Armor Proficiency: {label}", "armor",
@@ -362,7 +366,7 @@ def build_menu(catalog, classes):
                 out.append(add(pid, {
                     "id": pid, "name": r["name"], "level": lvl, "xp": None,
                     "tag": "hp", "feature": f"hp-{lvl}",
-                    "hp": int(die.lstrip("d")) // 2 + 1, "con": 1,
+                    "hp": _die_size(die) // 2 + 1, "con": 1,
                     "summary": r["summary"]}, variant, r))
                 hp_xp.setdefault(pid, []).append(r["xp"])
             else:
@@ -377,10 +381,8 @@ def build_menu(catalog, classes):
                     pieces[kd["id"]]["summary"] = r["summary"]
             row_ids[(variant, r["id"])] = out
             for pid in out:
-                if pid not in [g for g, _ in grants[variant]]:
-                    grants[variant].append((pid, r["level"]))
+                grants[variant].setdefault(pid, r["level"])
 
-    # --- Feature levels, prices and upgrade chains.
     for pid, rows in occ.items():
         p = pieces[pid]
         if p["tag"] == "hp":
@@ -415,24 +417,20 @@ def build_menu(catalog, classes):
 
 
 def level1_total(menu, grants):
-    """Creation cost of a build: its level-1 grants at menu prices."""
     xp = {p["id"]: p["xp"] for p in menu}
-    return sum(xp[g] for g, lvl in grants if lvl == 1)
+    return sum(xp[g] for g, lvl in grants.items() if lvl == 1)
 
 
 def check_menu(menu, grants, classes):
-    """Fail the build if the menu breaks the classless rules."""
     problems = []
     by_id = {p["id"]: p for p in menu}
 
-    # Each class's standard SRD level-1 build fits the creation budget.
     for variant, cls in classes.items():
         total = level1_total(menu, grants[variant])
         if cls.get("default") and total > cls["budget"]:
             problems.append(f"{variant}: standard level-1 build costs "
                             f"{total} > {cls['budget']}")
 
-    # Every piece of every class's standard build has a canonical SRD piece.
     covered = {old for p in menu if p["srd"] for old in p["replaces"]}
     for cls in classes.values():
         if cls.get("default"):
@@ -441,7 +439,6 @@ def check_menu(menu, grants, classes):
                 if old not in covered:
                     problems.append(f"{old}: no canonical SRD piece")
 
-    # Groups: one hit die per size, four Hit Points pieces per level.
     groups = {}
     for p in menu:
         if p.get("feature"):
@@ -460,7 +457,6 @@ def check_menu(menu, grants, classes):
     if len(groups.get("starting-kit", [])) != len(kits):
         problems.append("starting-kit group holds only kits")
 
-    # One-per-level pieces, never repeatable.
     for lvl in (4, 8, 12, 16, 19):
         if f"asi-{lvl}" not in by_id:
             problems.append(f"asi-{lvl} missing")
@@ -471,7 +467,6 @@ def check_menu(menu, grants, classes):
         if len(ps) > 1 and not name.startswith("Hit Points"):
             problems.append(f"{name} at level {lvl} appears {len(ps)} times: {ps}")
 
-    # Spellcasting is bought per caster type; shared abilities appear once.
     bases = [p for p in menu if p.get("casterType") and p["srd"]
              and not p.get("upgrades")
              and not p["name"].split(": ", 1)[1].startswith("Cantrips Known")]
@@ -498,7 +493,7 @@ def build_classless(catalog, classes, menu, grants):
                for L in BUDGET_LEVELS]
     presets = {
         key: {"name": cls["name"], "subclass": cls.get("subclass", ""),
-              "grants": [{"id": g, "level": lvl} for g, lvl in grants[key]]}
+              "grants": _grant_list(grants[key])}
         for key, cls in classes.items()}
     return {"budget": catalog["creation_budget"], "budgets": budgets,
             "order": list(classes.keys()), "presets": presets, "pieces": pieces}
@@ -617,8 +612,7 @@ def main():
     open(os.path.join(WEB_DIR, "index.html"), "w", encoding="utf-8").write(
         wrap(body, "Piece-Meal D&amp;D — Character Builder"))
 
-    # Canonical classless menu, spanning every subclass variant, exported for
-    # other tools (CharacterManager builds its Piece-Meal pack from it).
+    # Canonical classless menu, spanning every subclass variant.
     menu, grants = build_menu(catalog, all_variants)
     check_menu(menu, grants, all_variants)
     export = {
@@ -627,8 +621,7 @@ def main():
         "presets": {key: {"name": cls["name"], "subclass": cls["subclass"],
                           "srd": cls["srd"], "standard": cls["default"],
                           "level1Total": level1_total(menu, grants[key]),
-                          "grants": [{"id": g, "level": lvl}
-                                     for g, lvl in grants[key]]}
+                          "grants": _grant_list(grants[key])}
                     for key, cls in all_variants.items()},
     }
     with open(os.path.join(WEB_DIR, "classless-menu.json"), "w", encoding="utf-8") as f:

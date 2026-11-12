@@ -230,7 +230,6 @@
     int:"Intelligence", wis:"Wisdom", cha:"Charisma"};
   var fmt = function(n){ return n.toLocaleString(); };
 
-  // Every canonical piece, commodities and Hit Points included, is owned or not.
   var state = { budget: D.budget, level: 1, sel: {}, query: "", hideLocked: true };
 
   var byId = {};
@@ -244,10 +243,10 @@
   function owned(id){ return !!state.sel[id]; }
   function pickedCount(){ var n=0; for(var k in state.sel) if(byId[k] && isFeature(byId[k])) n++; return n; }
   function prereqOK(p){ return !p.upgrades || owned(p.upgrades); }
-  // Level gate: a piece opens one level ahead of the "build as level" dial, so
-  // reaching a level means already owning that level's abilities.
-  function levelOK(p){ return (p.level || 1) <= state.level + 1; }
-  // One-of groups (hit die, Hit Points per level, kit, armor tier, weapon tier).
+  // Level gate: a piece opens LEVEL_LEAD levels ahead of the "build as level"
+  // dial, so reaching a level means already owning that level's abilities.
+  var LEVEL_LEAD = 1;
+  function levelOK(p){ return (p.level || 1) <= state.level + LEVEL_LEAD; }
   function groupHolder(p){
     if(!p.feature) return null;
     for(var id in state.sel){ var o = byId[id];
@@ -257,10 +256,8 @@
   function drop(id){
     if(!state.sel[id]) return;
     delete state.sel[id];
-    // cascade: anything that upgrades this piece can no longer stand
     D.pieces.forEach(function(p){ if(p.upgrades===id && owned(p.id)) drop(p.id); });
   }
-  // Pickers replace the group's current piece instead of adding a second one.
   function take(id){
     var h = groupHolder(byId[id]);
     if(h) drop(h.id);
@@ -322,7 +319,7 @@
   // ---- Budget meter ----
   function renderMeter(){
     var comm = commodityTotal(), feat = featureTotal(), total = comm + feat;
-    var remain = state.budget - total;
+    var remain = remaining();
     var el = document.getElementById("meter");
     el.className = "meter" + (remain < 0 ? " is-over" : "");
     var remLabel = remain < 0 ? "<b>"+fmt(-remain)+"</b> over" : "<b>"+fmt(remain)+"</b> left";
@@ -353,9 +350,6 @@
 
   function resetBuild(){ state.sel = {}; refresh(); }
 
-  // ---- Commodities & Hit Points ----
-  // A one-of picker: pressing an option replaces the group's current piece;
-  // pressing the owned option again clears it.
   function seg(label, unit, pieces, labelOf){
     var html = '<div class="field"><div class="field__label"><span>'+label+'</span>'+
       (unit ? '<small>'+unit+'</small>' : '')+'</div><div class="seg">';
@@ -438,10 +432,8 @@
     host.appendChild(toggleGroup("Skills", "each one separate", ofKind("skill"), function(p){ return p.name; }));
     host.appendChild(toggleGroup("Tools", "each one separate", ofKind("tool"), function(p){ return p.name; }));
 
-    // Hit Points: one die per level, from level 2 up to the gate (plus any
-    // level already bought above it).
     var hp = D.pieces.filter(function(p){ return p.tag === "hp"; });
-    var top = Math.min(20, state.level + 1);
+    var top = Math.min(20, state.level + LEVEL_LEAD);
     hp.forEach(function(p){ if(owned(p.id)) top = Math.max(top, p.level); });
     var h = document.createElement("div"); h.className = "field__label";
     h.innerHTML = '<span>Hit Points by level</span><small>one die per level</small>';
@@ -479,7 +471,7 @@
 
       var lv = f.level>1 ? '<span class="chip chip--lv">Lv '+f.level+'</span>' : '';
       var needs = (!prereq && reqName) ? '<span class="chip chip--need">needs '+reqName+'</span>' : '';
-      if(!levelOk && !on) needs += '<span class="chip chip--need">unlocks at Lv '+(f.level-1)+'</span>';
+      if(!levelOk && !on) needs += '<span class="chip chip--need">unlocks at Lv '+(f.level-LEVEL_LEAD)+'</span>';
       if(holder && !on) needs += '<span class="chip chip--need">already have '+esc(holder.name)+'</span>';
       var chips = lv + needs + '<span class="chip chip--tag">'+(TAGLABEL[f.tag]||f.tag)+'</span>'+
         f.sources.map(function(s){ return '<span class="chip">'+s+'</span>'; }).join("");
@@ -491,13 +483,13 @@
       b.type="button"; b.setAttribute("aria-pressed", String(on));
       b.dataset.id = f.id;
       if(!on && lockedAdd){ b.setAttribute("aria-disabled","true");
-        b.title = !prereq ? ("Requires "+reqName) : !levelOk ? ("Unlocks at level "+(f.level-1)) :
+        b.title = !prereq ? ("Requires "+reqName) : !levelOk ? ("Unlocks at level "+(f.level-LEVEL_LEAD)) :
           holder ? ("Already have "+holder.name) : "Not enough experience — raise your level"; }
       b.innerHTML = '<span class="toggle__check">'+CHECK+'</span>'+ mainHtml +
         '<span class="toggle__xp">'+fmt(f.xp)+'<small> xp</small></span>';
       b.addEventListener("click", function(){
         if(on){ drop(f.id); refresh(); return; }
-        if(prereqOK(f) && levelOK(f) && !groupHolder(f) && f.xp<=remaining()){ state.sel[f.id]=true; refresh(); }
+        if(prereqOK(f) && levelOK(f) && !groupHolder(f) && f.xp<=remaining()){ take(f.id); refresh(); }
       });
       host.appendChild(b);
     });
