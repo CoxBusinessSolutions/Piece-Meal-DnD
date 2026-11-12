@@ -178,12 +178,14 @@ data/ancestries/<id>.yaml  One file per ancestry (racial pieces; ancestry ledger
 data/ancestries/<id>.md    Generated ancestry breakdown tables
 tools/price.py             Pricer / validator
 tools/build_web.py         Bundles the data into both web builders
+tools/check_builder.mjs    Headless-browser check of the classless builder (Playwright)
 web/index.html             Per-class builder — open in any browser (generated)
 web/app.html               Per-class builder source (body-only)
 web/classless.html         Classless builder (classes + ancestries) — open in any browser (generated)
 web/classless-app.html     Classless builder source (body-only)
 web/classless-menu.json    Canonical classless menu export (generated)
 .github/workflows/pages.yml  Deploys web/ to GitHub Pages on push to main
+.github/workflows/check.yml  CI: price checks, stale web/ outputs, builder browser check
 ```
 
 All 12 SRD classes are present: barbarian, bard, cleric, druid, fighter, monk,
@@ -238,6 +240,22 @@ python3 tools/build_web.py     # regenerate both after any data change
 The `*-app.html` files are the editable sources; the build injects the data
 between their `DATA_START/DATA_END` markers and wraps each into a standalone
 page.
+
+The generated `web/` files are committed. CI (`.github/workflows/check.yml`)
+runs `tools/price.py --check` on every class and ancestry, rebuilds, and fails
+if `web/` differs from what is committed — so rebuild and commit after any data
+or source change. It also runs `tools/check_builder.mjs`, which drives
+`web/classless.html` in headless Chromium (level gate, one-of pickers, kit,
+preset totals vs. the export):
+
+```bash
+npm i --no-save playwright && npx playwright install chromium
+node tools/check_builder.mjs
+```
+
+The build refuses to drop an SRD piece id that is in the committed
+`web/classless-menu.json` (saved characters reference those ids); list an id in
+`RETIRED_IDS` in `tools/build_web.py` to retire it deliberately.
 
 ### Hosting on GitHub Pages
 

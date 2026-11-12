@@ -41,6 +41,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
 WEB_DIR = os.path.join(ROOT, "web")
 
+# SRD piece ids deliberately retired from the canonical menu. Saved characters
+# (e.g. CharacterManager's Piece-Meal 5e pack) reference these ids, so the build
+# refuses to drop any SRD id already in the committed web/classless-menu.json
+# unless it is listed here.
+RETIRED_IDS = set()
+
 # Flat XP-per-power-point rate for canonical feature prices in the classless
 # builder — the fallback for any feature not given an explicit premium below.
 CLASSLESS_RATE = 6
@@ -632,6 +638,30 @@ def wrap(body, title):
             '</head>\n<body>\n' + body + '\n</body>\n</html>\n')
 
 
+def check_stable_ids(menu):
+    """Fail if an SRD piece id in the committed export vanished from the new menu.
+
+    Canonical ids are what saved characters store; a renamed id (e.g. a
+    subclass-only piece gaining a class prefix after a new collision) would
+    silently orphan them.
+    """
+    path = os.path.join(WEB_DIR, "classless-menu.json")
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as f:
+        old = json.load(f)
+    new_ids = {p["id"] for p in menu}
+    missing = sorted(p["id"] for p in old.get("pieces", [])
+                     if p.get("srd") and p["id"] not in new_ids
+                     and p["id"] not in RETIRED_IDS)
+    if missing:
+        sys.exit("SRD piece ids in the committed web/classless-menu.json are missing "
+                 "from the new menu (saved characters reference them): "
+                 + ", ".join(missing)
+                 + ". Keep the ids stable, or add them to RETIRED_IDS in "
+                 "tools/build_web.py if the removal is intended.")
+
+
 def main():
     catalog = yaml.safe_load(open(os.path.join(DATA_DIR, "level1_catalog.yaml"), encoding="utf-8"))
     classes, order = {}, []
@@ -678,6 +708,7 @@ def main():
     # Canonical classless menu, spanning every subclass variant.
     menu, grants = build_menu(catalog, all_variants)
     check_menu(menu, grants, all_variants)
+    check_stable_ids(menu)
     export = {
         "budget": catalog["creation_budget"],
         "pieces": menu,
