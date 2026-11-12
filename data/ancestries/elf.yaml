@@ -12,8 +12,8 @@ pieces:
   - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
   - {id: keen-senses, name: "Keen Senses (Perception)", commodity: skill, skills: [perception], shared: skill-perception}
   - {id: language, name: "Language: Elvish", commodity: language, shared: language-elvish}
-  - {id: extra-language, name: "Extra Language", commodity: language, shared: language-extra, subrace: high_elf}
-  - {id: weapon-training, name: "Elf Weapon Training", commodity: weapon_training}
-  - {id: cantrip, name: "High Elf Cantrip (wizard)", commodity: cantrip, subrace: high_elf}
-  - {id: fey-ancestry, name: "Fey Ancestry", tag: utility, points: 3, feature: fey-ancestry}
-  - {id: trance, name: "Trance", tag: ribbon, points: 1}
+  - {id: extra-language, name: "Extra Language", commodity: language, shared: language-extra, subrace: high_elf, summary: "You learn one extra language of your choice."}
+  - {id: weapon-training, name: "Elf Weapon Training", commodity: weapon_training, summary: "Proficiency with longswords, shortswords, shortbows and longbows."}
+  - {id: cantrip, name: "High Elf Cantrip (wizard)", commodity: cantrip, subrace: high_elf, summary: "You know one wizard cantrip, cast with Intelligence."}
+  - {id: fey-ancestry, name: "Fey Ancestry", tag: utility, points: 3, feature: fey-ancestry, summary: "Advantage on saves against being charmed, and magic can't put you to sleep."}
+  - {id: trance, name: "Trance", tag: ribbon, points: 1, summary: "Meditate for 4 hours instead of sleeping 8 to gain the benefit of a long rest."}

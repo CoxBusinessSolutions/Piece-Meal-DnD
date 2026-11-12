@@ -50,9 +50,11 @@ levels:
       - id: save-str
         name: "Saving Throw Proficiency: Strength"
         commodity: save
+        ability: str
       - id: save-dex
         name: "Saving Throw Proficiency: Dexterity"
         commodity: save
+        ability: dex
       - id: skills-1
         name: "Skill Proficiencies (choose 2)"
         commodity: skill
@@ -79,20 +81,24 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: martial-arts
         name: "Martial Arts (d4)"
+        summary: "With unarmed strikes and monk weapons, use Dexterity, roll a d4 martial arts die for damage, and make a bonus unarmed strike after attacking."
         tag: marquee
         points: 5
       - id: unarmored-defense
         name: "Unarmored Defense"
+        summary: "Without armor or a shield, your AC is 10 + Dexterity modifier + Wisdom modifier."
         tag: utility
         points: 3
   2:
     pieces:
       - id: ki
         name: "Ki (Flurry of Blows, Patient Defense, Step of the Wind)"
+        summary: "Gain ki points equal to your monk level, recovered on a short rest, to fuel Flurry of Blows, Patient Defense and Step of the Wind."
         tag: marquee
         points: 5
       - id: unarmored-movement
         name: "Unarmored Movement"
+        summary: "Your speed increases by 10 feet without armor or a shield, growing as you advance."
         tag: utility
         points: 3
       - id: hp-2
@@ -103,6 +109,7 @@ levels:
     pieces:
       - id: deflect-missiles
         name: "Deflect Missiles"
+        summary: "Reaction: reduce ranged weapon damage by 1d10 + Dexterity + monk level; if it hits 0, you can catch and throw it back for 1 ki."
         tag: utility
         points: 3
       - id: hp-3
@@ -117,6 +124,7 @@ levels:
         points: 4
       - id: slow-fall
         name: "Slow Fall"
+        summary: "Reaction: reduce falling damage by five times your monk level."
         tag: utility
         points: 3
       - id: hp-4
@@ -127,14 +135,17 @@ levels:
     pieces:
       - id: extra-attack-5
         name: "Extra Attack (two attacks)"
+        summary: "Attack twice, instead of once, whenever you take the Attack action."
         tag: marquee
         points: 5
       - id: stunning-strike
         name: "Stunning Strike"
+        summary: "When you hit with a melee weapon attack, spend 1 ki: the target must make a Constitution save or be stunned until your next turn ends."
         tag: marquee
         points: 5
       - id: martial-arts-die-5
         name: "Martial Arts die (d6)"
+        summary: "Your martial arts die becomes a d6."
         tag: scaling
         points: 3
         upgrades: martial-arts
@@ -150,6 +161,7 @@ levels:
     pieces:
       - id: ki-empowered-strikes
         name: "Ki-Empowered Strikes"
+        summary: "Your unarmed strikes count as magical for overcoming resistance and immunity."
         tag: utility
         points: 3
       - id: hp-6
@@ -160,10 +172,12 @@ levels:
     pieces:
       - id: evasion
         name: "Evasion"
+        summary: "When a Dexterity save would halve damage, take none on a success and half on a failure."
         tag: marquee
         points: 5
       - id: stillness-of-mind
         name: "Stillness of Mind"
+        summary: "Action: end one effect causing you to be charmed or frightened."
         tag: utility
         points: 3
       - id: hp-7
@@ -184,6 +198,7 @@ levels:
     pieces:
       - id: unarmored-movement-9
         name: "Unarmored Movement improvement (vertical surfaces)"
+        summary: "Move along vertical surfaces and across liquids on your turn without falling."
         tag: scaling
         points: 3
         upgrades: unarmored-movement
@@ -199,6 +214,7 @@ levels:
     pieces:
       - id: purity-of-body
         name: "Purity of Body"
+        summary: "You're immune to disease and poison."
         tag: utility
         points: 3
       - id: hp-10
@@ -209,6 +225,7 @@ levels:
     pieces:
       - id: martial-arts-die-11
         name: "Martial Arts die (d8)"
+        summary: "Your martial arts die becomes a d8."
         tag: scaling
         points: 3
         upgrades: martial-arts-die-5
@@ -230,6 +247,7 @@ levels:
     pieces:
       - id: tongue-of-sun-and-moon
         name: "Tongue of the Sun and Moon"
+        summary: "You understand all spoken languages, and any creature that knows a language understands you."
         tag: ribbon
         points: 1
       - id: proficiency-bonus-13
@@ -244,6 +262,7 @@ levels:
     pieces:
       - id: diamond-soul
         name: "Diamond Soul"
+        summary: "Proficiency in all saving throws, and spend 1 ki to reroll a failed save."
         tag: marquee
         points: 5
       - id: hp-14
@@ -254,6 +273,7 @@ levels:
     pieces:
       - id: timeless-body
         name: "Timeless Body"
+        summary: "You no longer age or need food and water, and magic can't age you."
         tag: ribbon
         points: 1
       - id: hp-15
@@ -274,6 +294,7 @@ levels:
     pieces:
       - id: martial-arts-die-17
         name: "Martial Arts die (d10)"
+        summary: "Your martial arts die becomes a d10."
         tag: scaling
         points: 3
         upgrades: martial-arts-die-11
@@ -289,6 +310,7 @@ levels:
     pieces:
       - id: empty-body
         name: "Empty Body"
+        summary: "Spend 4 ki to turn invisible for 1 minute with resistance to most damage, or 8 ki to cast astral projection."
         tag: marquee
         points: 5
       - id: hp-18
@@ -309,6 +331,7 @@ levels:
     pieces:
       - id: perfect-self
         name: "Perfect Self"
+        summary: "If you roll initiative with no ki points, regain 4."
         tag: utility
         points: 3
       - id: hp-20

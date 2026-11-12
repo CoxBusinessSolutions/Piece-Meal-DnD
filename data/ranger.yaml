@@ -54,9 +54,11 @@ levels:
       - id: save-str
         name: "Saving Throw Proficiency: Strength"
         commodity: save
+        ability: str
       - id: save-dex
         name: "Saving Throw Proficiency: Dexterity"
         commodity: save
+        ability: dex
       - id: skills-1
         name: "Skill Proficiencies (choose 3)"
         commodity: skill
@@ -79,20 +81,24 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: favored-enemy
         name: "Favored Enemy"
+        summary: "Pick a favored enemy type: advantage on Survival to track them and Intelligence checks to recall lore about them, plus one of their languages."
         tag: utility
         points: 3
       - id: natural-explorer
         name: "Natural Explorer"
+        summary: "Pick a favored terrain: double proficiency on related checks, and travel there is faster, safer and better foraged."
         tag: utility
         points: 3
   2:
     pieces:
       - id: fighting-style
         name: "Fighting Style"
+        summary: "Adopt one fighting style, such as Archery (+2 ranged attacks), Defense or Two-Weapon Fighting."
         tag: marquee
         points: 5
       - id: spellcasting
         name: "Spellcasting (1st-level spells)"
+        summary: "Cast known ranger spells using Wisdom, with spell slots that recover on a long rest."
         tag: spellcasting
         points: 5
       - id: hp-2
@@ -103,6 +109,7 @@ levels:
     pieces:
       - id: primeval-awareness
         name: "Primeval Awareness"
+        summary: "Spend a spell slot to sense certain creature types within 1 mile (6 in favored terrain) for 1 minute per slot level."
         tag: utility
         points: 3
       - id: hp-3
@@ -123,6 +130,7 @@ levels:
     pieces:
       - id: extra-attack-5
         name: "Extra Attack (two attacks)"
+        summary: "Attack twice, instead of once, whenever you take the Attack action."
         tag: marquee
         points: 5
       - id: spell-tier-2nd
@@ -142,11 +150,13 @@ levels:
     pieces:
       - id: favored-enemy-6
         name: "Favored Enemy improvement"
+        summary: "Choose an additional favored enemy and language."
         tag: scaling
         points: 3
         upgrades: favored-enemy
       - id: natural-explorer-6
         name: "Natural Explorer improvement"
+        summary: "Choose an additional favored terrain."
         tag: scaling
         points: 3
         upgrades: natural-explorer
@@ -168,6 +178,7 @@ levels:
         points: 4
       - id: lands-stride
         name: "Land's Stride"
+        summary: "Nonmagical difficult terrain doesn't slow you, plants don't hinder you, and you have advantage against magical plants."
         tag: utility
         points: 3
       - id: hp-8
@@ -193,11 +204,13 @@ levels:
     pieces:
       - id: natural-explorer-10
         name: "Natural Explorer improvement (2nd)"
+        summary: "Choose a third favored terrain."
         tag: scaling
         points: 3
         upgrades: natural-explorer-6
       - id: hide-in-plain-sight
         name: "Hide in Plain Sight"
+        summary: "Spend a minute camouflaging yourself to gain +10 to Stealth while you stay still."
         tag: utility
         points: 3
       - id: hp-10
@@ -239,11 +252,13 @@ levels:
     pieces:
       - id: favored-enemy-14
         name: "Favored Enemy improvement (2nd)"
+        summary: "Choose a third favored enemy and language."
         tag: scaling
         points: 3
         upgrades: favored-enemy-6
       - id: vanish
         name: "Vanish"
+        summary: "Hide as a bonus action, and you can't be tracked by nonmagical means."
         tag: utility
         points: 3
       - id: hp-14
@@ -285,6 +300,7 @@ levels:
     pieces:
       - id: feral-senses
         name: "Feral Senses"
+        summary: "No disadvantage attacking creatures you can't see, and you sense invisible creatures within 30 feet."
         tag: utility
         points: 3
       - id: hp-18
@@ -305,6 +321,7 @@ levels:
     pieces:
       - id: foe-slayer
         name: "Foe Slayer"
+        summary: "Once per turn, add your Wisdom modifier to an attack or damage roll against a favored enemy."
         tag: marquee
         points: 5
       - id: hp-20

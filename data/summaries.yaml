@@ -1,0 +1,34 @@
+# Piece-Meal-DnD — shared summaries for repeated piece kinds.
+#
+# Most pieces carry their own one- or two-sentence `summary:` (own words, SRD
+# mechanics). Kinds that repeat across every class or ancestry (Hit Points,
+# saves, spell tiers, +1 ability...) share one summary here instead. A piece's
+# own `summary:` always wins. Lookup: tools/price.py summary_for().
+#
+# Non-SRD subclass fragments stay prose-free: they never get a summary (the
+# pricer's --check fails if one does).
+
+class:
+  commodity:
+    save: "Proficiency in this saving throw: add your proficiency bonus when you make it."
+    skill: "Proficiency in the stated number of skills from your class's list; add your proficiency bonus to checks with them."
+    tool: "Proficiency with these tools: add your proficiency bonus to checks made with them."
+    hit_die: "Your first-level body: maximum hit points equal to this die's size + your Constitution modifier, and your first hit die for short rests."
+    armor: "Proficiency with these kinds of armor (and shields, if listed); without it, armor hampers your attacks, checks and spellcasting."
+    weapon: "Proficiency with these weapons: add your proficiency bonus to attack rolls with them."
+    starting_kit: "Your class's standard starting equipment."
+  tag:
+    hp: "One more hit die and the hit points for a level: the die's average + 1, plus your Constitution modifier."
+    asi: "Raise one ability score by 2 or two scores by 1 (max 20), or take a feat if your table uses them."
+  id_prefix:
+    proficiency-bonus: "Your proficiency bonus goes up by 1, improving every proficient attack, save, skill and spell DC."
+    spell-tier-: "Unlocks spells of this level, with the spell slots your class gains for them."
+    spell-slots-: "Adds the extra spell slots your class gains at this level."
+    cantrip: "You know one more cantrip from your class's list."
+
+ancestry:
+  commodity:
+    ability: "Raises the named ability score. Ancestry pieces can raise any one ability by at most +2."
+    language: "You can speak, read and write this language."
+    darkvision: "See in dim light within this range as if it were bright, and in darkness as if it were dim (in shades of gray)."
+    skill: "Proficiency in the named skill(s)."

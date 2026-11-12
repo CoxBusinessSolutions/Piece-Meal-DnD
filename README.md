@@ -66,6 +66,21 @@ Because every commodity has a fixed price, the budget is a real constraint: a
 weapons (8) **and** Spellcasting (33) — that's 63 before any other feature. You
 have to sacrifice. That is the whole point.
 
+**Level gate.** A piece also *unlocks* only at its level: your **XP level** is
+the SRD level for your earned XP (6,500 XP = level 5), and a level-7 piece
+can't be bought until you reach level 7, however much XP you've banked. Without
+it, every level-2+ piece costs only a slice of its level's XP and could be
+bought many levels early. Consumers can loosen the gate: CharacterManager's
+`levelGate` setting supports `strict` (the default for Piece-Meal), `selective`
+(only pieces flagged `gated`), `warn` (allowed but marked) and `off`. The
+classless builder applies it to its "build as level" dial.
+
+**Descriptions.** Every SRD piece has a short own-words `summary:` (one or two
+sentences); repeated kinds (Hit Points, saves, spell tiers, +1 ability...) share
+one in `data/summaries.yaml`. Non-SRD subclass fragments stay prose-free —
+`tools/price.py --check` fails if one carries a summary. Save pieces name their
+ability (`ability: dex`) so consumers can grant the real proficiency.
+
 The 100 is **build currency only**. When play begins your earned XP is 0 and the
 official SRD thresholds apply from there (level 2 = 300, level 3 = 900, ...).
 
@@ -148,6 +163,7 @@ python3 tools/price.py data/ancestries/dwarf.yaml --check    # validate
 
 ```
 data/level1_catalog.yaml   Shared, fixed prices for level-1 commodities
+data/summaries.yaml        Shared summaries for repeated piece kinds
 data/<class>.yaml          Base chassis — one file per class (all 12)
 data/subclasses/<class>/<name>.yaml  Subclass fragments merged onto a base
 data/<class>.md            Generated breakdown tables (do not edit by hand)

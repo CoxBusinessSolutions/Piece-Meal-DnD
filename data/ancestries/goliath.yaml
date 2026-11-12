@@ -12,8 +12,8 @@ speed: 35
 pieces:
   - {id: str-2, name: "Goliath: +2 Strength (house rule)", commodity: ability, ability: str, amount: 2}
   - {id: con-1, name: "Goliath: +1 Constitution (house rule)", commodity: ability, ability: con, amount: 1}
-  - {id: giant-ancestry, name: "Giant Ancestry", tag: marquee, points: 5}
-  - {id: powerful-build, name: "Powerful Build", tag: ribbon, points: 1}
+  - {id: giant-ancestry, name: "Giant Ancestry", tag: marquee, points: 5, summary: "Choose a giant boon (cloud, fire, frost, hill, stone or storm) usable a few times per long rest, such as a short teleport or reducing damage taken."}
+  - {id: powerful-build, name: "Powerful Build", tag: ribbon, points: 1, summary: "Advantage on checks to end being grappled, and you count as one size larger for carrying capacity."}
 primary_traits:
   - id: large-form
     name: "Large Form"

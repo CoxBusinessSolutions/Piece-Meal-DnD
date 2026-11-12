@@ -15,47 +15,56 @@ pieces:
   2:
     - id: bonus-cantrip
       name: "Circle of the Land: Bonus Cantrip"
+      summary: "Learn one extra druid cantrip."
       tag: proficiency
       points: 2
     - id: natural-recovery
       name: "Circle of the Land: Natural Recovery"
+      summary: "Once per day during a short rest, recover spent spell slots with combined levels up to half your druid level (no 6th level or higher)."
       tag: utility
       points: 3
   3:
     - id: circle-spells-3
       name: "Circle of the Land: Circle Spells (1st)"
+      summary: "Your chosen land grants always-prepared circle spells (2nd-level set)."
       tag: proficiency
       points: 2
   5:
     - id: circle-spells-5
       name: "Circle of the Land: Circle Spells (2nd)"
+      summary: "Your land grants more always-prepared circle spells (3rd-level set)."
       tag: proficiency
       points: 2
       upgrades: circle-spells-3
   6:
     - id: lands-stride
       name: "Circle of the Land: Land's Stride"
+      summary: "Nonmagical difficult terrain doesn't slow you, plants don't hinder you, and you have advantage against magical plants."
       tag: utility
       points: 3
   7:
     - id: circle-spells-7
       name: "Circle of the Land: Circle Spells (3rd)"
+      summary: "Your land grants more always-prepared circle spells (4th-level set)."
       tag: proficiency
       points: 2
       upgrades: circle-spells-5
   9:
     - id: circle-spells-9
       name: "Circle of the Land: Circle Spells (4th/5th)"
+      summary: "Your land grants the last always-prepared circle spells (5th-level set)."
       tag: proficiency
       points: 2
       upgrades: circle-spells-7
   10:
     - id: natures-ward
       name: "Circle of the Land: Nature's Ward"
+      summary: "Immune to poison and disease, and elementals and fey can't charm or frighten you."
       tag: marquee
       points: 5
   14:
     - id: natures-sanctuary
       name: "Circle of the Land: Nature's Sanctuary"
+      summary: "Beasts and plants must make a Wisdom save to attack you, or choose another target."
       tag: marquee
       points: 5

@@ -10,7 +10,7 @@ pieces:
   - {id: dex-2, name: "Halfling: +2 Dexterity", commodity: ability, ability: dex, amount: 2}
   - {id: cha-1, name: "Lightfoot: +1 Charisma", commodity: ability, ability: cha, amount: 1, subrace: lightfoot_halfling}
   - {id: language, name: "Language: Halfling", commodity: language, shared: language-halfling}
-  - {id: lucky, name: "Lucky", tag: marquee, points: 5}
-  - {id: brave, name: "Brave", tag: utility, points: 3}
-  - {id: nimbleness, name: "Halfling Nimbleness", tag: ribbon, points: 1}
-  - {id: naturally-stealthy, name: "Naturally Stealthy", tag: utility, points: 3, subrace: lightfoot_halfling}
+  - {id: lucky, name: "Lucky", tag: marquee, points: 5, summary: "When you roll a 1 on an attack roll, ability check or saving throw, reroll the die and use the new roll."}
+  - {id: brave, name: "Brave", tag: utility, points: 3, summary: "Advantage on saving throws against being frightened."}
+  - {id: nimbleness, name: "Halfling Nimbleness", tag: ribbon, points: 1, summary: "Move through the space of any creature larger than you."}
+  - {id: naturally-stealthy, name: "Naturally Stealthy", tag: utility, points: 3, subrace: lightfoot_halfling, summary: "You can try to hide behind a creature at least one size larger than you."}

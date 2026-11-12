@@ -50,9 +50,11 @@ levels:
       - id: save-int
         name: "Saving Throw Proficiency: Intelligence"
         commodity: save
+        ability: int
       - id: save-wis
         name: "Saving Throw Proficiency: Wisdom"
         commodity: save
+        ability: wis
       - id: skills-1
         name: "Skill Proficiencies (choose 2)"
         commodity: skill
@@ -79,6 +81,7 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: spellcasting
         name: "Spellcasting (1st-level spells)"
+        summary: "Prepare druid spells each day using Wisdom, with spell slots that recover on a long rest. Ritual casting and a druidic focus."
         tag: spellcasting
         points: 5
       - id: cantrips-known-2
@@ -87,12 +90,14 @@ levels:
         points: 2
       - id: druidic
         name: "Druidic"
+        summary: "You know Druidic, the secret language of druids, and can leave hidden messages in it."
         tag: ribbon
         points: 1
   2:
     pieces:
       - id: wild-shape
         name: "Wild Shape"
+        summary: "Action: turn into a beast you've seen (CR 1/4, no flying or swimming) for hours equal to half your druid level. Twice per short or long rest."
         tag: marquee
         points: 5
       - id: hp-2
@@ -118,6 +123,7 @@ levels:
         points: 4
       - id: wild-shape-4
         name: "Wild Shape improvement (CR 1/2)"
+        summary: "Wild Shape can become beasts up to CR 1/2, including swimmers."
         tag: scaling
         points: 3
         upgrades: wild-shape
@@ -170,6 +176,7 @@ levels:
         points: 4
       - id: wild-shape-8
         name: "Wild Shape improvement (CR 1, flying)"
+        summary: "Wild Shape can become beasts up to CR 1, including flyers."
         tag: scaling
         points: 3
         upgrades: wild-shape-4
@@ -285,10 +292,12 @@ levels:
     pieces:
       - id: timeless-body
         name: "Timeless Body"
+        summary: "You age ten times more slowly than normal."
         tag: ribbon
         points: 1
       - id: beast-spells
         name: "Beast Spells"
+        summary: "You can cast many druid spells while in Wild Shape, using verbal and somatic components."
         tag: marquee
         points: 5
       - id: spell-slots-18
@@ -319,6 +328,7 @@ levels:
     pieces:
       - id: archdruid
         name: "Archdruid"
+        summary: "Unlimited Wild Shape uses, and you can ignore most spell components."
         tag: marquee
         points: 5
       - id: spell-slots-20

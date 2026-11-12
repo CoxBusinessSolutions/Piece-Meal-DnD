@@ -25,7 +25,8 @@ NON-SRD SUBCLASSES
   CC-BY. Their data files (data/subclasses/**) record only mechanical facts —
   each feature's name and the level it is gained — plus original,
   project-authored power-point weights. No descriptive or rules prose from any
-  non-SRD source is reproduced. Each such file's `source:` line marks it as
+  non-SRD source is reproduced, and they carry no summaries. The short
+  `summary:` text on SRD pieces is original wording describing SRD mechanics. Each such file's `source:` line marks it as
   "PHB (2014) feature/level facts; original weighting — not SRD/OGL".
 
 TRADEMARKS / AFFILIATION

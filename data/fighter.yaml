@@ -62,9 +62,11 @@ levels:
       - id: save-str
         name: "Saving Throw Proficiency: Strength"
         commodity: save
+        ability: str
       - id: save-con
         name: "Saving Throw Proficiency: Constitution"
         commodity: save
+        ability: con
       - id: skills-1
         name: "Skill Proficiencies (choose 2)"
         commodity: skill
@@ -87,16 +89,19 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: fighting-style
         name: "Fighting Style"
+        summary: "Adopt one fighting style, such as Archery (+2 ranged attacks), Defense (+1 AC in armor) or Dueling (+2 one-handed damage)."
         tag: marquee
         points: 5
       - id: second-wind
         name: "Second Wind"
+        summary: "Bonus action: regain 1d10 + your fighter level in HP. Once per short or long rest."
         tag: utility
         points: 3
   2:
     pieces:
       - id: action-surge-2
         name: "Action Surge (one use)"
+        summary: "Once per short or long rest, take one additional action on your turn."
         tag: marquee
         points: 5
       - id: hp-2
@@ -124,6 +129,7 @@ levels:
     pieces:
       - id: extra-attack-5
         name: "Extra Attack (two attacks)"
+        summary: "Attack twice, instead of once, whenever you take the Attack action."
         tag: marquee
         points: 5
       - id: proficiency-bonus-5
@@ -165,6 +171,7 @@ levels:
     pieces:
       - id: indomitable-9
         name: "Indomitable (one use)"
+        summary: "Reroll a failed saving throw and use the new roll. Once per long rest."
         tag: utility
         points: 3
       - id: proficiency-bonus-9
@@ -186,6 +193,7 @@ levels:
     pieces:
       - id: extra-attack-11
         name: "Extra Attack (three attacks)"
+        summary: "Attack three times whenever you take the Attack action."
         tag: scaling
         points: 3
         upgrades: extra-attack-5
@@ -207,6 +215,7 @@ levels:
     pieces:
       - id: indomitable-13
         name: "Indomitable (two uses)"
+        summary: "Use Indomitable twice between long rests."
         tag: scaling
         points: 3
         upgrades: indomitable-9
@@ -249,11 +258,13 @@ levels:
     pieces:
       - id: action-surge-17
         name: "Action Surge (two uses)"
+        summary: "Use Action Surge twice between rests (still once per turn)."
         tag: scaling
         points: 3
         upgrades: action-surge-2
       - id: indomitable-17
         name: "Indomitable (three uses)"
+        summary: "Use Indomitable three times between long rests."
         tag: scaling
         points: 3
         upgrades: indomitable-13
@@ -286,6 +297,7 @@ levels:
     pieces:
       - id: extra-attack-20
         name: "Extra Attack (four attacks)"
+        summary: "Attack four times whenever you take the Attack action."
         tag: marquee
         points: 5
         upgrades: extra-attack-11

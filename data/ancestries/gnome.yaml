@@ -11,7 +11,7 @@ pieces:
   - {id: con-1, name: "Rock Gnome: +1 Constitution", commodity: ability, ability: con, amount: 1, subrace: rock_gnome}
   - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
   - {id: language, name: "Language: Gnomish", commodity: language, shared: language-gnomish}
-  - {id: tinkers-tools, name: "Tool Proficiency (tinker's tools)", commodity: tool, subrace: rock_gnome}
-  - {id: gnome-cunning, name: "Gnome Cunning", tag: marquee, points: 5}
-  - {id: artificers-lore, name: "Artificer's Lore", tag: ribbon, points: 1, subrace: rock_gnome}
-  - {id: tinker, name: "Tinker", tag: utility, points: 3, upgrades: tinkers-tools, subrace: rock_gnome}
+  - {id: tinkers-tools, name: "Tool Proficiency (tinker's tools)", commodity: tool, subrace: rock_gnome, summary: "Proficiency with tinker's tools."}
+  - {id: gnome-cunning, name: "Gnome Cunning", tag: marquee, points: 5, summary: "Advantage on Intelligence, Wisdom and Charisma saves against magic."}
+  - {id: artificers-lore, name: "Artificer's Lore", tag: ribbon, points: 1, subrace: rock_gnome, summary: "On History checks about magic items, alchemy or technology, add double your proficiency bonus."}
+  - {id: tinker, name: "Tinker", tag: utility, points: 3, upgrades: tinkers-tools, subrace: rock_gnome, summary: "Spend an hour and 10 gp to build a tiny clockwork toy, fire starter or music box."}

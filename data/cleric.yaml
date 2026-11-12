@@ -64,9 +64,11 @@ levels:
       - id: save-wis
         name: "Saving Throw Proficiency: Wisdom"
         commodity: save
+        ability: wis
       - id: save-cha
         name: "Saving Throw Proficiency: Charisma"
         commodity: save
+        ability: cha
       - id: skills-1
         name: "Skill Proficiencies (choose 2)"
         commodity: skill
@@ -89,6 +91,7 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: spellcasting
         name: "Spellcasting (1st-level spells)"
+        summary: "Prepare cleric spells each day using Wisdom, with spell slots that recover on a long rest. Ritual casting and a holy symbol focus."
         tag: spellcasting
         points: 5
       - id: cantrips-known-3
@@ -99,10 +102,12 @@ levels:
     pieces:
       - id: channel-divinity-1
         name: "Channel Divinity (1/rest)"
+        summary: "Use Channel Divinity once per short or long rest to fuel your domain and Turn Undead effects."
         tag: utility
         points: 3
       - id: turn-undead
         name: "Channel Divinity: Turn Undead"
+        summary: "Channel Divinity: undead within 30 feet that fail a Wisdom save must flee from you for 1 minute or until damaged."
         tag: marquee
         points: 5
       - id: hp-2
@@ -144,6 +149,7 @@ levels:
         upgrades: spell-tier-2nd
       - id: destroy-undead-half
         name: "Destroy Undead (CR 1/2)"
+        summary: "Undead of CR 1/2 or lower that fail against your Turn Undead are destroyed outright."
         tag: scaling
         points: 3
         upgrades: turn-undead
@@ -159,6 +165,7 @@ levels:
     pieces:
       - id: channel-divinity-2
         name: "Channel Divinity (2/rest)"
+        summary: "Channel Divinity twice between rests."
         tag: scaling
         points: 3
         upgrades: channel-divinity-1
@@ -185,6 +192,7 @@ levels:
         points: 4
       - id: destroy-undead-1
         name: "Destroy Undead (CR 1)"
+        summary: "Destroy Undead now affects undead of CR 1 or lower."
         tag: scaling
         points: 3
         upgrades: destroy-undead-half
@@ -211,6 +219,7 @@ levels:
     pieces:
       - id: divine-intervention
         name: "Divine Intervention"
+        summary: "Once per long rest, call on your deity; if a d100 roll is at or under your cleric level, it intervenes (then not again for 7 days)."
         tag: marquee
         points: 5
       - id: cantrip-10
@@ -231,6 +240,7 @@ levels:
         upgrades: spell-tier-5th
       - id: destroy-undead-2
         name: "Destroy Undead (CR 2)"
+        summary: "Destroy Undead now affects undead of CR 2 or lower."
         tag: scaling
         points: 3
         upgrades: destroy-undead-1
@@ -267,6 +277,7 @@ levels:
     pieces:
       - id: destroy-undead-3
         name: "Destroy Undead (CR 3)"
+        summary: "Destroy Undead now affects undead of CR 3 or lower."
         tag: scaling
         points: 3
         upgrades: destroy-undead-2
@@ -304,6 +315,7 @@ levels:
         upgrades: spell-tier-8th
       - id: destroy-undead-4
         name: "Destroy Undead (CR 4)"
+        summary: "Destroy Undead now affects undead of CR 4 or lower."
         tag: scaling
         points: 3
         upgrades: destroy-undead-3
@@ -319,6 +331,7 @@ levels:
     pieces:
       - id: channel-divinity-3
         name: "Channel Divinity (3/rest)"
+        summary: "Channel Divinity three times between rests."
         tag: scaling
         points: 3
         upgrades: channel-divinity-2
@@ -350,6 +363,7 @@ levels:
     pieces:
       - id: divine-intervention-improved
         name: "Divine Intervention Improvement"
+        summary: "Divine Intervention succeeds automatically, no roll needed."
         tag: scaling
         points: 3
         upgrades: divine-intervention

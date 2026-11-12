@@ -14,20 +14,24 @@ pieces:
   3:
     - id: open-hand-technique
       name: "Way of the Open Hand: Open Hand Technique"
+      summary: "When Flurry of Blows hits, impose one effect: knock prone, push 15 feet (on a failed save), or deny reactions."
       tag: marquee
       points: 5
   6:
     - id: wholeness-of-body
       name: "Way of the Open Hand: Wholeness of Body"
+      summary: "Action: regain HP equal to three times your monk level. Once per long rest."
       tag: utility
       points: 3
   11:
     - id: tranquility
       name: "Way of the Open Hand: Tranquility"
+      summary: "After a long rest you gain a sanctuary effect until your next long rest or until you attack or cast on a creature."
       tag: marquee
       points: 5
   17:
     - id: quivering-palm
       name: "Way of the Open Hand: Quivering Palm"
+      summary: "Spend 3 ki on an unarmed hit to set lethal vibrations; later, end them to force a Constitution save: drop to 0 HP or take 10d10 necrotic."
       tag: marquee
       points: 5

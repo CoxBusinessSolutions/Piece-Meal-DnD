@@ -51,9 +51,11 @@ levels:
       - id: save-dex
         name: "Saving Throw Proficiency: Dexterity"
         commodity: save
+        ability: dex
       - id: save-cha
         name: "Saving Throw Proficiency: Charisma"
         commodity: save
+        ability: cha
       - id: skills-1
         name: "Skill Proficiencies (choose 3)"
         commodity: skill
@@ -80,10 +82,12 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: spellcasting
         name: "Spellcasting (1st-level spells)"
+        summary: "Cast bard spells using Charisma, with a small set of known spells and spell slots that recover on a long rest. Usable as a ritual caster and through an instrument focus."
         tag: spellcasting
         points: 5
       - id: bardic-inspiration
         name: "Bardic Inspiration (d6)"
+        summary: "Bonus action: give a creature within 60 feet a d6 to add to one ability check, attack roll or save. Uses equal your Charisma modifier per long rest."
         tag: marquee
         points: 5
       - id: cantrips-known-2
@@ -94,10 +98,12 @@ levels:
     pieces:
       - id: jack-of-all-trades
         name: "Jack of All Trades"
+        summary: "Add half your proficiency bonus to ability checks that don't already include it."
         tag: utility
         points: 3
       - id: song-of-rest
         name: "Song of Rest (d6)"
+        summary: "During a short rest, allies who spend hit dice regain an extra 1d6 HP."
         tag: utility
         points: 3
       - id: hp-2
@@ -113,6 +119,7 @@ levels:
         upgrades: spellcasting
       - id: expertise-1
         name: "Expertise (first pair)"
+        summary: "Double your proficiency bonus for two skills you're proficient in."
         tag: marquee
         points: 5
       - id: hp-3
@@ -143,11 +150,13 @@ levels:
         upgrades: spell-tier-2nd
       - id: bardic-inspiration-d8
         name: "Bardic Inspiration die (d8)"
+        summary: "Your Bardic Inspiration die becomes a d8."
         tag: scaling
         points: 3
         upgrades: bardic-inspiration
       - id: font-of-inspiration
         name: "Font of Inspiration"
+        summary: "Bardic Inspiration uses recover on a short rest as well as a long rest."
         tag: utility
         points: 3
       - id: proficiency-bonus-5
@@ -162,6 +171,7 @@ levels:
     pieces:
       - id: countercharm
         name: "Countercharm"
+        summary: "Action: perform to give you and nearby allies advantage on saves against being frightened or charmed until your next turn ends."
         tag: utility
         points: 3
       - id: hp-6
@@ -198,6 +208,7 @@ levels:
         upgrades: spell-tier-4th
       - id: song-of-rest-d8
         name: "Song of Rest die (d8)"
+        summary: "Song of Rest's extra healing becomes 1d8."
         tag: scaling
         points: 3
         upgrades: song-of-rest
@@ -213,16 +224,19 @@ levels:
     pieces:
       - id: bardic-inspiration-d10
         name: "Bardic Inspiration die (d10)"
+        summary: "Your Bardic Inspiration die becomes a d10."
         tag: scaling
         points: 3
         upgrades: bardic-inspiration-d8
       - id: expertise-2
         name: "Expertise (second pair)"
+        summary: "Double your proficiency bonus for two more skills."
         tag: marquee
         points: 5
         upgrades: expertise-1
       - id: magical-secrets-10
         name: "Magical Secrets"
+        summary: "Learn two spells from any class's spell list; they count as bard spells."
         tag: marquee
         points: 5
       - id: cantrips-known-4
@@ -264,6 +278,7 @@ levels:
         upgrades: spell-tier-6th
       - id: song-of-rest-d10
         name: "Song of Rest die (d10)"
+        summary: "Song of Rest's extra healing becomes 1d10."
         tag: scaling
         points: 3
         upgrades: song-of-rest-d8
@@ -279,6 +294,7 @@ levels:
     pieces:
       - id: magical-secrets-14
         name: "Magical Secrets"
+        summary: "Learn two more spells from any class's spell list."
         tag: marquee
         points: 5
       - id: hp-14
@@ -294,6 +310,7 @@ levels:
         upgrades: spell-tier-7th
       - id: bardic-inspiration-d12
         name: "Bardic Inspiration die (d12)"
+        summary: "Your Bardic Inspiration die becomes a d12."
         tag: scaling
         points: 3
         upgrades: bardic-inspiration-d10
@@ -320,6 +337,7 @@ levels:
         upgrades: spell-tier-8th
       - id: song-of-rest-d12
         name: "Song of Rest die (d12)"
+        summary: "Song of Rest's extra healing becomes 1d12."
         tag: scaling
         points: 3
         upgrades: song-of-rest-d10
@@ -335,6 +353,7 @@ levels:
     pieces:
       - id: magical-secrets-18
         name: "Magical Secrets"
+        summary: "Learn two more spells from any class's spell list."
         tag: marquee
         points: 5
       - id: spell-slots-18
@@ -365,6 +384,7 @@ levels:
     pieces:
       - id: superior-inspiration
         name: "Superior Inspiration"
+        summary: "If you roll initiative with no Bardic Inspiration uses left, you regain one."
         tag: utility
         points: 3
       - id: spell-slots-20

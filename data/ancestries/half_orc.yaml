@@ -10,5 +10,5 @@ pieces:
   - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
   - {id: language, name: "Language: Orc", commodity: language, shared: language-orc}
   - {id: menacing, name: "Menacing (Intimidation)", commodity: skill, skills: [intimidation], shared: skill-intimidation}
-  - {id: relentless-endurance, name: "Relentless Endurance", tag: marquee, points: 5, feature: relentless-endurance}
-  - {id: savage-attacks, name: "Savage Attacks", tag: utility, points: 3}
+  - {id: relentless-endurance, name: "Relentless Endurance", tag: marquee, points: 5, feature: relentless-endurance, summary: "When you drop to 0 HP but aren't killed outright, drop to 1 HP instead. Once per long rest."}
+  - {id: savage-attacks, name: "Savage Attacks", tag: utility, points: 3, summary: "On a melee weapon critical hit, roll one of the weapon's damage dice once more and add it."}

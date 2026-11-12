@@ -65,9 +65,11 @@ levels:
       - id: save-dex
         name: "Saving Throw Proficiency: Dexterity"
         commodity: save
+        ability: dex
       - id: save-int
         name: "Saving Throw Proficiency: Intelligence"
         commodity: save
+        ability: int
       - id: skills-1
         name: "Skill Proficiencies (choose 4)"
         commodity: skill
@@ -94,20 +96,24 @@ levels:
       # --- Unique features (split the remaining budget by points) ---
       - id: sneak-attack-1d6
         name: "Sneak Attack (1d6)"
+        summary: "Once per turn, deal an extra 1d6 damage with a finesse or ranged attack if you have advantage or an ally is next to the target."
         tag: marquee
         points: 5
       - id: expertise-1
         name: "Expertise (first pair)"
+        summary: "Double your proficiency bonus for two skills (or one skill and thieves' tools)."
         tag: marquee
         points: 5
       - id: thieves-cant
         name: "Thieves' Cant"
+        summary: "You know thieves' cant, a secret mix of jargon and signs for hidden messages."
         tag: ribbon
         points: 1
   2:
     pieces:
       - id: cunning-action
         name: "Cunning Action"
+        summary: "Dash, Disengage or Hide as a bonus action."
         tag: utility
         points: 3
       - id: hp-2
@@ -118,6 +124,7 @@ levels:
     pieces:
       - id: sneak-attack-2d6
         name: "Sneak Attack (2d6)"
+        summary: "Sneak Attack deals 2d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-1d6
@@ -139,10 +146,12 @@ levels:
     pieces:
       - id: uncanny-dodge
         name: "Uncanny Dodge"
+        summary: "Reaction: halve the damage of an attack from an attacker you can see."
         tag: marquee
         points: 5
       - id: sneak-attack-3d6
         name: "Sneak Attack (3d6)"
+        summary: "Sneak Attack deals 3d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-2d6
@@ -158,6 +167,7 @@ levels:
     pieces:
       - id: expertise-2
         name: "Expertise (second pair)"
+        summary: "Double your proficiency bonus for two more skills."
         tag: marquee
         points: 5
         upgrades: expertise-1
@@ -169,10 +179,12 @@ levels:
     pieces:
       - id: evasion
         name: "Evasion"
+        summary: "When a Dexterity save would halve damage, take none on a success and half on a failure."
         tag: marquee
         points: 5
       - id: sneak-attack-4d6
         name: "Sneak Attack (4d6)"
+        summary: "Sneak Attack deals 4d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-3d6
@@ -194,6 +206,7 @@ levels:
     pieces:
       - id: sneak-attack-5d6
         name: "Sneak Attack (5d6)"
+        summary: "Sneak Attack deals 5d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-4d6
@@ -219,10 +232,12 @@ levels:
     pieces:
       - id: reliable-talent
         name: "Reliable Talent"
+        summary: "On checks with skills you're proficient in, treat a d20 roll of 9 or lower as a 10."
         tag: marquee
         points: 5
       - id: sneak-attack-6d6
         name: "Sneak Attack (6d6)"
+        summary: "Sneak Attack deals 6d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-5d6
@@ -244,6 +259,7 @@ levels:
     pieces:
       - id: sneak-attack-7d6
         name: "Sneak Attack (7d6)"
+        summary: "Sneak Attack deals 7d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-6d6
@@ -259,6 +275,7 @@ levels:
     pieces:
       - id: blindsense
         name: "Blindsense"
+        summary: "If you can hear, you know where hidden or invisible creatures within 10 feet are."
         tag: proficiency
         points: 2
       - id: hp-14
@@ -269,10 +286,12 @@ levels:
     pieces:
       - id: slippery-mind
         name: "Slippery Mind"
+        summary: "Gain proficiency in Wisdom saving throws."
         tag: marquee
         points: 5
       - id: sneak-attack-8d6
         name: "Sneak Attack (8d6)"
+        summary: "Sneak Attack deals 8d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-7d6
@@ -294,6 +313,7 @@ levels:
     pieces:
       - id: sneak-attack-9d6
         name: "Sneak Attack (9d6)"
+        summary: "Sneak Attack deals 9d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-8d6
@@ -309,6 +329,7 @@ levels:
     pieces:
       - id: elusive
         name: "Elusive"
+        summary: "No attack roll has advantage against you while you aren't incapacitated."
         tag: marquee
         points: 5
       - id: hp-18
@@ -323,6 +344,7 @@ levels:
         points: 4
       - id: sneak-attack-10d6
         name: "Sneak Attack (10d6)"
+        summary: "Sneak Attack deals 10d6 extra damage."
         tag: scaling
         points: 3
         upgrades: sneak-attack-9d6
@@ -334,6 +356,7 @@ levels:
     pieces:
       - id: stroke-of-luck
         name: "Stroke of Luck"
+        summary: "Turn a missed attack into a hit, or a failed check into a 20. Once per short or long rest."
         tag: marquee
         points: 5
       - id: hp-20

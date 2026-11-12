@@ -113,13 +113,20 @@ def build_class(path, catalog, subclass=None):
     if problems:
         raise SystemExit(f"{path}: reconciliation failed: {problems}")
 
+    # Summaries (own words, SRD scope only; non-SRD subclass pieces have none).
+    shared = price.load_summaries(DATA_DIR)
+    piece_by_id = {p["id"]: p for lvl in doc["levels"].values() for p in lvl["pieces"]}
+    def _summary(pid):
+        return price.summary_for(piece_by_id.get(pid, {"id": pid}), shared) or ""
+
     caster = doc.get("caster", "none")
     level1 = [{"id": r["id"], "name": r["name"], "detail": r["tag"],
-               "type": r["type"], "xp": r["xp"], "points": r["points"]}
+               "type": r["type"], "xp": r["xp"], "points": r["points"],
+               "summary": _summary(r["id"])}
               for r in rows if r["ledger"] == "creation"]
     levels = [{"lvl": r["level"], "id": r["id"], "name": r["name"],
                "tag": r["tag"], "xp": r["xp"], "cum": r["cumulative"],
-               "upgrades": upgrades.get(r["id"])}
+               "upgrades": upgrades.get(r["id"]), "summary": _summary(r["id"])}
               for r in rows if r["ledger"] == "xp"]
 
     # Commodity kit, so the classless "load a standard class" preset can set the
@@ -192,7 +199,10 @@ def build_classless(catalog, classes):
             xp = CLASSLESS_FEATURE_PRICE.get(name, pts * CLASSLESS_RATE)
             f = feats.setdefault(name, {
                 "id": fid, "name": name, "tag": p["detail"], "xp": xp,
-                "level": 1, "sources": [], "repeatable": False, "req_name": None})
+                "level": 1, "sources": [], "repeatable": False, "req_name": None,
+                "summary": ""})
+            if not f["summary"] and p.get("summary"):
+                f["summary"] = p["summary"]
             if cls["name"] not in f["sources"]:
                 f["sources"].append(cls["name"])
             lvl1_names.add(name)
@@ -209,7 +219,10 @@ def build_classless(catalog, classes):
             if r["tag"] not in HL_TAGS or r["name"] in lvl1_names:
                 continue
             o = occ.setdefault(r["name"], {
-                "tag": r["tag"], "entries": [], "sources": [], "req_name": None})
+                "tag": r["tag"], "entries": [], "sources": [], "req_name": None,
+                "summary": ""})
+            if not o["summary"] and r.get("summary"):
+                o["summary"] = r["summary"]
             o["entries"].append((r["lvl"], r["xp"]))
             if cls["name"] not in o["sources"]:
                 o["sources"].append(cls["name"])
@@ -223,7 +236,8 @@ def build_classless(catalog, classes):
             "id": re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-"),
             "name": name, "tag": o["tag"], "xp": round(sum(at_min) / len(at_min)),
             "level": minlvl, "sources": o["sources"],
-            "repeatable": o["tag"] in REPEATABLE_TAGS, "req_name": o["req_name"]}
+            "repeatable": o["tag"] in REPEATABLE_TAGS, "req_name": o["req_name"],
+            "summary": o["summary"]}
 
     # Resolve prerequisite names to the deduplicated menu ids, then drop the name.
     name_to_id = {f["name"]: f["id"] for f in feats.values()}
@@ -285,6 +299,7 @@ def build_ancestries(catalog):
     if not os.path.isdir(anc_dir):
         return None
     races, pieces, shared = {}, [], {}
+    anc_shared = price.load_summaries(DATA_DIR)
     for key in ANCESTRY_ORDER:
         doc = yaml.safe_load(open(os.path.join(anc_dir, f"{key}.yaml"), encoding="utf-8"))
         rows, problems = price.price_ancestry(doc, catalog)
@@ -305,7 +320,8 @@ def build_ancestries(catalog):
                 shared[pid]["anc"].append(key)
                 continue
             piece = {"id": pid, "name": r["name"], "anc": [key], "xp": r["xp"],
-                     "tag": r["tag"] or ""}
+                     "tag": r["tag"] or "",
+                     "summary": price.summary_for(d, anc_shared, "ancestry") or ""}
             if d.get("commodity") == "ability" and d.get("ability") != "choice":
                 piece["abil"] = {d["ability"]: d.get("amount", 1)}
             if d.get("feature"):
@@ -345,7 +361,7 @@ def main():
     # defaults. Ordered class-major so the preset dropdown groups by class.
     all_variants = {}
     for path in sorted(glob.glob(os.path.join(DATA_DIR, "*.yaml"))):
-        if os.path.basename(path) == "level1_catalog.yaml":
+        if os.path.basename(path) in ("level1_catalog.yaml", "summaries.yaml"):
             continue
         # Build EVERY subclass variant so the per-class page can offer a picker.
         file_key = os.path.splitext(os.path.basename(path))[0]
