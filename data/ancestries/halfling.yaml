@@ -1,0 +1,16 @@
+# Piece-Meal-DnD — Halfling ancestry (Halfling + Lightfoot subrace folded in).
+# Pieces tagged `subrace: lightfoot_halfling` came from that subrace (used to convert
+# characters saved with or without it).
+ancestry: Halfling
+id: halfling
+source: "SRD 5.1 (CC-BY-4.0)"
+size: Small
+speed: 25
+pieces:
+  - {id: dex-2, name: "Halfling: +2 Dexterity", commodity: ability, ability: dex, amount: 2}
+  - {id: cha-1, name: "Lightfoot: +1 Charisma", commodity: ability, ability: cha, amount: 1, subrace: lightfoot_halfling}
+  - {id: language, name: "Language: Halfling", commodity: language, shared: language-halfling}
+  - {id: lucky, name: "Lucky", tag: marquee, points: 5}
+  - {id: brave, name: "Brave", tag: utility, points: 3}
+  - {id: nimbleness, name: "Halfling Nimbleness", tag: ribbon, points: 1}
+  - {id: naturally-stealthy, name: "Naturally Stealthy", tag: utility, points: 3, subrace: lightfoot_halfling}

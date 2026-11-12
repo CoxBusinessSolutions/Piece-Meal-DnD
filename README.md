@@ -108,6 +108,42 @@ Three spell mechanics are modeled, all with the same upgrade-chain style:
   (1st@1 … 5th@9, then only the count grows), plus Mystic Arcanum pieces for
   6th–9th and Eldritch Invocations as their own buyable scaling chain.
 
+## Ancestry — a third, creation-only ledger
+
+Race works the same way as classes, on its own budget. A character **declares**
+one or more ancestries (the first is their *primary*, which sets size and base
+speed), then buys racial pieces from just those ancestries with a separate
+**20-point ancestry budget**. Racial pieces are creation-only: they are never
+bought with earned XP.
+
+- **Commodities** shared across ancestries have fixed prices
+  (`ancestry_commodities` in `data/level1_catalog.yaml`): +1 to an ability 3,
+  a language 2, and darkvision, skill, tool, weapon training, resistance and
+  cantrip pieces at 1–2.
+- **Unique traits** (Lucky, Breath Weapon, Fey Ancestry, ...) split whatever is
+  left of the 20 by power points.
+- Every ancestry, bought in full, costs **exactly 20**, so "all of Dwarf" is
+  today's Dwarf and a mixed heritage trades breadth for depth.
+- Human (+1 to all six plus a language, no unique traits) is pure commodity and
+  pins the budget. If commodity prices change, move the budget only in steps of
+  10 and re-price every ancestry.
+- Subraces fold into their parent (Hill Dwarf's Dwarven Toughness is a Dwarf
+  piece); pieces that came from a subrace are tagged `subrace: <id>`. Shared pieces carry a `shared` key (one Darkvision piece no matter
+  how many ancestries offer it); the same unique trait in two ancestries carries
+  a `feature` key so it can only be owned once.
+- Mixed builds may raise any one ability by at most +2 from ancestry pieces.
+
+Ancestries: the 9 SRD 5.1 races plus Goliath and Orc from SRD 5.2. Goliath's
+and Orc's +2 STR / +1 CON are a **house rule** (2024 species carry no ability
+increases). Goliath's Large Form is a free **primary trait**, not a piece: a
+Goliath-primary character unlocks it at 6,500 earned XP (the SRD level-5
+threshold, Piece-Meal's stand-in for character level 5).
+
+```bash
+python3 tools/price.py data/ancestries/dwarf.yaml            # breakdown
+python3 tools/price.py data/ancestries/dwarf.yaml --check    # validate
+```
+
 ## Layout
 
 ```
@@ -115,11 +151,13 @@ data/level1_catalog.yaml   Shared, fixed prices for level-1 commodities
 data/<class>.yaml          Base chassis — one file per class (all 12)
 data/subclasses/<class>/<name>.yaml  Subclass fragments merged onto a base
 data/<class>.md            Generated breakdown tables (do not edit by hand)
+data/ancestries/<id>.yaml  One file per ancestry (racial pieces; ancestry ledger)
+data/ancestries/<id>.md    Generated ancestry breakdown tables
 tools/price.py             Pricer / validator
 tools/build_web.py         Bundles the data into both web builders
 web/index.html             Per-class builder — open in any browser (generated)
 web/app.html               Per-class builder source (body-only)
-web/classless.html         Classless builder — open in any browser (generated)
+web/classless.html         Classless builder (classes + ancestries) — open in any browser (generated)
 web/classless-app.html     Classless builder source (body-only)
 .github/workflows/pages.yml  Deploys web/ to GitHub Pages on push to main
 ```
@@ -350,6 +388,11 @@ the low-level view clean; the menu grows as you level up.
     already exist (spell tiers, superiority dice, cantrips) keep their `upgrades`
     prerequisites — e.g. "Eldritch Knight: 2nd-level spells" needs its 1st-level
     Spellcasting. Only the "you took this subclass" gate is intentionally absent.
+- **Ancestry ledger — done.** Eleven ancestries priced on their own 20-point,
+  creation-only budget (see *Ancestry*). The classless builder has an Ancestry
+  card (declare ancestries, primary first; shared traits listed once; +2 cap;
+  Goliath's Large Form unlocks at Lv 5). The same data drives CharacterManager's
+  Piece-Meal 5e pack. Not yet in the per-class builder (`web/index.html`).
 - **Broaden content.** More subclasses per class, or non-SRD classes/options
   (mind the SRD 5.1 licensing boundary for anything beyond it).
 - **Builder niceties.** Save/share a specific build (permalink), export to a
@@ -365,7 +408,10 @@ Document 5.1 ("SRD 5.1")** by Wizards of the Coast LLC, available at
 <https://dnd.wizards.com/resources/systems-reference-document>, licensed under
 the **Creative Commons Attribution 4.0 International License**
 (<https://creativecommons.org/licenses/by/4.0/legalcode>). The 12 base classes
-and their one SRD reference subclass come from the SRD 5.1.
+and their one SRD reference subclass come from the SRD 5.1, as do the nine 2014
+races in `data/ancestries/`. The **Goliath** and **Orc** ancestries include
+material from the **System Reference Document 5.2 ("SRD 5.2")**, also CC-BY-4.0;
+their +2 STR / +1 CON ability increases are a **house rule**, not SRD 5.2.
 
 **Non-SRD subclasses** — the additional Player's Handbook subclasses are **not**
 covered by the SRD or CC-BY. Their data files record only **mechanical facts**

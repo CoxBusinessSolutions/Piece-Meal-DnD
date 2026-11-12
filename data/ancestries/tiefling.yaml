@@ -1,0 +1,14 @@
+# Piece-Meal-DnD — Tiefling ancestry.
+ancestry: Tiefling
+id: tiefling
+source: "SRD 5.1 (CC-BY-4.0)"
+size: Medium
+speed: 30
+pieces:
+  - {id: cha-2, name: "Tiefling: +2 Charisma", commodity: ability, ability: cha, amount: 2}
+  - {id: int-1, name: "Tiefling: +1 Intelligence", commodity: ability, ability: int, amount: 1}
+  - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
+  - {id: language, name: "Language: Infernal", commodity: language, shared: language-infernal}
+  - {id: hellish-resistance, name: "Hellish Resistance (fire)", commodity: resistance, damage: fire, shared: resistance-fire}
+  - {id: thaumaturgy, name: "Infernal Legacy: Thaumaturgy", commodity: cantrip}
+  - {id: infernal-legacy, name: "Infernal Legacy (spells)", tag: utility, points: 3, upgrades: thaumaturgy}

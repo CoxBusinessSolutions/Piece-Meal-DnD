@@ -1,0 +1,21 @@
+# Piece-Meal-DnD — Goliath ancestry. Traits from SRD 5.2 (CC-BY-4.0).
+# The +2 STR / +1 CON pieces are a HOUSE RULE (2024 species have no ability
+# increases); they keep Goliath in line with the 2014-style races.
+# Large Form is not a piece: it belongs to a Goliath PRIMARY ancestry (size is
+# the primary's), costs nothing, and unlocks at 6,500 earned XP — the SRD
+# level-5 threshold, Piece-Meal's stand-in for "character level 5".
+ancestry: Goliath
+id: goliath
+source: "SRD 5.2 (CC-BY-4.0); ability increases are a house rule"
+size: Medium
+speed: 35
+pieces:
+  - {id: str-2, name: "Goliath: +2 Strength (house rule)", commodity: ability, ability: str, amount: 2}
+  - {id: con-1, name: "Goliath: +1 Constitution (house rule)", commodity: ability, ability: con, amount: 1}
+  - {id: giant-ancestry, name: "Giant Ancestry", tag: marquee, points: 5}
+  - {id: powerful-build, name: "Powerful Build", tag: ribbon, points: 1}
+primary_traits:
+  - id: large-form
+    name: "Large Form"
+    min_experience: 6500
+    description: "Bonus Action: become Large for 10 minutes if there is room. While Large, you have Advantage on Strength checks and +10 ft Speed. Once per Long Rest."

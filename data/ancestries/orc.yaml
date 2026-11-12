@@ -1,0 +1,14 @@
+# Piece-Meal-DnD — Orc ancestry. Traits from SRD 5.2 (CC-BY-4.0).
+# The +2 STR / +1 CON pieces are a HOUSE RULE (2024 species have no ability
+# increases); they keep Orc in line with the 2014-style races.
+ancestry: Orc
+id: orc
+source: "SRD 5.2 (CC-BY-4.0); ability increases are a house rule"
+size: Medium
+speed: 30
+pieces:
+  - {id: str-2, name: "Orc: +2 Strength (house rule)", commodity: ability, ability: str, amount: 2}
+  - {id: con-1, name: "Orc: +1 Constitution (house rule)", commodity: ability, ability: con, amount: 1}
+  - {id: darkvision, name: "Darkvision (120 ft)", commodity: darkvision, range: "120", shared: darkvision-120}
+  - {id: adrenaline-rush, name: "Adrenaline Rush", tag: utility, points: 3}
+  - {id: relentless-endurance, name: "Relentless Endurance", tag: marquee, points: 5, feature: relentless-endurance}

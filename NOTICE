@@ -12,7 +12,13 @@ SRD CONTENT
   The SRD 5.1 is licensed under the Creative Commons Attribution 4.0
   International License (CC-BY-4.0):
   https://creativecommons.org/licenses/by/4.0/legalcode
-  The 12 base classes and their one SRD reference subclass come from the SRD 5.1.
+  The 12 base classes and their one SRD reference subclass come from the SRD 5.1,
+  as do the nine 2014 races decomposed in data/ancestries/.
+
+  The Goliath and Orc ancestries (data/ancestries/goliath.yaml, orc.yaml)
+  include material from the System Reference Document 5.2 ("SRD 5.2") by
+  Wizards of the Coast LLC, also licensed under CC-BY-4.0. Their +2 Strength /
+  +1 Constitution ability increases are a HOUSE RULE, not SRD 5.2 content.
 
 NON-SRD SUBCLASSES
   The additional Player's Handbook subclasses are NOT covered by the SRD or
