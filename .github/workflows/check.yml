@@ -1,0 +1,54 @@
+name: Check data and generated builders
+
+# Validates every class and ancestry ledger, verifies the committed web/ outputs
+# match a fresh `python3 tools/build_web.py`, and runs the classless builder's
+# browser check.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Price-check every class and ancestry
+        run: |
+          for f in data/*.yaml data/ancestries/*.yaml; do
+            case "$(basename "$f")" in level1_catalog.yaml|summaries.yaml) continue ;; esac
+            python3 tools/price.py "$f" --check
+          done
+
+      - name: Rebuild web builders
+        run: python3 tools/build_web.py
+
+      - name: Committed web/ outputs are up to date
+        run: |
+          git diff --exit-code -- web/ || {
+            echo "::error::web/ is stale: run python3 tools/build_web.py and commit the result"
+            exit 1
+          }
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright
+        run: |
+          npm i --no-save playwright@1.63.0
+          npx playwright install --with-deps chromium
+
+      - name: Browser check of the classless builder
+        run: node tools/check_builder.mjs
