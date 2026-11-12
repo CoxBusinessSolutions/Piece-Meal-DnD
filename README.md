@@ -128,7 +128,7 @@ bought with earned XP.
   pins the budget. If commodity prices change, move the budget only in steps of
   10 and re-price every ancestry.
 - Subraces fold into their parent (Hill Dwarf's Dwarven Toughness is a Dwarf
-  piece). Shared pieces carry a `shared` key (one Darkvision piece no matter
+  piece); pieces that came from a subrace are tagged `subrace: <id>`. Shared pieces carry a `shared` key (one Darkvision piece no matter
   how many ancestries offer it); the same unique trait in two ancestries carries
   a `feature` key so it can only be owned once.
 - Mixed builds may raise any one ability by at most +2 from ancestry pieces.

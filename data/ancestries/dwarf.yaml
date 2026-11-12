@@ -1,4 +1,6 @@
 # Piece-Meal-DnD — Dwarf ancestry (Dwarf + Hill Dwarf subrace folded in).
+# Pieces tagged `subrace: hill_dwarf` came from that subrace (used to convert
+# characters saved with or without it).
 ancestry: Dwarf
 id: dwarf
 source: "SRD 5.1 (CC-BY-4.0)"
@@ -6,7 +8,7 @@ size: Medium
 speed: 25
 pieces:
   - {id: con-2, name: "Dwarf: +2 Constitution", commodity: ability, ability: con, amount: 2}
-  - {id: wis-1, name: "Hill Dwarf: +1 Wisdom", commodity: ability, ability: wis, amount: 1}
+  - {id: wis-1, name: "Hill Dwarf: +1 Wisdom", commodity: ability, ability: wis, amount: 1, subrace: hill_dwarf}
   - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
   - {id: language, name: "Language: Dwarvish", commodity: language, shared: language-dwarvish}
   - {id: tool, name: "Tool Proficiency (artisan's tools)", commodity: tool}
@@ -14,4 +16,4 @@ pieces:
   - {id: poison-resistance, name: "Poison Resistance", commodity: resistance, damage: poison, shared: resistance-poison}
   - {id: resilience, name: "Dwarven Resilience (poison saves)", tag: utility, points: 3}
   - {id: stonecunning, name: "Stonecunning", tag: ribbon, points: 1}
-  - {id: toughness, name: "Dwarven Toughness", tag: hp, points: 2, hp: 1}
+  - {id: toughness, name: "Dwarven Toughness", tag: hp, points: 2, hp: 1, subrace: hill_dwarf}

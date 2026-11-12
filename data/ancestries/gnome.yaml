@@ -1,4 +1,6 @@
 # Piece-Meal-DnD — Gnome ancestry (Gnome + Rock Gnome subrace folded in).
+# Pieces tagged `subrace: rock_gnome` came from that subrace (used to convert
+# characters saved with or without it).
 ancestry: Gnome
 id: gnome
 source: "SRD 5.1 (CC-BY-4.0)"
@@ -6,10 +8,10 @@ size: Small
 speed: 25
 pieces:
   - {id: int-2, name: "Gnome: +2 Intelligence", commodity: ability, ability: int, amount: 2}
-  - {id: con-1, name: "Rock Gnome: +1 Constitution", commodity: ability, ability: con, amount: 1}
+  - {id: con-1, name: "Rock Gnome: +1 Constitution", commodity: ability, ability: con, amount: 1, subrace: rock_gnome}
   - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
   - {id: language, name: "Language: Gnomish", commodity: language, shared: language-gnomish}
-  - {id: tinkers-tools, name: "Tool Proficiency (tinker's tools)", commodity: tool}
+  - {id: tinkers-tools, name: "Tool Proficiency (tinker's tools)", commodity: tool, subrace: rock_gnome}
   - {id: gnome-cunning, name: "Gnome Cunning", tag: marquee, points: 5}
-  - {id: artificers-lore, name: "Artificer's Lore", tag: ribbon, points: 1}
-  - {id: tinker, name: "Tinker", tag: utility, points: 3, upgrades: tinkers-tools}
+  - {id: artificers-lore, name: "Artificer's Lore", tag: ribbon, points: 1, subrace: rock_gnome}
+  - {id: tinker, name: "Tinker", tag: utility, points: 3, upgrades: tinkers-tools, subrace: rock_gnome}
