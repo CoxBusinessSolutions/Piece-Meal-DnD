@@ -24,7 +24,7 @@ class:
     proficiency-bonus: "Your proficiency bonus goes up by 1, improving every proficient attack, save, skill and spell DC."
     spell-tier-: "Unlocks spells of this level, with the spell slots your class gains for them."
     spell-slots-: "Adds the extra spell slots your class gains at this level."
-    cantrip: "You know one more cantrip from your class's list."
+    cantrip: "The number of cantrips you know from your class's list rises to the count shown."
 
 ancestry:
   commodity:

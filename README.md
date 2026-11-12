@@ -120,8 +120,10 @@ Three spell mechanics are modeled, all with the same upgrade-chain style:
   bought at level 2 and a new tier unlocks every four levels (2/5/9/13/17),
   capping at 5th.
 - **Pact Magic** (Warlock) — a few short-rest slots that all rise together
-  (1st@1 … 5th@9, then only the count grows), plus Mystic Arcanum pieces for
-  6th–9th and Eldritch Invocations as their own buyable scaling chain.
+  (slot level 1st@1 … 5th@9) and grow in number as in the SRD table (a 2nd
+  slot at 2, a 3rd at 11, a 4th at 17 — each its own `slots` piece), plus
+  Mystic Arcanum pieces for 6th–9th and Eldritch Invocations as their own
+  buyable scaling chain.
 
 ## Ancestry — a third, creation-only ledger
 
