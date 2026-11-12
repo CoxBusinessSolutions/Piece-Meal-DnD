@@ -1272,7 +1272,7 @@
    "feature": "weapon-tier",
    "commodity": "weapon",
    "tier": "simple",
-   "summary": "Proficiency with simple weapons: add your proficiency bonus to attack rolls with them. The Druid's version is a set list of simple weapons, and the Monk's also covers shortswords.",
+   "summary": "Proficiency with simple weapons: add your proficiency bonus to attack rolls with them. The Druid's version is a set list that also includes scimitars, and the Monk's also covers shortswords.",
    "replaces": [
     "cleric:weapons-1",
     "druid:weapons-1",
