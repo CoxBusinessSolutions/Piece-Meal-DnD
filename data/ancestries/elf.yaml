@@ -1,0 +1,17 @@
+# Piece-Meal-DnD — Elf ancestry (Elf + High Elf subrace folded in).
+ancestry: Elf
+id: elf
+source: "SRD 5.1 (CC-BY-4.0)"
+size: Medium
+speed: 30
+pieces:
+  - {id: dex-2, name: "Elf: +2 Dexterity", commodity: ability, ability: dex, amount: 2}
+  - {id: int-1, name: "High Elf: +1 Intelligence", commodity: ability, ability: int, amount: 1}
+  - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
+  - {id: keen-senses, name: "Keen Senses (Perception)", commodity: skill, skills: [perception], shared: skill-perception}
+  - {id: language, name: "Language: Elvish", commodity: language, shared: language-elvish}
+  - {id: extra-language, name: "Extra Language", commodity: language, shared: language-extra}
+  - {id: weapon-training, name: "Elf Weapon Training", commodity: weapon_training}
+  - {id: cantrip, name: "High Elf Cantrip (wizard)", commodity: cantrip}
+  - {id: fey-ancestry, name: "Fey Ancestry", tag: utility, points: 3, feature: fey-ancestry}
+  - {id: trance, name: "Trance", tag: ribbon, points: 1}

@@ -1,0 +1,14 @@
+# Piece-Meal-DnD — Half-Orc ancestry.
+ancestry: Half-Orc
+id: half_orc
+source: "SRD 5.1 (CC-BY-4.0)"
+size: Medium
+speed: 30
+pieces:
+  - {id: str-2, name: "Half-Orc: +2 Strength", commodity: ability, ability: str, amount: 2}
+  - {id: con-1, name: "Half-Orc: +1 Constitution", commodity: ability, ability: con, amount: 1}
+  - {id: darkvision, name: "Darkvision (60 ft)", commodity: darkvision, range: "60", shared: darkvision-60}
+  - {id: language, name: "Language: Orc", commodity: language, shared: language-orc}
+  - {id: menacing, name: "Menacing (Intimidation)", commodity: skill, skills: [intimidation], shared: skill-intimidation}
+  - {id: relentless-endurance, name: "Relentless Endurance", tag: marquee, points: 5, feature: relentless-endurance}
+  - {id: savage-attacks, name: "Savage Attacks", tag: utility, points: 3}

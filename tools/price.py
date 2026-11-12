@@ -103,12 +103,18 @@ def merge_subclass(doc, frag):
 
 
 def load_catalog(class_path):
-    """Load the shared level-1 commodity catalog next to the class file."""
-    cat_path = os.path.join(os.path.dirname(class_path), "level1_catalog.yaml")
-    if not os.path.exists(cat_path):
-        return None
-    with open(cat_path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+    """Load the shared level-1 commodity catalog next to the data file.
+
+    Class files sit beside the catalog in data/; ancestry files sit one level
+    down in data/ancestries/, so the parent directory is checked too.
+    """
+    here = os.path.dirname(class_path)
+    for d in (here, os.path.dirname(here)):
+        cat_path = os.path.join(d, "level1_catalog.yaml")
+        if os.path.exists(cat_path):
+            with open(cat_path, encoding="utf-8") as f:
+                return yaml.safe_load(f)
+    return None
 
 
 def commodity_xp(piece, catalog, problems):
@@ -218,6 +224,114 @@ def price_class(doc):
     return rows, problems
 
 
+# --- Ancestry ledger ---------------------------------------------------------
+
+ANCESTRY_COMMODITIES = (
+    "ability", "language", "darkvision", "skill", "tool", "weapon_training",
+    "resistance", "cantrip",
+)
+
+
+def ancestry_commodity_xp(piece, catalog, problems):
+    """Fixed ancestry-budget price of an ancestry commodity piece."""
+    table = catalog.get("ancestry_commodities") or {}
+    kind = piece["commodity"]
+    try:
+        if kind not in ANCESTRY_COMMODITIES:
+            raise KeyError(kind)
+        if kind == "ability":
+            # A fixed +N to one ability, or a choose-`count` group of +N each.
+            return table["ability"] * piece.get("amount", 1) * piece.get("count", 1)
+        if kind == "darkvision":
+            return table["darkvision"][str(piece["range"])]
+        if kind == "skill":
+            qty = piece.get("qty", len(piece.get("skills", [])) or 1)
+            return table["skill"] * qty
+        return table[kind]
+    except KeyError as e:
+        problems.append(f"{piece.get('id', '?')}: unknown ancestry commodity spec {e}")
+        return 0
+
+
+def price_ancestry(doc, catalog):
+    """Return (rows, problems) for one ancestry against `ancestry_budget`.
+
+    Same rule as a class's level 1: commodities cost their fixed catalog price,
+    and whatever is left of the budget is split among the unique traits by
+    points (largest remainder). The ancestry must total the budget exactly, the
+    budget must be a multiple of 10, and no unique trait may price at 0 or less.
+    """
+    problems = []
+    rows = []
+    if catalog is None or "ancestry_budget" not in catalog:
+        return rows, ["No ancestry_budget found in level1_catalog.yaml."]
+    budget = catalog["ancestry_budget"]
+    if budget % 10 != 0:
+        problems.append(f"ancestry_budget {budget} is not a multiple of 10")
+
+    pieces = doc.get("pieces") or []
+    commodities = [p for p in pieces if "commodity" in p]
+    uniques = [p for p in pieces if "commodity" not in p]
+    commodity_prices = [ancestry_commodity_xp(p, catalog, problems) for p in commodities]
+    spent = sum(commodity_prices)
+    remainder = budget - spent
+    if remainder < 0:
+        problems.append(f"commodities cost {spent} > ancestry budget {budget}")
+        remainder = 0
+    if remainder > 0 and not uniques:
+        problems.append(
+            f"{remainder} of the budget is left but there are no unique traits "
+            f"to absorb it (adjust commodity prices or the budget)")
+    unique_prices = largest_remainder(remainder, [p.get("points", 0) for p in uniques])
+    for p, price in zip(uniques, unique_prices):
+        if price <= 0:
+            problems.append(f"{p['id']}: unique trait priced {price} (must be > 0)")
+
+    ids_seen = set()
+    running = 0
+    for group, prices, ptype in ((commodities, commodity_prices, "commodity"),
+                                 (uniques, unique_prices, "feature")):
+        for p, price in zip(group, prices):
+            pid = p["id"]
+            if pid in ids_seen:
+                problems.append(f"Duplicate piece id: {pid}")
+            ids_seen.add(pid)
+            running += price
+            rows.append({
+                "level": 1, "ledger": "ancestry", "id": pid, "name": p["name"],
+                "type": ptype, "tag": p.get("tag", p.get("commodity", "")),
+                "points": p.get("points", ""), "xp": price, "cumulative": running,
+            })
+    for p in pieces:
+        up = p.get("upgrades")
+        if up and up not in ids_seen:
+            problems.append(f"{p['id']}: upgrades unknown id '{up}'")
+    if running != budget and not problems:
+        problems.append(f"ancestry total {running} != budget {budget}")
+    return rows, problems
+
+
+def render_ancestry_markdown(doc, rows, budget):
+    out = [f"# {doc['ancestry']} — Piece-Meal Ancestry Breakdown",
+           "",
+           f"_Source: {doc['source']}. Size {doc.get('size', '?')}, base speed "
+           f"{doc.get('speed', '?')} ft (from your primary ancestry). Prices are "
+           f"derived, not hand-authored._",
+           "",
+           f"## Ancestry budget ({budget})",
+           "",
+           "_Commodity pieces cost their fixed catalog price (identical in every "
+           "ancestry); the ancestry's unique traits split whatever is left. "
+           "Creation only — never bought with earned XP._",
+           "",
+           "| Piece | Type | Detail | Cost | Spent |",
+           "|-------|------|--------|-----:|------:|"]
+    for r in rows:
+        out.append(f"| {r['name']} | {r['type']} | {r['tag']} | "
+                   f"{r['xp']} | {r['cumulative']} |")
+    return "\n".join(out)
+
+
 def render_text(doc, rows):
     out = [f"{doc['class']} — piece-meal breakdown  (source: {doc['source']})", ""]
     cur = None
@@ -267,7 +381,7 @@ def render_markdown(doc, rows):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Price and validate a class YAML.")
+    ap = argparse.ArgumentParser(description="Price and validate a class or ancestry YAML.")
     ap.add_argument("path")
     ap.add_argument("--subclass", metavar="FRAGMENT",
                     help="merge a subclass fragment "
@@ -284,7 +398,10 @@ def main():
             merge_subclass(doc, yaml.safe_load(f))
     doc["_catalog"] = load_catalog(args.path)
 
-    rows, problems = price_class(doc)
+    if "ancestry" in doc:
+        rows, problems = price_ancestry(doc, doc["_catalog"])
+    else:
+        rows, problems = price_class(doc)
 
     if problems:
         print("RECONCILIATION FAILED:", file=sys.stderr)
@@ -293,6 +410,16 @@ def main():
         sys.exit(1)
 
     if args.check:
+        return
+    if "ancestry" in doc:
+        if args.markdown:
+            print(render_ancestry_markdown(
+                doc, rows, doc["_catalog"]["ancestry_budget"]))
+        else:
+            out = [f"{doc['ancestry']} — ancestry pieces  (source: {doc['source']})"]
+            out += [f"  {r['xp']:>3}  [{str(r['tag']):<15}] {r['name']}"
+                    f"  (spent {r['cumulative']})" for r in rows]
+            print("\n".join(out))
         return
     if args.markdown:
         print(render_markdown(doc, rows))

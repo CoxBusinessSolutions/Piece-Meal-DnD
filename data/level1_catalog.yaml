@@ -62,3 +62,31 @@ commodities:
     simple: 4          # all simple weapons
     simple_plus_few_martial: 6   # simple + a handful of martial (the Rogue)
     simple_and_martial: 8        # all simple + all martial weapons
+
+# ---------------------------------------------------------------------------
+# ANCESTRY LEDGER — a second creation-only budget for racial pieces.
+#
+# A character declares one or more ancestries, then buys racial pieces from any
+# of them with this separate budget (never with class budget or earned XP).
+# Same two-ledger rule as classes: commodity pieces cost the fixed prices below,
+# and whatever an ancestry has left is split among its unique traits by points.
+# Every ancestry, bought in full, totals exactly `ancestry_budget`.
+#
+# Pricer note: 20 is the recommended budget. Human (+1 to all six abilities plus
+# one language, and no unique traits) is all commodities, so it pins the budget:
+# 6 x ability + language must equal it exactly. If the commodity prices change,
+# move the budget only in steps of 10 (20, 30, 40...) and re-price every
+# ancestry against the new total.
+ancestry_budget: 20
+
+ancestry_commodities:
+  ability: 3          # per +1 to one ability score
+  language: 2         # per language known
+  darkvision:
+    "60": 1
+    "120": 2
+  skill: 1            # per skill proficiency
+  tool: 1             # per tool proficiency
+  weapon_training: 1  # a race's short weapon list (e.g. Elf Weapon Training)
+  resistance: 1       # per damage-type resistance
+  cantrip: 1          # per racial cantrip

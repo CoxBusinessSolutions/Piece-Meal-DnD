@@ -1,0 +1,13 @@
+# Piece-Meal-DnD — Dragonborn ancestry.
+ancestry: Dragonborn
+id: dragonborn
+source: "SRD 5.1 (CC-BY-4.0)"
+size: Medium
+speed: 30
+pieces:
+  - {id: str-2, name: "Dragonborn: +2 Strength", commodity: ability, ability: str, amount: 2}
+  - {id: cha-1, name: "Dragonborn: +1 Charisma", commodity: ability, ability: cha, amount: 1}
+  - {id: language, name: "Language: Draconic", commodity: language, shared: language-draconic}
+  - {id: draconic-ancestry, name: "Draconic Ancestry", tag: ribbon, points: 1}
+  - {id: damage-resistance, name: "Draconic Damage Resistance", commodity: resistance, damage: draconic, upgrades: draconic-ancestry}
+  - {id: breath-weapon, name: "Breath Weapon", tag: marquee, points: 5, upgrades: draconic-ancestry}

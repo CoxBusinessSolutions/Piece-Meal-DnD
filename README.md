@@ -108,6 +108,40 @@ Three spell mechanics are modeled, all with the same upgrade-chain style:
   (1st@1 … 5th@9, then only the count grows), plus Mystic Arcanum pieces for
   6th–9th and Eldritch Invocations as their own buyable scaling chain.
 
+## Ancestry — a third, creation-only ledger
+
+Race works the same way as classes, on its own budget. A character **declares**
+one or more ancestries (the first is their *primary*, which sets size and base
+speed), then buys racial pieces from just those ancestries with a separate
+**20-point ancestry budget**. Racial pieces are creation-only: they are never
+bought with earned XP.
+
+- **Commodities** shared across ancestries have fixed prices
+  (`ancestry_commodities` in `data/level1_catalog.yaml`): +1 to an ability 3,
+  a language 2, and darkvision, skill, tool, weapon training, resistance and
+  cantrip pieces at 1–2.
+- **Unique traits** (Lucky, Breath Weapon, Fey Ancestry, ...) split whatever is
+  left of the 20 by power points.
+- Every ancestry, bought in full, costs **exactly 20**, so "all of Dwarf" is
+  today's Dwarf and a mixed heritage trades breadth for depth.
+- Human (+1 to all six plus a language, no unique traits) is pure commodity and
+  pins the budget. If commodity prices change, move the budget only in steps of
+  10 and re-price every ancestry.
+- Subraces fold into their parent (Hill Dwarf's Dwarven Toughness is a Dwarf
+  piece). Shared pieces carry a `shared` key (one Darkvision piece no matter
+  how many ancestries offer it); the same unique trait in two ancestries carries
+  a `feature` key so it can only be owned once.
+- Mixed builds may raise any one ability by at most +2 from ancestry pieces.
+
+Ancestries: the 9 SRD 5.1 races plus Goliath and Orc from SRD 5.2. Goliath's
+and Orc's +2 STR / +1 CON are a **house rule** (2024 species carry no ability
+increases); Goliath's Large Form is omitted because it needs character level 5.
+
+```bash
+python3 tools/price.py data/ancestries/dwarf.yaml            # breakdown
+python3 tools/price.py data/ancestries/dwarf.yaml --check    # validate
+```
+
 ## Layout
 
 ```
@@ -115,6 +149,8 @@ data/level1_catalog.yaml   Shared, fixed prices for level-1 commodities
 data/<class>.yaml          Base chassis — one file per class (all 12)
 data/subclasses/<class>/<name>.yaml  Subclass fragments merged onto a base
 data/<class>.md            Generated breakdown tables (do not edit by hand)
+data/ancestries/<id>.yaml  One file per ancestry (racial pieces; ancestry ledger)
+data/ancestries/<id>.md    Generated ancestry breakdown tables
 tools/price.py             Pricer / validator
 tools/build_web.py         Bundles the data into both web builders
 web/index.html             Per-class builder — open in any browser (generated)

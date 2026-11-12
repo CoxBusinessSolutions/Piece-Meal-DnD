@@ -1,0 +1,15 @@
+# Piece-Meal-DnD — Human ancestry. Mechanical facts only; prices are derived by
+# tools/price.py against ancestry_budget in data/level1_catalog.yaml.
+ancestry: Human
+id: human
+source: "SRD 5.1 (CC-BY-4.0)"
+size: Medium
+speed: 30
+pieces:
+  - {id: str-1, name: "Human: +1 Strength", commodity: ability, ability: str, amount: 1}
+  - {id: dex-1, name: "Human: +1 Dexterity", commodity: ability, ability: dex, amount: 1}
+  - {id: con-1, name: "Human: +1 Constitution", commodity: ability, ability: con, amount: 1}
+  - {id: int-1, name: "Human: +1 Intelligence", commodity: ability, ability: int, amount: 1}
+  - {id: wis-1, name: "Human: +1 Wisdom", commodity: ability, ability: wis, amount: 1}
+  - {id: cha-1, name: "Human: +1 Charisma", commodity: ability, ability: cha, amount: 1}
+  - {id: extra-language, name: "Extra Language", commodity: language, shared: language-extra}
