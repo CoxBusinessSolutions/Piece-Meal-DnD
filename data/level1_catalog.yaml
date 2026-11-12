@@ -90,3 +90,21 @@ ancestry_commodities:
   weapon_training: 1  # a race's short weapon list (e.g. Elf Weapon Training)
   resistance: 1       # per damage-type resistance
   cantrip: 1          # per racial cantrip
+
+# ---------------------------------------------------------------------------
+# Starting weapons each class's Starting Equipment Package grants (SRD weapon
+# names). The classless menu offers one package per class; buying it adds these
+# weapons, as the class's 5e starting equipment does.
+starting_kit_weapons:
+  barbarian: [Greataxe, Handaxe, Javelin]
+  bard: [Rapier, Dagger]
+  cleric: [Mace, Light Crossbow]
+  druid: [Scimitar]
+  fighter: [Longsword, Light Crossbow]
+  monk: [Shortsword, Dart]
+  paladin: [Longsword, Javelin]
+  ranger: [Shortsword, Longbow]
+  rogue: [Rapier, Shortbow, Dagger]
+  sorcerer: [Light Crossbow, Dagger]
+  warlock: [Light Crossbow, Dagger]
+  wizard: [Quarterstaff, Dagger]
