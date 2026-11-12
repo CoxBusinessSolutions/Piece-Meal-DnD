@@ -157,7 +157,7 @@ tools/price.py             Pricer / validator
 tools/build_web.py         Bundles the data into both web builders
 web/index.html             Per-class builder — open in any browser (generated)
 web/app.html               Per-class builder source (body-only)
-web/classless.html         Classless builder — open in any browser (generated)
+web/classless.html         Classless builder (classes + ancestries) — open in any browser (generated)
 web/classless-app.html     Classless builder source (body-only)
 .github/workflows/pages.yml  Deploys web/ to GitHub Pages on push to main
 ```
@@ -388,6 +388,11 @@ the low-level view clean; the menu grows as you level up.
     already exist (spell tiers, superiority dice, cantrips) keep their `upgrades`
     prerequisites — e.g. "Eldritch Knight: 2nd-level spells" needs its 1st-level
     Spellcasting. Only the "you took this subclass" gate is intentionally absent.
+- **Ancestry ledger — done.** Eleven ancestries priced on their own 20-point,
+  creation-only budget (see *Ancestry*). The classless builder has an Ancestry
+  card (declare ancestries, primary first; shared traits listed once; +2 cap;
+  Goliath's Large Form unlocks at Lv 5). The same data drives CharacterManager's
+  Piece-Meal 5e pack. Not yet in the per-class builder (`web/index.html`).
 - **Broaden content.** More subclasses per class, or non-SRD classes/options
   (mind the SRD 5.1 licensing boundary for anything beyond it).
 - **Builder niceties.** Save/share a specific build (permalink), export to a
@@ -403,7 +408,10 @@ Document 5.1 ("SRD 5.1")** by Wizards of the Coast LLC, available at
 <https://dnd.wizards.com/resources/systems-reference-document>, licensed under
 the **Creative Commons Attribution 4.0 International License**
 (<https://creativecommons.org/licenses/by/4.0/legalcode>). The 12 base classes
-and their one SRD reference subclass come from the SRD 5.1.
+and their one SRD reference subclass come from the SRD 5.1, as do the nine 2014
+races in `data/ancestries/`. The **Goliath** and **Orc** ancestries include
+material from the **System Reference Document 5.2 ("SRD 5.2")**, also CC-BY-4.0;
+their +2 STR / +1 CON ability increases are a **house rule**, not SRD 5.2.
 
 **Non-SRD subclasses** — the additional Player's Handbook subclasses are **not**
 covered by the SRD or CC-BY. Their data files record only **mechanical facts**

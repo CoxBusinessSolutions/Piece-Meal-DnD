@@ -4,7 +4,8 @@
 Reuses tools/price.py to compute every piece's price, then produces two pages:
 
   * The per-class builder: web/app.html (body-only source) -> web/index.html.
-  * The classless builder: web/classless-app.html -> web/classless.html.
+  * The classless builder: web/classless-app.html -> web/classless.html,
+    including the ancestry ledger (data/ancestries/*.yaml, its own budget).
 
 Both pages get their data injected between /*DATA_START*/.../*DATA_END*/ markers
 and are wrapped in a minimal HTML skeleton for standalone use. Run after editing
@@ -268,6 +269,56 @@ def build_classless(catalog, classes):
     }
 
 
+ANCESTRY_ORDER = [
+    "human", "elf", "dwarf", "halfling", "dragonborn", "gnome",
+    "half_elf", "half_orc", "tiefling", "goliath", "orc",
+]
+
+
+def build_ancestries(catalog):
+    """The ancestry ledger for the classless builder: every ancestry priced by
+    tools/price.py against `ancestry_budget`, with shared commodities merged
+    into one piece listing every ancestry that offers it (offered/owned once).
+    Mirrors what CharacterManager's Piece-Meal 5e pack does with the same data.
+    """
+    anc_dir = os.path.join(DATA_DIR, "ancestries")
+    if not os.path.isdir(anc_dir):
+        return None
+    races, pieces, shared = {}, [], {}
+    for key in ANCESTRY_ORDER:
+        doc = yaml.safe_load(open(os.path.join(anc_dir, f"{key}.yaml"), encoding="utf-8"))
+        rows, problems = price.price_ancestry(doc, catalog)
+        if problems:
+            sys.exit(f"{key}: " + "; ".join(problems))
+        races[key] = {
+            "name": doc["ancestry"], "speed": doc["speed"],
+            "size": doc.get("size", "Medium"),
+            "traits": [{"name": t["name"], "minXp": t.get("min_experience", 0),
+                        "text": t.get("description", "")}
+                       for t in doc.get("primary_traits") or []],
+        }
+        detail = {p["id"]: p for p in doc["pieces"]}
+        for r in rows:
+            d = detail[r["id"]]
+            pid = (f"{d['shared']}" if d.get("shared") else f"{key}:{r['id']}")
+            if pid in shared:
+                shared[pid]["anc"].append(key)
+                continue
+            piece = {"id": pid, "name": r["name"], "anc": [key], "xp": r["xp"],
+                     "tag": r["tag"] or ""}
+            if d.get("commodity") == "ability" and d.get("ability") != "choice":
+                piece["abil"] = {d["ability"]: d.get("amount", 1)}
+            if d.get("feature"):
+                piece["feature"] = d["feature"]
+            if d.get("upgrades"):
+                piece["req"] = f"{key}:{d['upgrades']}"
+            if d.get("shared"):
+                shared[pid] = piece
+            pieces.append(piece)
+    return {"budget": catalog["ancestry_budget"], "cap": 2,
+            "order": ANCESTRY_ORDER, "races": races, "pieces": pieces}
+
+
 def inject(src_path, payload):
     """Replace the DATA marker block in a body-only source and return it."""
     src = open(src_path, encoding="utf-8").read()
@@ -327,8 +378,9 @@ def main():
         wrap(body, "Piece-Meal D&amp;D — Character Builder"))
 
     # Classless builder: menu + presets span every subclass variant.
-    classless = json.dumps(build_classless(catalog, all_variants),
-                           separators=(",", ":"))
+    classless_data = build_classless(catalog, all_variants)
+    classless_data["ancestry"] = build_ancestries(catalog)
+    classless = json.dumps(classless_data, separators=(",", ":"))
     cbody = inject(os.path.join(WEB_DIR, "classless-app.html"), classless)
     open(os.path.join(WEB_DIR, "classless.html"), "w", encoding="utf-8").write(
         wrap(cbody, "Piece-Meal D&amp;D — Classless Builder"))
